@@ -2,6 +2,7 @@
   "expo": {
     "name": "AQUiFi",
     "slug": "AQUiFi",
+    "owner": "project-design",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -21,10 +22,22 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.projectdesign.AQUiFi"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/dbe5bb2e-c4c0-4fa1-98f2-baa58d50be36"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "dbe5bb2e-c4c0-4fa1-98f2-baa58d50be36"
+      }
     }
   }
 }

@@ -5,7 +5,7 @@ import AquiFi from '../assets/pd-logo-1.png';
 
 const FrontPage = ({ navigation }) => {
   const goToLandingPage = () => {
-    navigation.navigate('LandingPage');
+    navigation.navigate('TabNavigator');
   };
 
   const goToExit = async () => {
