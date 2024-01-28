@@ -16,11 +16,11 @@ const FrontPage = ({ navigation }) => {
     <View style={styles.container}>
       <Image source={AquiFi} style={styles.logo} />
       <TouchableOpacity style={styles.proceedbutton} onPress={goToLandingPage}>
-        <Text style={styles.buttonText}>Hello</Text>
+        <Text style={styles.buttonText}>Proceed</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.exitbutton} onPress={goToExit}>
-        <Text style={styles.buttonText}>Goodbye</Text>
+        <Text style={styles.buttonText}>Exit</Text>
       </TouchableOpacity>
     </View>
   );
