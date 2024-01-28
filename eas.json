@@ -1,4 +1,8 @@
 {
+  "cli": {
+    "version": ">= 7.1.1",
+    "appVersionSource": "remote"
+  },
   "build": {
     "preview": {
       "android": {
@@ -21,7 +25,8 @@
       "channel": "preview4"
     },
     "production": {
-      "channel": "production"
+      "channel": "production",
+      "autoIncrement": true
     }
   },
   "submit": {
