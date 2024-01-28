@@ -1,4 +1,7 @@
 {
+  "cli": {
+    "version": ">= 7.1.1"
+  },
   "build": {
     "preview": {
       "android": {
@@ -23,5 +26,8 @@
     "production": {
       "channel": "production"
     }
+  },
+  "submit": {
+    "production": {}
   }
 }
