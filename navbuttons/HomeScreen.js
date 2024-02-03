@@ -22,7 +22,10 @@ const HomeScreen = () => {
 
   // if (phValue === 6 && turbValue === 5) {
   //   setShowAlertIcon(true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> 66931a8f7c717a865845add81f8dc2676f52af89
   // }
 
   const currentTime = new Date();

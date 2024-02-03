@@ -10,8 +10,8 @@ import {
 const LineGraph = ({ data, tickValues, domain }) => {
   return (
     <View style={styles.container}>
-      <VictoryChart theme={VictoryTheme.material} width={390} height={400}>
-        <VictoryLine data={data} />
+      <VictoryChart theme={VictoryTheme.material} width={380} height={330}>
+        <VictoryLine animate data={data} />
         <VictoryAxis crossAxis style={styles.xAxisStyle} />
         <VictoryAxis
           dependentAxis

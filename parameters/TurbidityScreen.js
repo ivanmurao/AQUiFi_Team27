@@ -3,9 +3,13 @@ import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import menu from "../assets/menu.png";
+import forecastedData from "../services/firebase/readForecastedData";
 
 const TurbidityScreen = () => {
   const turbidityData = data("Turbidity_Level/Turbidity_Level_Values");
+  const forecastedTurbidityData = forecastedData(
+    "Turbidity_Level/Turbidity_Level_Values"
+  );
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -38,6 +42,11 @@ const TurbidityScreen = () => {
       <View style={styles.fillOut}>
         <LineGraph
           data={turbidityData}
+          tickValues={[0, 1, 2, 3, 4, 5, 6]}
+          domain={[0, 6]}
+        />
+        <LineGraph
+          data={forecastedTurbidityData}
           tickValues={[0, 1, 2, 3, 4, 5, 6]}
           domain={[0, 6]}
         />

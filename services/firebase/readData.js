@@ -7,7 +7,7 @@ export default function useData(dataPath) {
 
   useEffect(() => {
     const db = getDatabase(app);
-    const sensorRef = ref(db, "Sensor/");
+    const sensorRef = ref(db, "Sensor/Raw/");
 
     onValue(sensorRef, (snapshot) => {
       const dataValues = [];
