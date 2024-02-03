@@ -1,13 +1,28 @@
-import React from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react';
+import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
 import { Svg, Circle, Text as SvgText } from 'react-native-svg';
 import logoIcon from '../assets/logoIcon.png';
 import turbidity from '../assets/turbidity.png';
 import ph from '../assets/ph.png';
+import alert from '../assets/alert.png';
 
 const HomeScreen = () => {
-  const phValue = 8;
-  const turbValue = 1;
+  const [showAlertIcon, setShowAlertIcon] = useState(false);
+  const [phValue, setPhValue] = useState(6);  
+  const [turbValue, setTurbValue] = useState(5);  
+
+  const handleAlertIconPress = () => {
+    // Display alert message
+    Alert.alert(
+      'Alert',
+      'pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.',
+      [{ text: 'Understood', onPress: () => console.log('OK Pressed') }]
+    );
+  };
+
+  if (phValue === 6 && turbValue === 5) {
+    setShowAlertIcon(true);
+  }
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
@@ -28,10 +43,6 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <View style={styles.frame}>
         <View style={styles.accent}>
-          {/* Icon */}
-          <View style={styles.menuIconContainer}>
-
-          </View>
           {/* Date and Greetings */}
           <View style={styles.dateGreetingsContainer}>
             <Text style={styles.date}>{formattedDate}</Text>
@@ -41,7 +52,14 @@ const HomeScreen = () => {
           <View style={styles.userImageContainer}>
             <Image source={logoIcon} style={styles.userImage} />
           </View>
+          {/* Alert Icon */}
+          {showAlertIcon && (
+            <TouchableOpacity style={styles.alertIconContainer} onPress={handleAlertIconPress}>
+              <Image source={alert} style={styles.alertIcon} />
+            </TouchableOpacity>
+          )}
         </View>
+
       </View>
 
       <View style={styles.fillOut}>
@@ -161,23 +179,15 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#0B3954', 
+    backgroundColor: '#255C99', 
     justifyContent: 'space-between',
     paddingHorizontal: 20,
-  },
-  menuIconContainer: {
-    marginTop: 20,
-    marginLeft: 10,
-  },
-  menuIcon: {
-    width: 20,
-    height: 20,
   },
   dateGreetingsContainer: {
     alignItems: 'flex-start',
     flex: 1,
     marginHorizontal: 10,
-    marginTop: 40,
+    marginTop: 70,
   },
   date: {
     color: 'white',
@@ -190,16 +200,25 @@ const styles = StyleSheet.create({
   },
   userImageContainer: {
     alignItems: 'flex-end',
-    bottom: '85%',
+    bottom: '80%',
   },
   userImage: {
     width: 60,
     height: 75,
   },
+  alertIconContainer: {
+    alignItems: 'flex-start',
+    bottom: '81%',
+    left: '2%',
+  },
+  alertIcon: {
+    width: 30,
+    height: 30,
+  },
   fillOut: {
     flex: 1,
     position: 'absolute', 
-    top: '20%', 
+    top: '23%', 
     bottom: '3%',
     left: '7%',
     right: '7%',
@@ -213,7 +232,7 @@ const styles = StyleSheet.create({
   },
   container1: {
     flexDirection: 'row',
-    backgroundColor: '#85A0AF', 
+    backgroundColor: '#7EA3CC', 
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
@@ -256,7 +275,7 @@ const styles = StyleSheet.create({
   },
   container2: {
     flexDirection: 'row',
-    backgroundColor: '#85A0AF', 
+    backgroundColor: '#7EA3CC', 
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
