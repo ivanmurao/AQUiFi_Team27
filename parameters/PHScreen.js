@@ -2,9 +2,11 @@ import React from "react";
 import { View, StyleSheet } from "react-native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
+import forecastedData from "../services/firebase/readForecastedData";
 
 const PHScreen = () => {
   const pHData = data("pH_Level/ph_Level_Values");
+  const forecastedPHData = forecastedData("pH_Level/ph_Level_Values");
 
   return (
     <View style={styles.container}>
@@ -14,6 +16,11 @@ const PHScreen = () => {
 
       <View style={styles.fillOut}>
         <LineGraph data={pHData} tickValues={[7, 8, 9, 10]} domain={[7, 10]} />
+        <LineGraph
+          data={forecastedPHData}
+          tickValues={[7, 8, 9, 10]}
+          domain={[7, 10]}
+        />
       </View>
     </View>
   );

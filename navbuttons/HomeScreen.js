@@ -11,18 +11,18 @@ const HomeScreen = () => {
   const [phValue, setPhValue] = useState(6);  
   const [turbValue, setTurbValue] = useState(5);  
 
-  const handleAlertIconPress = () => {
-    // Display alert message
-    Alert.alert(
-      'Alert',
-      'pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.',
-      [{ text: 'Understood', onPress: () => console.log('OK Pressed') }]
-    );
-  };
+  // const handleAlertIconPress = () => {
+  //   // Display alert message
+  //   Alert.alert(
+  //     'Alert',
+  //     'pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.',
+  //     [{ text: 'Understood', onPress: () => console.log('OK Pressed') }]
+  //   );
+  // };
 
-  if (phValue === 6 && turbValue === 5) {
-    setShowAlertIcon(true);
-  }
+  // if (phValue === 6 && turbValue === 5) {
+  //   setShowAlertIcon(true);
+  // }
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
