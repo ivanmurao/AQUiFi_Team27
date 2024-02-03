@@ -8,21 +8,22 @@ import alert from '../assets/alert.png';
 
 const HomeScreen = () => {
   const [showAlertIcon, setShowAlertIcon] = useState(false);
-  const [phValue, setPhValue] = useState(6);  
-  const [turbValue, setTurbValue] = useState(5);  
+  const [phValue, setPhValue] = useState(8);  
+  const [turbValue, setTurbValue] = useState(1);  
 
-  const handleAlertIconPress = () => {
-    // Display alert message
-    Alert.alert(
-      'Alert',
-      'pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.',
-      [{ text: 'Understood', onPress: () => console.log('OK Pressed') }]
-    );
-  };
+  // const handleAlertIconPress = () => {
+  //   // Display alert message
+  //   Alert.alert(
+  //     'Alert',
+  //     'pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.',
+  //     [{ text: 'Understood', onPress: () => console.log('OK Pressed') }]
+  //   );
+  // };
 
-  if (phValue === 6 && turbValue === 5) {
-    setShowAlertIcon(true);
-  }
+  // if (phValue === 6 && turbValue === 5) {
+  //   setShowAlertIcon(true);
+
+  // }
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
@@ -90,7 +91,7 @@ const HomeScreen = () => {
                 cx="50"
                 cy="50"
                 r="45"
-                stroke="#85A0AF"
+                stroke="#7EA3CC"
                 strokeWidth="10"
                 strokeDasharray={`${(phValue / 15) * 282.5} 565`}
                 strokeLinecap="butt"
@@ -136,7 +137,7 @@ const HomeScreen = () => {
                 cx="50"
                 cy="50"
                 r="45"
-                stroke="#85A0AF"
+                stroke="#7EA3CC"
                 strokeWidth="10"
                 strokeDasharray={`${(turbValue / 5) * 282.5} 565`}
                 strokeLinecap="butt"

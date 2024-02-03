@@ -1,15 +1,38 @@
-import React from "react";
-import { View, StyleSheet } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
+import menu from "../assets/menu.png";
 
 const TurbidityScreen = () => {
   const turbidityData = data("Turbidity_Level/Turbidity_Level_Values");
 
+  const [showMenu, setShowMenu] = useState(false);
+
+  const toggleMenu = () => {
+    setShowMenu(!showMenu);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
-        <View style={styles.accent}></View>
+        <View style={styles.accent}>
+          <Text style={styles.title}>Turbidity</Text>
+          {/* Menu Icon */}
+          <TouchableOpacity style={styles.menuIconContainer} onPress={toggleMenu}>
+            <Image source={menu} style={styles.menuIcon} />
+          </TouchableOpacity>
+
+          {/* Your menu components can go here. Conditionally render based on `showMenu`. */}
+          {showMenu && (
+            <View style={styles.menuContainer}>
+              {/* Add your menu items here */}
+              <Text style={styles.menuItem}>Menu Item 1</Text>
+              <Text style={styles.menuItem}>Menu Item 2</Text>
+              {/* ... */}
+            </View>
+          )}
+        </View>
       </View>
 
       <View style={styles.fillOut}>
@@ -43,11 +66,36 @@ const styles = StyleSheet.create({
     bottom: "70%",
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
-    backgroundColor: "#0B3954",
-    justifyContent: "space-between",
+    backgroundColor: "#255C99",
+    justifyContent: "center",
     paddingHorizontal: 20,
+    flexDirection: "row",
+    alignItems: "center",
   },
-
+  menuIconContainer: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+  },
+  menuIcon: {
+    width: 30,
+    height: 30,
+    tintColor: "white",
+  },
+  menuContainer: {
+    position: "absolute",
+    top: 70,
+    right: 20,
+    backgroundColor: "white",
+    borderRadius: 10,
+    padding: 10,
+    elevation: 5,
+  },
+  menuItem: {
+    fontSize: 16,
+    color: "#333",
+    paddingVertical: 5,
+  },
   fillOut: {
     flex: 1,
     position: "absolute",
@@ -61,6 +109,12 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
+  },
+  title: {
+    color: "white",
+    fontSize: 24,
+    fontWeight: "bold",
+    marginTop: 20,
   },
 });
 
