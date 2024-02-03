@@ -86,7 +86,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#0B3954', 
+    backgroundColor: '#255C99', 
     justifyContent: 'space-between',
     paddingHorizontal: 10,
   },
@@ -103,7 +103,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     borderRadius: 30,
-    marginTop: 30,
+    marginTop: 50,
   },
   description: {
     fontSize: 24,
@@ -115,7 +115,7 @@ const styles = StyleSheet.create({
   button: {
     flexDirection: 'row', 
     alignItems: 'center',
-    backgroundColor: '#85A0AF',
+    backgroundColor: '#7EA3CC',
     borderRadius: 30,
     paddingTop: 20,
     paddingBottom: 20,
@@ -157,7 +157,7 @@ const styles = StyleSheet.create({
   switchContainer: {
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: '#85A0AF',
+    backgroundColor: '#7EA3CC',
     borderRadius: 30,
     paddingTop: 10,
     paddingBottom: 10,
@@ -182,7 +182,7 @@ const styles = StyleSheet.create({
     width: 55,
     height: 55,
     borderRadius: 30,
-    backgroundColor: '#0B3954',
+    backgroundColor: '#255C99',
   },
 
 });

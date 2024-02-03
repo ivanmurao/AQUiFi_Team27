@@ -222,7 +222,7 @@ const DeviceScreen = () => {
                 </Text>
                 <Button 
                 title="Close" 
-                color={'#0B3954'}
+                color={'#255C99'}
                 onPress={toggleMobileModal} />
               </View>
             </View>
@@ -240,7 +240,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#0B3954', 
+    backgroundColor: '#255C99', 
     justifyContent: 'space-between',
     paddingHorizontal: 20,
   },
@@ -270,7 +270,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row', 
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#85A0AF',
+    backgroundColor: '#7EA3CC',
     borderRadius: 30,
     paddingTop: 20,
     paddingBottom: 20,
