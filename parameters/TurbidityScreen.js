@@ -1,41 +1,31 @@
 import React, { useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
-import menu from "../assets/menu.png";
+import backIcon from "../assets/Back.png";
 import forecastedData from "../services/firebase/readForecastedData";
 
 const TurbidityScreen = () => {
+  const navigation = useNavigation();
   const turbidityData = data("Turbidity_Level/Turbidity_Level_Values");
   const forecastedTurbidityData = forecastedData(
     "Turbidity_Level/Turbidity_Level_Values"
   );
 
-  const [showMenu, setShowMenu] = useState(false);
-
-  const toggleMenu = () => {
-    setShowMenu(!showMenu);
+  const goBack = () => {
+    navigation.goBack(); 
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
         <View style={styles.accent}>
-          <Text style={styles.title}>Turbidity</Text>
-          {/* Menu Icon */}
-          <TouchableOpacity style={styles.menuIconContainer} onPress={toggleMenu}>
-            <Image source={menu} style={styles.menuIcon} />
+          {/* Back Icon */}
+          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
+            <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
-
-          {/* Your menu components can go here. Conditionally render based on `showMenu`. */}
-          {showMenu && (
-            <View style={styles.menuContainer}>
-              {/* Add your menu items here */}
-              <Text style={styles.menuItem}>Menu Item 1</Text>
-              <Text style={styles.menuItem}>Menu Item 2</Text>
-              {/* ... */}
-            </View>
-          )}
+          <Text style={styles.title}>Turbidity</Text>
         </View>
       </View>
 
@@ -81,29 +71,15 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
   },
-  menuIconContainer: {
+  backIconContainer: {
     position: "absolute",
     top: 60,
-    right: 20,
+    left: 20,
   },
-  menuIcon: {
+  backIcon: {
     width: 30,
     height: 30,
     tintColor: "white",
-  },
-  menuContainer: {
-    position: "absolute",
-    top: 70,
-    right: 20,
-    backgroundColor: "white",
-    borderRadius: 10,
-    padding: 10,
-    elevation: 5,
-  },
-  menuItem: {
-    fontSize: 16,
-    color: "#333",
-    paddingVertical: 5,
   },
   fillOut: {
     flex: 1,

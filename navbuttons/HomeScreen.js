@@ -1,32 +1,16 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, StyleSheet, Image } from 'react-native';
 import { Svg, Circle, Text as SvgText } from 'react-native-svg';
 import logoIcon from '../assets/logoIcon.png';
 import turbidity from '../assets/turbidity.png';
 import ph from '../assets/ph.png';
-import alert from '../assets/alert.png';
+
 
 const HomeScreen = () => {
-  const [showAlertIcon, setShowAlertIcon] = useState(false);
   const [phValue, setPhValue] = useState(8);  
   const [turbValue, setTurbValue] = useState(1);  
 
-  // const handleAlertIconPress = () => {
-  //   // Display alert message
-  //   Alert.alert(
-  //     'Alert',
-  //     'pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.',
-  //     [{ text: 'Understood', onPress: () => console.log('OK Pressed') }]
-  //   );
-  // };
-
-  // if (phValue === 6 && turbValue === 5) {
-  //   setShowAlertIcon(true);
-<<<<<<< HEAD
-
-=======
->>>>>>> 66931a8f7c717a865845add81f8dc2676f52af89
-  // }
+  
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
@@ -56,12 +40,7 @@ const HomeScreen = () => {
           <View style={styles.userImageContainer}>
             <Image source={logoIcon} style={styles.userImage} />
           </View>
-          {/* Alert Icon */}
-          {showAlertIcon && (
-            <TouchableOpacity style={styles.alertIconContainer} onPress={handleAlertIconPress}>
-              <Image source={alert} style={styles.alertIcon} />
-            </TouchableOpacity>
-          )}
+    
         </View>
 
       </View>
