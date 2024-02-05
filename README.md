@@ -16,7 +16,7 @@ Before you start the installation process, make sure you have the following prer
 
 1. **Clone the Repository:**
    ```bash
-   git clone https://github.com/ivanmura/AQUiFi_Team27.git
+   git clone https://github.com/ivanmurao/AQUiFi_Team27.git
    ```
 
 2. **Navigate to the Project Directory:**
