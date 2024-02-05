@@ -19,9 +19,9 @@ const FrontPage = ({ navigation }) => {
         <Text style={styles.buttonText}>Proceed</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={styles.exitbutton} onPress={goToExit}>
+      {/* <TouchableOpacity style={styles.exitbutton} onPress={goToExit}>
         <Text style={styles.buttonText}>Exit</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
     </View>
   );
 };

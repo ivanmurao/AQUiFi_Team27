@@ -12,7 +12,7 @@ const PHScreen = () => {
   const forecastedPHData = forecastedData("pH_Level/ph_Level_Values");
 
   const goBack = () => {
-    navigation.goBack(); 
+    navigation.goBack();
   };
 
   return (
@@ -28,11 +28,15 @@ const PHScreen = () => {
       </View>
 
       <View style={styles.fillOut}>
-        <LineGraph data={pHData} tickValues={[7, 8, 9, 10]} domain={[7, 10]} />
+        <LineGraph
+          data={pHData}
+          tickValues={[2, 4, 6, 8, 10, 12]}
+          domain={[0, 12]}
+        />
         <LineGraph
           data={forecastedPHData}
-          tickValues={[7, 8, 9, 10]}
-          domain={[7, 10]}
+          tickValues={[2, 4, 6, 8, 10, 12]}
+          domain={[0, 12]}
         />
       </View>
     </View>

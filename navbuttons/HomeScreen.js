@@ -1,30 +1,39 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image } from 'react-native';
-import { Svg, Circle, Text as SvgText } from 'react-native-svg';
-import logoIcon from '../assets/logoIcon.png';
-import turbidity from '../assets/turbidity.png';
-import ph from '../assets/ph.png';
-
+import React, { useEffect, useState } from "react";
+import { View, Text, StyleSheet, Image } from "react-native";
+import { Svg, Circle, Text as SvgText } from "react-native-svg";
+import logoIcon from "../assets/logoIcon.png";
+import turbidity from "../assets/turbidity.png";
+import ph from "../assets/ph.png";
+import data from "../services/firebase/gaugeReadData";
 
 const HomeScreen = () => {
-  const [phValue, setPhValue] = useState(8);  
-  const [turbValue, setTurbValue] = useState(1);  
+  const phraw = data("pH_Level/ph_Level_Values");
+  const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
+  const phValue = parseFloat(phraw);
+  const turbValue = parseFloat(tbraw);
+  // console.log(extractedNumber);
 
-  
+  // const phValue = 8;
+  // const turbValue = 4;
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
   let greeting;
- 
+
   if (hour < 12) {
-    greeting = 'Good Morning!';
+    greeting = "Good Morning!";
   } else if (hour < 18) {
-    greeting = 'Good Afternoon!';
+    greeting = "Good Afternoon!";
   } else {
-    greeting = 'Good Evening!';
+    greeting = "Good Evening!";
   }
 
-  const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+  const dateOptions = {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
   return (
@@ -40,9 +49,7 @@ const HomeScreen = () => {
           <View style={styles.userImageContainer}>
             <Image source={logoIcon} style={styles.userImage} />
           </View>
-    
         </View>
-
       </View>
 
       <View style={styles.fillOut}>
@@ -103,8 +110,8 @@ const HomeScreen = () => {
           </View>
           {/* Right Section */}
           <View style={styles.rightSection2}>
-           {/* Circular Gauge */}
-           <Svg width="100" height="100">
+            {/* Circular Gauge */}
+            <Svg width="100" height="100">
               {/* Background Circle */}
               <Circle
                 cx="50"
@@ -147,52 +154,52 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    bottom: '0%'
+    bottom: "0%",
   },
   frame: {
     flex: 1,
-    position: 'relative',
-    backgroundColor: 'white', 
+    position: "relative",
+    backgroundColor: "white",
     paddingHorizontal: 10,
   },
   accent: {
     flex: 1,
-    position: 'absolute', 
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: '#255C99', 
-    justifyContent: 'space-between',
+    backgroundColor: "#255C99",
+    justifyContent: "space-between",
     paddingHorizontal: 20,
   },
   dateGreetingsContainer: {
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     flex: 1,
     marginHorizontal: 10,
     marginTop: 70,
   },
   date: {
-    color: 'white',
+    color: "white",
     fontSize: 12,
   },
   greetings: {
-    color: 'white',
+    color: "white",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   userImageContainer: {
-    alignItems: 'flex-end',
-    bottom: '80%',
+    alignItems: "flex-end",
+    bottom: "80%",
   },
   userImage: {
     width: 60,
     height: 75,
   },
   alertIconContainer: {
-    alignItems: 'flex-start',
-    bottom: '81%',
-    left: '2%',
+    alignItems: "flex-start",
+    bottom: "81%",
+    left: "2%",
   },
   alertIcon: {
     width: 30,
@@ -200,22 +207,22 @@ const styles = StyleSheet.create({
   },
   fillOut: {
     flex: 1,
-    position: 'absolute', 
-    top: '23%', 
-    bottom: '3%',
-    left: '7%',
-    right: '7%',
+    position: "absolute",
+    top: "23%",
+    bottom: "3%",
+    left: "7%",
+    right: "7%",
     paddingHorizontal: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    textAlign:'left',
-    color: 'white',
+    fontWeight: "bold",
+    textAlign: "left",
+    color: "white",
   },
   container1: {
-    flexDirection: 'row',
-    backgroundColor: '#7EA3CC', 
+    flexDirection: "row",
+    backgroundColor: "#7EA3CC",
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
@@ -224,23 +231,23 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   leftSection1: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: "column",
+    alignItems: "center",
   },
   rightSection1: {
-    backgroundColor: '#F0f0f0',
+    backgroundColor: "#F0f0f0",
     borderRadius: 30,
     paddingTop: 30,
     paddingBottom: 30,
     paddingLeft: 35,
     paddingRight: 35,
     left: 20,
-    alignItems: 'center',
+    alignItems: "center",
   },
   pHValue: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: '#85A0AF',
+    fontWeight: "bold",
+    color: "#85A0AF",
     marginTop: 10,
   },
   icon: {
@@ -252,24 +259,24 @@ const styles = StyleSheet.create({
   },
   containerTitle1: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: "bold",
+    color: "black",
     right: 20,
   },
   container2: {
-    flexDirection: 'row',
-    backgroundColor: '#7EA3CC', 
+    flexDirection: "row",
+    backgroundColor: "#7EA3CC",
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
     borderRadius: 30,
   },
   leftSection2: {
-    flexDirection: 'column',
-    alignItems: 'center',
+    flexDirection: "column",
+    alignItems: "center",
   },
   rightSection2: {
-    backgroundColor: '#F0f0f0',
+    backgroundColor: "#F0f0f0",
     borderRadius: 30,
     paddingTop: 30,
     paddingBottom: 30,
@@ -278,11 +285,10 @@ const styles = StyleSheet.create({
   },
   containerTitle2: {
     fontSize: 16,
-    fontWeight: 'bold',
-    color: 'black',
+    fontWeight: "bold",
+    color: "black",
     right: 20,
   },
-
 });
 
 export default HomeScreen;
