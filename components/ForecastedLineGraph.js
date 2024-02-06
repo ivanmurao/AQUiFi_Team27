@@ -11,9 +11,9 @@ import {
 const ForecastedLineGraph = ({ data, tickValues, domain, ylabel, xlabel }) => {
   return (
     <View style={styles.container}>
-      <VictoryChart theme={VictoryTheme.material} width={380} height={330}>
+      <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
         <VictoryLabel
-          text="Forecast"
+          text="Forecast Data"
           x={190}
           y={30}
           textAnchor="middle"
@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop:30
+    paddingTop:10
   },
   yAxisStyle: {
     grid: { stroke: "transparent" },
@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   xAxisStyle: {
     grid: { stroke: "transparent" },
     // tickLabels: { fontSize: 0, padding: 0 },
-    axisLabel: { padding: 28, fontSize: 13, fontWeight: "bold" },
+    axisLabel: { padding: 30, fontSize: 13, fontWeight: "bold" },
   },
 });
 

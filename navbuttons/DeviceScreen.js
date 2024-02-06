@@ -1,5 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Button } from 'react-native';
+import sidebarIcon from "../assets/menu.png";
+import sidebarLogo from "../assets/sidebarIcon.png";
 import turbidity from '../assets/turbidity.png';
 import ph from '../assets/ph.png';
 import arduino from '../assets/arduino.png';
@@ -9,12 +11,17 @@ import mobile from '../assets/mobile.png';
 import info from '../assets/Info.png';
 
 const DeviceScreen = () => {
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [isArduinoModalVisible, setArduinoModalVisible] = useState(false);
   const [isRaspiModalVisible, setRaspiModalVisible] = useState(false);
   const [isTurbModalVisible, setTurbModalVisible] = useState(false);
   const [ispHModalVisible, setpHModalVisible] = useState(false);
   const [isValveModalVisible, setValveModalVisible] = useState(false);
   const [isMobileModalVisible, setMobileModalVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
 
   const toggleArduinoModal = () => {
     setArduinoModalVisible(!isArduinoModalVisible);
@@ -38,6 +45,42 @@ const DeviceScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.fillOut}>
+        {/* Side Bar Icon */}
+        <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
+          <Image source={sidebarIcon} style={styles.sidebarIcon} />
+        </TouchableOpacity>
+        {/* Sidebar */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isSidebarVisible}
+          onRequestClose={toggleSidebar}
+        >
+          <View style={styles.sidebarContainer}>
+            {/* Sidebar Logo */}
+            <View style={styles.sidebarHeader}>
+              <Image source={sidebarLogo} style={styles.sidebarLogo} />
+            </View>
+
+            {/* Sidebar Items */}
+            <View style={styles.sidebarItems}>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Text style={styles.sidebarItemText}>Item 1</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Text style={styles.sidebarItemText}>Item 2</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Text style={styles.sidebarItemText}>Item 3</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Exit Button */}
+            <View style={styles.sidebarExit}>
+              <Button title="Exit" color="#FF0000" onPress={toggleSidebar} />
+            </View>
+          </View>
+        </Modal>
         <View style={styles.compContainer}>
             <Text style={styles.compDescription}>Device Components</Text>
             {/* Arduino Button */}
@@ -242,22 +285,29 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: '#255C99', 
     justifyContent: 'space-between',
-    paddingHorizontal: 20,
   },
   fillOut: {
     flex: 1,
     position: 'absolute', 
-    top: '5%', 
-    bottom: '3%',
-    left: '7%',
-    right: '7%',
-    paddingHorizontal: 10,
+    top: 0, 
+    bottom: 0,
+    left: '3%',
+    right: '3%',
+  },
+  sidebarIconContainer: {
+    position: "absolute",
+    top: 60,
+    right: 8,
+  },
+  sidebarIcon: {
+    width: 30,
+    height: 30,
   },
   compContainer: {
     flex: 1,
     justifyContent: 'center',
     borderRadius: 30,
-    marginTop: 30,
+    marginTop: 80,
   },
   compDescription: {
     fontSize: 24,
@@ -271,17 +321,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     backgroundColor: '#7EA3CC',
+    paddingHorizontal: 20,
     borderRadius: 30,
     paddingTop: 20,
     paddingBottom: 20,
-    paddingLeft: 10,
+
     marginBottom: 20,
     borderColor: 'black',
   },
   icon: {
     width: 40,
     height: 40,
-    marginLeft: 10,
     marginRight: 10,
   },
   icon1: {
@@ -354,6 +404,38 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     color: '#333',
+  },
+  sidebarContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 20,
+    justifyContent: 'space-between',
+  },
+  sidebarHeader: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  sidebarLogo: {
+    width: 100,
+    height: 100, // Adjust the size as needed
+  },
+  sidebarItems: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  sidebarItem: {
+    marginBottom: 15,
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderWidth: 1,
+    borderRadius: 5,
+    borderColor: '#000',
+  },
+  sidebarItemText: {
+    fontSize: 16,
+  },
+  sidebarExit: {
+    marginTop: 20,
   },
 });
 

@@ -1,17 +1,10 @@
 import React, { useState, useRef } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  Image,
-  Pressable,
-  Animated,
-  TouchableOpacity,
-} from "react-native";
+import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import next from "../assets/next.png";
+import sidebarIcon from "../assets/menu.png";
 import app from "../services/firebase/firebaseConfig.js";
 import { getDatabase, ref, set } from "firebase/database";
 
@@ -47,6 +40,10 @@ const MonitorScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.fillOut}>
+        {/* Side Bar Icon */}
+        <TouchableOpacity style={styles.sidebarIconContainer}>
+          <Image source={sidebarIcon} style={styles.sidebarIcon} />
+        </TouchableOpacity>
         {/* Top container for parameter selection */}
         <View style={styles.topContainer}>
           <Text style={styles.description}>
@@ -105,15 +102,15 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "#255C99",
     justifyContent: "space-between",
-    paddingHorizontal: 10,
+
   },
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "5%",
+    top: 0,
     bottom: "3%",
-    left: "7%",
-    right: "7%",
+    left: "3%",
+    right: "3%",
     paddingHorizontal: 10,
   },
   topContainer: {
@@ -122,11 +119,21 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     marginTop: 50,
   },
+  sidebarIconContainer: {
+    position: "absolute",
+    top: 60,
+    right: 8,
+  },
+  sidebarIcon: {
+    width: 30,
+    height: 30,
+  },
   description: {
     fontSize: 24,
     color: "white",
     fontWeight: "bold",
     textAlign: "center",
+    marginTop: 130,
     marginBottom: 20,
   },
   button: {
@@ -144,17 +151,17 @@ const styles = StyleSheet.create({
   icon: {
     width: 60,
     height: 60,
-    marginRight: 10,
+    marginRight: 20,
   },
   icon2: {
     width: 30,
     height: 30,
-    marginLeft: 65,
+    marginLeft: 100,
   },
   icon3: {
     width: 30,
     height: 30,
-    marginLeft: 120,
+    marginLeft: 155,
   },
   buttonText: {
     fontSize: 20,
@@ -176,8 +183,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 100,
-    paddingRight: 100,
+    paddingLeft: 120,
+    paddingRight: 120,
   },
   switchDescription: {
     fontSize: 24,

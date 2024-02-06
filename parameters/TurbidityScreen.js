@@ -4,6 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
+import sidebarIcon from "../assets/menu.png";
 import forecastedData from "../services/firebase/readForecastedData";
 import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
@@ -26,6 +27,10 @@ const TurbidityScreen = () => {
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
+          {/* Side Bar Icon */}
+          <TouchableOpacity style={styles.sidebarIconContainer}>
+            <Image source={sidebarIcon} style={styles.sidebarIcon} />
+          </TouchableOpacity>
           <Text style={styles.title}>Turbidity</Text>
         </View>
       </View>
@@ -38,7 +43,6 @@ const TurbidityScreen = () => {
           xlabel="Date"
           ylabel="Turbidity Level"
         />
-        <Text>Forecast</Text>
         <ForecastedLineGraph
           data={forecastedTurbidityData}
           tickValues={[0, 1, 2, 3, 4, 5, 6]}
@@ -60,7 +64,6 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "relative",
     backgroundColor: "white",
-    paddingHorizontal: 10,
   },
   accent: {
     flex: 1,
@@ -73,7 +76,6 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
     backgroundColor: "#255C99",
     justifyContent: "center",
-    paddingHorizontal: 20,
     flexDirection: "row",
     alignItems: "center",
   },
@@ -87,11 +89,20 @@ const styles = StyleSheet.create({
     height: 30,
     tintColor: "white",
   },
+  sidebarIconContainer: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+  },
+  sidebarIcon: {
+    width: 30,
+    height: 30,
+  },
   fillOut: {
     flex: 1,
     position: "absolute",
     top: "20%",
-    bottom: "10%",
+    bottom: "2%",
     left: "5%",
     right: "5%",
     elevation: 5,

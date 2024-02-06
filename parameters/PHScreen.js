@@ -1,9 +1,10 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image, Modal } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
+import sidebarIcon from "../assets/menu.png";
 import forecastedData from "../services/firebase/readForecastedData";
 import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
@@ -24,6 +25,10 @@ const PHScreen = () => {
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
+          {/* Side Bar Icon */}
+          <TouchableOpacity style={styles.sidebarIconContainer}>
+            <Image source={sidebarIcon} style={styles.sidebarIcon} />
+          </TouchableOpacity>
           <Text style={styles.title}>pH</Text>
         </View>
       </View>
@@ -36,7 +41,6 @@ const PHScreen = () => {
           xlabel="Date"
           ylabel="pH Level"
         />
-        {/* <Text style={styles.forecast}>Forecast</Text> */}
         <ForecastedLineGraph
           data={forecastedPHData}
           tickValues={[2, 4, 6, 8, 10, 12]}
@@ -85,6 +89,15 @@ const styles = StyleSheet.create({
     height: 30,
     tintColor: "white",
   },
+  sidebarIconContainer: {
+    position: "absolute",
+    top: 60,
+    right: 20,
+  },
+  sidebarIcon: {
+    width: 30,
+    height: 30,
+  },
   title: {
     color: "white",
     fontSize: 24,
@@ -95,14 +108,13 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "absolute",
     top: "20%",
-    bottom: "10%",
+    bottom: "2%",
     left: "5%",
     right: "5%",
     elevation: 5,
     backgroundColor: "#F5F5F5",
     borderRadius: 40,
   },
-  // forecast: {textAlign:'center',paddingVertical:50, fontSize: 20, fontWeight: "bold"},
 });
 
 export default PHScreen;

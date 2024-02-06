@@ -2,6 +2,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import {
   VictoryLine,
+  VictoryLabel,
   VictoryChart,
   VictoryTheme,
   VictoryAxis,
@@ -10,7 +11,14 @@ import {
 const LineGraph = ({ data, tickValues, domain, xlabel, ylabel }) => {
   return (
     <View style={styles.container}>
-      <VictoryChart theme={VictoryTheme.material} width={380} height={330}>
+      <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
+      <VictoryLabel
+          text="Real-time Data"
+          x={190}
+          y={30}
+          textAnchor="middle"
+          style={{ fontSize: 16, fontWeight: "bold" }}
+        />
         <VictoryLine animate data={data} />
         <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
         <VictoryAxis
@@ -33,12 +41,12 @@ const styles = StyleSheet.create({
   },
   yAxisStyle: {
     grid: { stroke: "transparent" },
-    axisLabel: { padding: 28, fontSize: 13, fontWeight: "bold" },
+    axisLabel: { padding: 25, fontSize: 13, fontWeight: "bold" },
   },
   xAxisStyle: {
     grid: { stroke: "transparent" },
     tickLabels: { fontSize: 0, padding: 0 },
-    axisLabel: { padding: 28, fontSize: 13, fontWeight: "bold" },
+    axisLabel: { padding: 20, fontSize: 13, fontWeight: "bold" },
   },
 });
 
