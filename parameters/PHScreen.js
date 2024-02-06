@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image, Modal } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
@@ -10,12 +9,16 @@ import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
 const PHScreen = () => {
   const navigation = useNavigation();
-  const pHData = data("pH_Level/ph_Level_Values");
-  const forecastedPHData = forecastedData("pH_Level/ph_Level_Values");
 
   const goBack = () => {
     navigation.goBack();
   };
+
+  const pHData = data("pH_Level/Timestamp", "pH_Level/ph_Level_Values");
+  const forecastedPHData = forecastedData(
+    "pH_Level/Timestamp",
+    "pH_Level/ph_Level_Values"
+  );
 
   return (
     <View style={styles.container}>
@@ -38,15 +41,19 @@ const PHScreen = () => {
           data={pHData}
           tickValues={[2, 4, 6, 8, 10, 12]}
           domain={[0, 12]}
-          xlabel="Date"
+          xlabel="Time"
           ylabel="pH Level"
+          time="x"
+          value="y"
         />
         <ForecastedLineGraph
           data={forecastedPHData}
           tickValues={[2, 4, 6, 8, 10, 12]}
           domain={[0, 12]}
-          xlabel="Hours"
+          xlabel="Time"
           ylabel="pH Level"
+          time="x"
+          value="y"
         />
       </View>
     </View>

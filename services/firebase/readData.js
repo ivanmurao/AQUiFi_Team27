@@ -2,7 +2,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import app from "./firebaseConfig";
 import { useEffect, useState } from "react";
 
-export default function useData(dataPath) {
+export default function useData(timestampPath, valuePath) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
@@ -13,12 +13,19 @@ export default function useData(dataPath) {
       const dataValues = [];
 
       snapshot.forEach((sensorSnapshot) => {
-        const rawDataValues = sensorSnapshot.child(dataPath).val();
+        const rawTimestamp = sensorSnapshot.child(timestampPath).val();
+        const rawPHLevel = sensorSnapshot.child(valuePath).val();
+        const time = new Date(rawTimestamp);
 
-        dataValues.push(rawDataValues);
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
+        const seconds = time.getSeconds();
+
+        const dataDict = { x: `${hours}:${minutes}:${seconds}`, y: rawPHLevel };
+        dataValues.push(dataDict);
       });
 
-      const limitDataValues = dataValues.slice(-24);
+      const limitDataValues = dataValues.slice(-6);
 
       setData(limitDataValues);
     });

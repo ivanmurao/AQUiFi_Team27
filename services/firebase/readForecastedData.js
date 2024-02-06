@@ -2,7 +2,7 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import app from "./firebaseConfig";
 import { useEffect, useState } from "react";
 
-export default function useForecastedData(forecastedDataPath) {
+export default function useForecastedData(timestampPath, valuePath) {
   const [forecastedData, setForecastedData] = useState([]);
 
   useEffect(() => {
@@ -13,11 +13,17 @@ export default function useForecastedData(forecastedDataPath) {
       const forecastedDataValues = [];
 
       snapshot.forEach((forecastedSnapshot) => {
-        const rawForecastedDataValues = forecastedSnapshot
-          .child(forecastedDataPath)
-          .val();
+        const rawTimestamp = forecastedSnapshot.child(timestampPath).val();
+        const rawPHLevel = forecastedSnapshot.child(valuePath).val();
+        const time = new Date(rawTimestamp);
 
-        forecastedDataValues.push(rawForecastedDataValues);
+        const hours = time.getHours();
+        const minutes = time.getMinutes();
+        const seconds = time.getSeconds();
+
+        const dataDict = { x: `${hours}:${minutes}:${seconds}`, y: rawPHLevel };
+
+        forecastedDataValues.push(dataDict);
       });
 
       const limitForecastedDataValues = forecastedDataValues.slice(-6);

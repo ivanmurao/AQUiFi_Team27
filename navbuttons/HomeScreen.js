@@ -11,10 +11,6 @@ const HomeScreen = () => {
   const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
   const phValue = parseFloat(phraw);
   const turbValue = parseFloat(tbraw);
-  // console.log(extractedNumber);
-
-  // const phValue = 8;
-  // const turbValue = 4;
 
   const currentTime = new Date();
   const hour = currentTime.getHours();

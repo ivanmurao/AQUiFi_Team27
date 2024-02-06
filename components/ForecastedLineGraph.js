@@ -8,7 +8,15 @@ import {
   VictoryLabel,
 } from "victory-native";
 
-const ForecastedLineGraph = ({ data, tickValues, domain, ylabel, xlabel }) => {
+const ForecastedLineGraph = ({
+  data,
+  tickValues,
+  domain,
+  ylabel,
+  xlabel,
+  time,
+  value,
+}) => {
   return (
     <View style={styles.container}>
       <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
@@ -19,7 +27,7 @@ const ForecastedLineGraph = ({ data, tickValues, domain, ylabel, xlabel }) => {
           textAnchor="middle"
           style={{ fontSize: 16, fontWeight: "bold" }}
         />
-        <VictoryLine animate data={data} />
+        <VictoryLine animate data={data} x={time} y={value} />
         <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
         <VictoryAxis
           dependentAxis
@@ -38,7 +46,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    paddingTop:10
+    paddingTop: 10,
   },
   yAxisStyle: {
     grid: { stroke: "transparent" },
@@ -48,6 +56,7 @@ const styles = StyleSheet.create({
     grid: { stroke: "transparent" },
     // tickLabels: { fontSize: 0, padding: 0 },
     axisLabel: { padding: 30, fontSize: 13, fontWeight: "bold" },
+    tickLabels: { angle: -45 },
   },
 });
 
