@@ -5,6 +5,7 @@ import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import forecastedData from "../services/firebase/readForecastedData";
+import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
 const TurbidityScreen = () => {
   const navigation = useNavigation();
@@ -14,7 +15,7 @@ const TurbidityScreen = () => {
   );
 
   const goBack = () => {
-    navigation.goBack(); 
+    navigation.goBack();
   };
 
   return (
@@ -34,11 +35,16 @@ const TurbidityScreen = () => {
           data={turbidityData}
           tickValues={[0, 1, 2, 3, 4, 5, 6]}
           domain={[0, 6]}
+          xlabel="Date"
+          ylabel="Turbidity Level"
         />
-        <LineGraph
+        <Text>Forecast</Text>
+        <ForecastedLineGraph
           data={forecastedTurbidityData}
           tickValues={[0, 1, 2, 3, 4, 5, 6]}
           domain={[0, 6]}
+          xlabel="Hours"
+          ylabel="Turbidity Level"
         />
       </View>
     </View>

@@ -5,12 +5,20 @@ import {
   VictoryChart,
   VictoryTheme,
   VictoryAxis,
+  VictoryLabel,
 } from "victory-native";
 
-const LineGraph = ({ data, tickValues, domain, xlabel, ylabel }) => {
+const ForecastedLineGraph = ({ data, tickValues, domain, ylabel, xlabel }) => {
   return (
     <View style={styles.container}>
       <VictoryChart theme={VictoryTheme.material} width={380} height={330}>
+        <VictoryLabel
+          text="Forecast"
+          x={190}
+          y={30}
+          textAnchor="middle"
+          style={{ fontSize: 16, fontWeight: "bold" }}
+        />
         <VictoryLine animate data={data} />
         <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
         <VictoryAxis
@@ -30,6 +38,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
+    paddingTop:30
   },
   yAxisStyle: {
     grid: { stroke: "transparent" },
@@ -37,9 +46,9 @@ const styles = StyleSheet.create({
   },
   xAxisStyle: {
     grid: { stroke: "transparent" },
-    tickLabels: { fontSize: 0, padding: 0 },
+    // tickLabels: { fontSize: 0, padding: 0 },
     axisLabel: { padding: 28, fontSize: 13, fontWeight: "bold" },
   },
 });
 
-export default LineGraph;
+export default ForecastedLineGraph;

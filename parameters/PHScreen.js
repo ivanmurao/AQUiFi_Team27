@@ -5,6 +5,7 @@ import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import forecastedData from "../services/firebase/readForecastedData";
+import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
 const PHScreen = () => {
   const navigation = useNavigation();
@@ -32,11 +33,16 @@ const PHScreen = () => {
           data={pHData}
           tickValues={[2, 4, 6, 8, 10, 12]}
           domain={[0, 12]}
+          xlabel="Date"
+          ylabel="pH Level"
         />
-        <LineGraph
+        {/* <Text style={styles.forecast}>Forecast</Text> */}
+        <ForecastedLineGraph
           data={forecastedPHData}
           tickValues={[2, 4, 6, 8, 10, 12]}
           domain={[0, 12]}
+          xlabel="Hours"
+          ylabel="pH Level"
         />
       </View>
     </View>
@@ -96,6 +102,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#F5F5F5",
     borderRadius: 40,
   },
+  // forecast: {textAlign:'center',paddingVertical:50, fontSize: 20, fontWeight: "bold"},
 });
 
 export default PHScreen;
