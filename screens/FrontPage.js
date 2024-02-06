@@ -1,27 +1,30 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
-import * as Updates from "expo-updates";
 import AquiFi from "../assets/pd-logo-1.png";
 
 const FrontPage = ({ navigation }) => {
+  const [blinkVisible, setBlinkVisible] = useState(0.3);
+
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setBlinkVisible((prevOpacity) => (prevOpacity === 0 ? 0.3 : 0));
+    }, 700);
+
+    return () => clearInterval(intervalId);
+  }, []);
+
   const goToLandingPage = () => {
     navigation.navigate("TabNavigator");
   };
 
-  const goToExit = async () => {
-    await Updates.reloadAsync();
-  };
-
   return (
-    <View style={styles.container}>
+    <View style={styles.container} onTouchEnd={goToLandingPage}>
       <Image source={AquiFi} style={styles.logo} />
-      <TouchableOpacity style={styles.proceedbutton} onPress={goToLandingPage}>
-        <Text style={styles.buttonText}>Proceed</Text>
+      <TouchableOpacity style={styles.proceedButton}>
+        <Text style={[styles.buttonText, { opacity: blinkVisible }]}>
+         ••• Press anywhere to continue •••
+        </Text>
       </TouchableOpacity>
-
-      {/* <TouchableOpacity style={styles.exitbutton} onPress={goToExit}>
-        <Text style={styles.buttonText}>Exit</Text>
-      </TouchableOpacity> */}
     </View>
   );
 };
@@ -37,23 +40,12 @@ const styles = StyleSheet.create({
     width: 250,
     height: 245,
   },
-  proceedbutton: {
-    backgroundColor: "#0B3954",
-    paddingVertical: 10,
-    paddingHorizontal: 80,
-    borderRadius: 50,
+  proceedButton: {
     marginTop: 50,
     marginBottom: 10,
   },
-  exitbutton: {
-    backgroundColor: "#0B3954",
-    paddingVertical: 10,
-    paddingHorizontal: 100,
-    borderRadius: 50,
-    margin: 10,
-  },
   buttonText: {
-    color: "white",
+    color: "#0B3954",
     fontSize: 18,
     fontWeight: "bold",
   },
