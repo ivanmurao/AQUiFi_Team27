@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
@@ -10,14 +9,16 @@ import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
 const TurbidityScreen = () => {
   const navigation = useNavigation();
-  const turbidityData = data("Turbidity_Level/Turbidity_Level_Values");
-  const forecastedTurbidityData = forecastedData(
-    "Turbidity_Level/Turbidity_Level_Values"
-  );
 
   const goBack = () => {
     navigation.goBack();
   };
+
+  const turbidityData = data("pH_Level/Timestamp", "pH_Level/ph_Level_Values");
+  const forecastedTurbidityData = forecastedData(
+    "pH_Level/Timestamp",
+    "pH_Level/ph_Level_Values"
+  );
 
   return (
     <View style={styles.container}>
@@ -42,6 +43,8 @@ const TurbidityScreen = () => {
           domain={[0, 6]}
           xlabel="Date"
           ylabel="Turbidity Level"
+          time="x"
+          value="y"
         />
         <ForecastedLineGraph
           data={forecastedTurbidityData}
@@ -49,6 +52,8 @@ const TurbidityScreen = () => {
           domain={[0, 6]}
           xlabel="Hours"
           ylabel="Turbidity Level"
+          time="x"
+          value="y"
         />
       </View>
     </View>

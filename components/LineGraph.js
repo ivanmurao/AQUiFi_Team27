@@ -8,18 +8,26 @@ import {
   VictoryAxis,
 } from "victory-native";
 
-const LineGraph = ({ data, tickValues, domain, xlabel, ylabel }) => {
+const LineGraph = ({
+  data,
+  tickValues,
+  domain,
+  xlabel,
+  ylabel,
+  time,
+  value,
+}) => {
   return (
     <View style={styles.container}>
       <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
-      <VictoryLabel
+        <VictoryLabel
           text="Real-time Data"
           x={190}
           y={30}
           textAnchor="middle"
           style={{ fontSize: 16, fontWeight: "bold" }}
         />
-        <VictoryLine animate data={data} />
+        <VictoryLine animate data={data} x={time} y={value} />
         <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
         <VictoryAxis
           dependentAxis
@@ -45,8 +53,8 @@ const styles = StyleSheet.create({
   },
   xAxisStyle: {
     grid: { stroke: "transparent" },
-    tickLabels: { fontSize: 0, padding: 0 },
-    axisLabel: { padding: 20, fontSize: 13, fontWeight: "bold" },
+    axisLabel: { padding: 38, fontSize: 13, fontWeight: "bold" },
+    tickLabels: { angle: -45 },
   },
 });
 
