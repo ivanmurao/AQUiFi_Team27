@@ -6249,6 +6249,13 @@ react-native-anchor-point@^1.0.6:
   resolved "https://registry.yarnpkg.com/react-native-anchor-point/-/react-native-anchor-point-1.0.6.tgz#87226a4079cda6c3914c7d3d6b0a341503f02414"
   integrity sha512-gQWkXwEnTmqBSqCwBqWIzZWY3AxfuThcszbukJcvU9PvJgmKYANaFBKlCIfeyQ47DxzxmLX/3NiRtxwUZf+YKA==
 
+react-native-animatable@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.yarnpkg.com/react-native-animatable/-/react-native-animatable-1.4.0.tgz#05a259e1566081ce7d3f6fba1e92edc65f5c6160"
+  integrity sha512-DZwaDVWm2NBvBxf7I0wXKXLKb/TxDnkV53sWhCvei1pRyTX3MVFpkvdYBknNBqPrxYuAIlPxEp7gJOidIauUkw==
+  dependencies:
+    prop-types "^15.8.1"
+
 react-native-circular-progress-indicator@^4.4.2:
   version "4.4.2"
   resolved "https://registry.yarnpkg.com/react-native-circular-progress-indicator/-/react-native-circular-progress-indicator-4.4.2.tgz#5475d045950e6fcc622e54fb63863b274790fb8e"

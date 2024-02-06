@@ -9,6 +9,9 @@ import raspi from '../assets/raspi.png';
 import valve from '../assets/valve.png';
 import mobile from '../assets/mobile.png';
 import info from '../assets/Info.png';
+import aboutus from '../assets/aboutus.png';
+import toc from '../assets/toc.png';
+import faqs from '../assets/faqs.png';
 
 const DeviceScreen = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -65,19 +68,22 @@ const DeviceScreen = () => {
             {/* Sidebar Items */}
             <View style={styles.sidebarItems}>
               <TouchableOpacity style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>Item 1</Text>
+                <Image source={aboutus} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>About Us</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>Item 2</Text>
+                <Image source={toc} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>Item 3</Text>
+                <Image source={faqs} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>FAQs</Text>
               </TouchableOpacity>
             </View>
 
             {/* Exit Button */}
             <View style={styles.sidebarExit}>
-              <Button title="Exit" color="#FF0000" onPress={toggleSidebar} />
+              <Button title="Close" color="#255C99" onPress={toggleSidebar} />
             </View>
           </View>
         </Modal>
@@ -417,25 +423,25 @@ const styles = StyleSheet.create({
   },
   sidebarLogo: {
     width: 100,
-    height: 100, // Adjust the size as needed
+    height: 120, 
   },
   sidebarItems: {
     flex: 1,
     justifyContent: 'center',
   },
   sidebarItem: {
-    marginBottom: 15,
+    marginBottom: 50,
     paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#000',
+    paddingHorizontal: 50,
+    borderBottomWidth: 2,
+    borderColor: "#A0A0A0",
+    flexDirection: 'row', 
   },
   sidebarItemText: {
     fontSize: 16,
   },
   sidebarExit: {
-    marginTop: 20,
+    marginTop: 10,
   },
 });
 
