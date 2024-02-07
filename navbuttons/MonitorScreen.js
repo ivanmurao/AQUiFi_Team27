@@ -1,15 +1,20 @@
 import React, { useState, useRef } from "react";
-import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,} from "react-native";
+import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,Modal,Button} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import next from "../assets/next.png";
 import sidebarIcon from "../assets/menu.png";
+import sidebarLogo from "../assets/sidebarIcon.png";
+import aboutus from '../assets/aboutus.png';
+import toc from '../assets/toc.png';
+import faqs from '../assets/faqs.png';
 import app from "../services/firebase/firebaseConfig.js";
 import { getDatabase, ref, set } from "firebase/database";
 
 const MonitorScreen = () => {
   const navigation = useNavigation();
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
   const goToTurbidity = () => {
     navigation.navigate("TurbidityScreen");
@@ -17,6 +22,11 @@ const MonitorScreen = () => {
   const goTopH = () => {
     navigation.navigate("PHScreen");
   };
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
   const [selectedValveControl, setSelectedValveControl] = useState(null);
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -41,9 +51,44 @@ const MonitorScreen = () => {
     <View style={styles.container}>
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
-        <TouchableOpacity style={styles.sidebarIconContainer}>
+        <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
           <Image source={sidebarIcon} style={styles.sidebarIcon} />
         </TouchableOpacity>
+        {/* Sidebar */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isSidebarVisible}
+          onRequestClose={toggleSidebar}
+        >
+          <View style={styles.sidebarContainer}>
+            {/* Sidebar Logo */}
+            <View style={styles.sidebarHeader}>
+              <Image source={sidebarLogo} style={styles.sidebarLogo} />
+            </View>
+
+            {/* Sidebar Items */}
+            <View style={styles.sidebarItems}>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Image source={aboutus} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>About Us</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Image source={toc} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Image source={faqs} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>FAQs</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Exit Button */}
+            <View style={styles.sidebarExit}>
+              <Button title="Close" color="#255C99" onPress={toggleSidebar} />
+            </View>
+          </View>
+        </Modal>
         {/* Top container for parameter selection */}
         <View style={styles.topContainer}>
           <Text style={styles.description}>
@@ -121,12 +166,44 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 60,
+    top: 30,
     right: 8,
   },
   sidebarIcon: {
     width: 30,
     height: 30,
+  },
+  sidebarContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 20,
+    justifyContent: 'space-between',
+  },
+  sidebarHeader: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  sidebarLogo: {
+    width: 100,
+    height: 120, 
+  },
+  sidebarItems: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  sidebarItem: {
+    marginBottom: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 50,
+    borderBottomWidth: 2,
+    borderColor: "#A0A0A0",
+    flexDirection: 'row', 
+  },
+  sidebarItemText: {
+    fontSize: 16,
+  },
+  sidebarExit: {
+    marginTop: 10,
   },
   description: {
     fontSize: 24,
@@ -175,6 +252,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 20,
   },
   switchContainer: {
     alignItems: "center",

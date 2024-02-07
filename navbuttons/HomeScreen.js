@@ -1,12 +1,18 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image,Modal,Button,TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
 import logoIcon from "../assets/logoIcon.png";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
+import sidebarIcon from "../assets/menu.png";
+import sidebarLogo from "../assets/sidebarIcon.png";
+import aboutus from '../assets/aboutus.png';
+import toc from '../assets/toc.png';
+import faqs from '../assets/faqs.png';
 import data from "../services/firebase/gaugeReadData";
 
 const HomeScreen = () => {
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
   const phraw = data("pH_Level/ph_Level_Values");
   const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
   const phValue = parseFloat(phraw);
@@ -32,6 +38,10 @@ const HomeScreen = () => {
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
@@ -41,14 +51,51 @@ const HomeScreen = () => {
             <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.greetings}>{greeting}</Text>
           </View>
-          {/* User Image */}
-          <View style={styles.userImageContainer}>
-            <Image source={logoIcon} style={styles.userImage} />
+          {/* Side Bar Icon */}
+        <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
+          <Image source={sidebarIcon} style={styles.sidebarIcon} />
+        </TouchableOpacity>
+        {/* Sidebar */}
+        <Modal
+          animationType="slide"
+          transparent={true}
+          visible={isSidebarVisible}
+          onRequestClose={toggleSidebar}
+        >
+          <View style={styles.sidebarContainer}>
+            {/* Sidebar Logo */}
+            <View style={styles.sidebarHeader}>
+              <Image source={sidebarLogo} style={styles.sidebarLogo} />
+            </View>
+            {/* Sidebar Items */}
+            <View style={styles.sidebarItems}>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Image source={aboutus} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>About Us</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Image source={toc} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
+              </TouchableOpacity>
+              <TouchableOpacity style={styles.sidebarItem}>
+                <Image source={faqs} style={styles.icon} />
+                <Text style={styles.sidebarItemText}>FAQs</Text>
+              </TouchableOpacity>
+            </View>
+
+            {/* Exit Button */}
+            <View style={styles.sidebarExit}>
+              <Button title="Close" color="#255C99" onPress={toggleSidebar} />
+            </View>
           </View>
+        </Modal>
         </View>
       </View>
-
       <View style={styles.fillOut}>
+        {/* Logo Image */}
+        <View style={styles.logoImageContainer}>
+          <Image source={logoIcon} style={styles.logoImage} />
+        </View>
         <Text style={styles.title}>Alkaline Water</Text>
         <Text style={styles.title}>Monitoring System</Text>
         {/* Container 1 */}
@@ -173,7 +220,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flex: 1,
     marginHorizontal: 10,
-    marginTop: 70,
+    marginTop: 30,
   },
   date: {
     color: "white",
@@ -184,13 +231,54 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  userImageContainer: {
-    alignItems: "flex-end",
-    bottom: "80%",
+  sidebarIconContainer: {
+    position: "absolute",
+    top: 30,
+    right: 20,
   },
-  userImage: {
-    width: 60,
-    height: 75,
+  sidebarIcon: {
+    width: 30,
+    height: 30,
+  },
+  sidebarContainer: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 20,
+    justifyContent: 'space-between',
+  },
+  sidebarHeader: {
+    alignItems: 'center',
+    marginBottom: 20,
+  },
+  sidebarLogo: {
+    width: 100,
+    height: 120, 
+  },
+  sidebarItems: {
+    flex: 1,
+    justifyContent: 'center',
+  },
+  sidebarItem: {
+    marginBottom: 50,
+    paddingVertical: 10,
+    paddingHorizontal: 50,
+    borderBottomWidth: 2,
+    borderColor: "#A0A0A0",
+    flexDirection: 'row', 
+  },
+  sidebarItemText: {
+    fontSize: 16,
+  },
+  sidebarExit: {
+    marginTop: 10,
+  },
+  logoImageContainer: {
+    alignItems: 'center',
+    bottom: 0,
+  },
+  logoImage: {
+    width: 40,
+    height: 55,
   },
   alertIconContainer: {
     alignItems: "flex-start",
@@ -204,8 +292,8 @@ const styles = StyleSheet.create({
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "23%",
-    bottom: "3%",
+    top: "15%",
+    bottom: "5%",
     left: "7%",
     right: "7%",
     paddingHorizontal: 10,
@@ -213,7 +301,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    textAlign: "left",
+    textAlign: 'center',
     color: "white",
   },
   container1: {
@@ -222,7 +310,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
-    marginTop: 30,
+    marginTop: 40,
     marginBottom: 30,
     borderRadius: 30,
   },
@@ -265,6 +353,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
+    marginTop: 10,
     borderRadius: 30,
   },
   leftSection2: {

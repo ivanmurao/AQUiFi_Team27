@@ -302,7 +302,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 60,
+    top: 30,
     right: 8,
   },
   sidebarIcon: {
