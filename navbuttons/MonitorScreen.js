@@ -70,15 +70,15 @@ const MonitorScreen = () => {
             {/* Sidebar Items */}
             <View style={styles.sidebarItems}>
               <TouchableOpacity style={styles.sidebarItem}>
-                <Image source={aboutus} style={styles.icon} />
+                <Image source={aboutus} style={styles.sbicon} />
                 <Text style={styles.sidebarItemText}>About Us</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sidebarItem}>
-                <Image source={toc} style={styles.icon} />
+                <Image source={toc} style={styles.sbicon} />
                 <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
               </TouchableOpacity>
               <TouchableOpacity style={styles.sidebarItem}>
-                <Image source={faqs} style={styles.icon} />
+                <Image source={faqs} style={styles.sbicon} />
                 <Text style={styles.sidebarItemText}>FAQs</Text>
               </TouchableOpacity>
             </View>
@@ -202,6 +202,11 @@ const styles = StyleSheet.create({
   sidebarItemText: {
     fontSize: 16,
   },
+  sbicon: {
+    width: 40,
+    height: 40,
+    marginRight: 10,
+  },
   sidebarExit: {
     marginTop: 10,
   },
@@ -261,8 +266,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 120,
-    paddingRight: 120,
+    paddingLeft: 130,
+    paddingRight: 130,
   },
   switchDescription: {
     fontSize: 24,

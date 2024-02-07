@@ -242,7 +242,7 @@ const DeviceScreen = () => {
                   Solenoid Valves are control devices that can either open or close a fluid flow when electrically activated or deactivated. 
                 </Text>
                 <Text style={styles.modalInfoText}>
-                  It is a crucial component in water quality management as it will control the flow of water when the sensors detect an anomaly. Specifically, the system is designed by default to open the solenoid valve. When the measured water parameters isn't within the standard maximum allowable range, the solenoid valve will automatically shut off.   
+                  It is a crucial component in water quality management as it will control the flow of water when the sensors detect an anomaly. Specifically, the system is designed by default to open the solenoid valve. When the measured water parameters isn't within the standard maximum allowable range, the solenoid valve will automatically shut off.
                 </Text>
                 <Button 
                 title="Close" 
@@ -331,7 +331,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 20,
     paddingBottom: 20,
-
     marginBottom: 20,
     borderColor: 'black',
   },
