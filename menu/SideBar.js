@@ -87,14 +87,14 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
       },
       sbicon: {
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 40,
         marginLeft: 20,
         marginRight: 10,
       },
       sb1icon: {
-        width: 45,
-        height: 45,
+        width: 40,
+        height: 40,
       },
       sidebarItemText: {
         fontSize: 20,

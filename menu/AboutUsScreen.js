@@ -33,7 +33,7 @@ const AboutUsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    bottom: "0%",
+    bottom: 0,
   },
   frame: {
     flex: 1,
@@ -54,7 +54,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     paddingHorizontal: 20,
     flexDirection: "row",
-    alignItems: "center",
   },
   backIconContainer: {
     position: "absolute",
@@ -70,13 +69,13 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
-    marginTop: 20,
+    top: 80,
   },
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "20%",
-    bottom: "2%",
+    top: "15%",
+    bottom: "5%",
     left: "5%",
     right: "5%",
     elevation: 5,

@@ -17,16 +17,6 @@ const RootNavigator = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="TabNavigator"
-        component={TabNavigator}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
-        name="HomeScreen"
-        component={HomeScreen}
-        options={{ headerShown: false }}
-      />
-      <Stack.Screen
         name="AboutUsScreen"
         component={AboutUsScreen}
         options={{ headerShown: false }}
@@ -39,6 +29,16 @@ const RootNavigator = () => {
       <Stack.Screen
         name="TermScreen"
         component={TermScreen}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="TabNavigator"
+        component={TabNavigator}
+        options={{ headerShown: false }}
+      />
+      <Stack.Screen
+        name="HomeScreen"
+        component={HomeScreen}
         options={{ headerShown: false }}
       />
     </Stack.Navigator>
