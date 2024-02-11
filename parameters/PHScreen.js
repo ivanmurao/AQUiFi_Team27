@@ -5,10 +5,7 @@ import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import sidebarIcon from "../assets/menu.png";
-import sidebarLogo from "../assets/sidebarIcon.png";
-import aboutus from '../assets/aboutus.png';
-import toc from '../assets/toc.png';
-import faqs from '../assets/faqs.png';
+import SidebarMenu from '../menu/SideBar.js';
 import forecastedData from "../services/firebase/readForecastedData";
 import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
@@ -42,41 +39,6 @@ const PHScreen = () => {
           <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
-          {/* Sidebar */}
-          <Modal
-            animationType="slide"
-            transparent={true}
-            visible={isSidebarVisible}
-            onRequestClose={toggleSidebar}
-          >
-            <View style={styles.sidebarContainer}>
-              {/* Sidebar Logo */}
-              <View style={styles.sidebarHeader}>
-                <Image source={sidebarLogo} style={styles.sidebarLogo} />
-              </View>
-
-              {/* Sidebar Items */}
-              <View style={styles.sidebarItems}>
-                <TouchableOpacity style={styles.sidebarItem}>
-                  <Image source={aboutus} style={styles.sbicon} />
-                  <Text style={styles.sidebarItemText}>About Us</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sidebarItem}>
-                  <Image source={toc} style={styles.sbicon} />
-                  <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.sidebarItem}>
-                  <Image source={faqs} style={styles.sbicon} />
-                  <Text style={styles.sidebarItemText}>FAQs</Text>
-                </TouchableOpacity>
-              </View>
-
-              {/* Exit Button */}
-              <View style={styles.sidebarExit}>
-                <Button title="Close" color="#255C99" onPress={toggleSidebar} />
-              </View>
-            </View>
-          </Modal>
           <Text style={styles.title}>pH</Text>
         </View>
       </View>
@@ -101,6 +63,7 @@ const PHScreen = () => {
           value="y"
         />
       </View>
+      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };

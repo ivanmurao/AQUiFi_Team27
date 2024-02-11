@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image,Modal,Button,TouchableOpacity } from "react-native";
+import { View, Text, StyleSheet, Image,TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
+import SidebarMenu from '../menu/SideBar.js';
 import logoIcon from "../assets/logoIcon.png";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import sidebarIcon from "../assets/menu.png";
-import sidebarLogo from "../assets/sidebarIcon.png";
-import aboutus from '../assets/aboutus.png';
-import toc from '../assets/toc.png';
-import faqs from '../assets/faqs.png';
 import data from "../services/firebase/gaugeReadData";
 
 const HomeScreen = () => {
@@ -17,6 +14,10 @@ const HomeScreen = () => {
   const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
   const phValue = parseFloat(phraw);
   const turbValue = parseFloat(tbraw);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
@@ -38,10 +39,6 @@ const HomeScreen = () => {
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
@@ -55,40 +52,6 @@ const HomeScreen = () => {
         <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
           <Image source={sidebarIcon} style={styles.sidebarIcon} />
         </TouchableOpacity>
-        {/* Sidebar */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isSidebarVisible}
-          onRequestClose={toggleSidebar}
-        >
-          <View style={styles.sidebarContainer}>
-            {/* Sidebar Logo */}
-            <View style={styles.sidebarHeader}>
-              <Image source={sidebarLogo} style={styles.sidebarLogo} />
-            </View>
-            {/* Sidebar Items */}
-            <View style={styles.sidebarItems}>
-              <TouchableOpacity style={styles.sidebarItem}>
-                <Image source={aboutus} style={styles.sbicon} />
-                <Text style={styles.sidebarItemText}>About Us</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.sidebarItem}>
-                <Image source={toc} style={styles.sbicon} />
-                <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.sidebarItem}>
-                <Image source={faqs} style={styles.sbicon} />
-                <Text style={styles.sidebarItemText}>FAQs</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Exit Button */}
-            <View style={styles.sidebarExit}>
-              <Button title="Close" color="#255C99" onPress={toggleSidebar} />
-            </View>
-          </View>
-        </Modal>
         </View>
       </View>
       <View style={styles.fillOut}>
@@ -190,6 +153,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
+      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -197,23 +161,18 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    bottom: "0%",
   },
   frame: {
     flex: 1,
-    position: "relative",
-    backgroundColor: "white",
     paddingHorizontal: 10,
   },
   accent: {
-    flex: 1,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
     backgroundColor: "#255C99",
-    justifyContent: "space-between",
     paddingHorizontal: 20,
   },
   dateGreetingsContainer: {
@@ -240,43 +199,6 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  sidebarContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-    justifyContent: 'space-between',
-  },
-  sidebarHeader: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  sidebarLogo: {
-    width: 100,
-    height: 120, 
-  },
-  sidebarItems: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  sidebarItem: {
-    marginBottom: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 50,
-    borderBottomWidth: 2,
-    borderColor: "#A0A0A0",
-    flexDirection: 'row', 
-  },
-  sidebarItemText: {
-    fontSize: 16,
-  },
-  sbicon: {
-    width: 40,
-    height: 40,
-    marginRight: 10,
-  },
-  sidebarExit: {
-    marginTop: 10,
-  },
   logoImageContainer: {
     alignItems: 'center',
     bottom: 0,
@@ -285,15 +207,6 @@ const styles = StyleSheet.create({
   logoImage: {
     width: 40,
     height: 55,
-  },
-  alertIconContainer: {
-    alignItems: "flex-start",
-    bottom: "81%",
-    left: "2%",
-  },
-  alertIcon: {
-    width: 30,
-    height: 30,
   },
   fillOut: {
     flex: 1,
