@@ -10,10 +10,10 @@ import data from "../services/firebase/gaugeReadData";
 
 const HomeScreen = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const phraw = data("pH_Level/ph_Level_Values");
-  const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
-  const phValue = parseFloat(phraw);
-  const turbValue = parseFloat(tbraw);
+  const rawPHValue = data("pH_Level/ph_Level_Values");
+  const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
+  const phValue = parseFloat(rawPHValue);
+  const turbidityValue = parseFloat(rawTurbidityValue);
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
