@@ -1,18 +1,15 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
-
 import MonitorNavigator from "./monitorNavigator";
-
 import Home from "../navbuttons/HomeScreen";
 import Device from "../navbuttons/DeviceScreen";
-
 import HomeIcon from "../assets/HomeIcon.png";
 import MonitorIcon from "../assets/Monitor.png";
 import IoTIcon from "../assets/IoT.png";
 
 const TabNavigator = () => {
-  const Tab = createBottomTabNavigator();
+  const Tab = createBottomTabNavigator(); 
 
   return (
     <Tab.Navigator

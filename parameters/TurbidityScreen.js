@@ -1,14 +1,21 @@
-import { View, StyleSheet, Text, TouchableOpacity, Image } from "react-native";
+import React, { useState } from "react";
+import { View, StyleSheet, Text, TouchableOpacity, Image, Modal, Button } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import sidebarIcon from "../assets/menu.png";
+import SidebarMenu from '../menu/SideBar.js';
 import forecastedData from "../services/firebase/readForecastedData";
 import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
 const TurbidityScreen = () => {
   const navigation = useNavigation();
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
 
   const goBack = () => {
     navigation.goBack();
@@ -29,7 +36,7 @@ const TurbidityScreen = () => {
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
           {/* Side Bar Icon */}
-          <TouchableOpacity style={styles.sidebarIconContainer}>
+          <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
           <Text style={styles.title}>Turbidity</Text>
@@ -56,6 +63,7 @@ const TurbidityScreen = () => {
           value="y"
         />
       </View>
+      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -86,7 +94,7 @@ const styles = StyleSheet.create({
   },
   backIconContainer: {
     position: "absolute",
-    top: 60,
+    top: 30,
     left: 20,
   },
   backIcon: {
@@ -96,7 +104,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 60,
+    top: 30,
     right: 20,
   },
   sidebarIcon: {

@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
   },
   logo: {
     width: 250,
-    height: 245,
+    height: 260,
   },
   proceedButton: {
     marginTop: 50,

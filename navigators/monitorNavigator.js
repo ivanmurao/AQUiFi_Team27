@@ -3,6 +3,7 @@ import MonitorScreen from "../navbuttons/MonitorScreen";
 import TurbidityScreen from "../parameters/TurbidityScreen";
 import PHScreen from "../parameters/PHScreen";
 
+
 const MonitorNavigator = () => {
   const Stack = createStackNavigator();
 
@@ -23,6 +24,7 @@ const MonitorNavigator = () => {
         component={PHScreen}
         options={{ headerShown: false }}
       />
+      
     </Stack.Navigator>
   );
 };

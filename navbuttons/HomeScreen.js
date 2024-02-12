@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
+import SidebarMenu from "../menu/SideBar.js";
 import logoIcon from "../assets/logoIcon.png";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
+import sidebarIcon from "../assets/menu.png";
 import data from "../services/firebase/gaugeReadData";
 
 const HomeScreen = () => {
-  const rawPHValue = data("pH_Level/ph_Level_Values");
-  const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
-  const phValue = parseFloat(rawPHValue);
-  const turbidityValue = parseFloat(rawTurbidityValue);
-  console.log(rawPHValue, phValue)
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const phraw = data("pH_Level/ph_Level_Values");
+  const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
+  const phValue = parseFloat(phraw);
+  const turbValue = parseFloat(tbraw);
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
@@ -42,14 +48,20 @@ const HomeScreen = () => {
             <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.greetings}>{greeting}</Text>
           </View>
-          {/* User Image */}
-          <View style={styles.userImageContainer}>
-            <Image source={logoIcon} style={styles.userImage} />
-          </View>
+          {/* Side Bar Icon */}
+          <TouchableOpacity
+            style={styles.sidebarIconContainer}
+            onPress={toggleSidebar}
+          >
+            <Image source={sidebarIcon} style={styles.sidebarIcon} />
+          </TouchableOpacity>
         </View>
       </View>
-
       <View style={styles.fillOut}>
+        {/* Logo Image */}
+        <View style={styles.logoImageContainer}>
+          <Image source={logoIcon} style={styles.logoImage} />
+        </View>
         <Text style={styles.title}>Alkaline Water</Text>
         <Text style={styles.title}>Monitoring System</Text>
         {/* Container 1 */}
@@ -144,6 +156,7 @@ const HomeScreen = () => {
           </View>
         </View>
       </View>
+      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -151,30 +164,25 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    bottom: "0%",
   },
   frame: {
     flex: 1,
-    position: "relative",
-    backgroundColor: "white",
     paddingHorizontal: 10,
   },
   accent: {
-    flex: 1,
     position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
     backgroundColor: "#255C99",
-    justifyContent: "space-between",
     paddingHorizontal: 20,
   },
   dateGreetingsContainer: {
     alignItems: "flex-start",
     flex: 1,
     marginHorizontal: 10,
-    marginTop: 70,
+    marginTop: 30,
   },
   date: {
     color: "white",
@@ -185,28 +193,29 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  userImageContainer: {
-    alignItems: "flex-end",
-    bottom: "80%",
+  sidebarIconContainer: {
+    position: "absolute",
+    top: 30,
+    right: 20,
   },
-  userImage: {
-    width: 60,
-    height: 75,
-  },
-  alertIconContainer: {
-    alignItems: "flex-start",
-    bottom: "81%",
-    left: "2%",
-  },
-  alertIcon: {
+  sidebarIcon: {
     width: 30,
     height: 30,
+  },
+  logoImageContainer: {
+    alignItems: "center",
+    bottom: 0,
+    paddingTop: 20,
+  },
+  logoImage: {
+    width: 40,
+    height: 55,
   },
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "23%",
-    bottom: "3%",
+    top: "15%",
+    bottom: "5%",
     left: "7%",
     right: "7%",
     paddingHorizontal: 10,
@@ -214,7 +223,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: "bold",
-    textAlign: "left",
+    textAlign: "center",
     color: "white",
   },
   container1: {
@@ -223,7 +232,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
-    marginTop: 30,
+    marginTop: 40,
     marginBottom: 30,
     borderRadius: 30,
   },
@@ -266,6 +275,7 @@ const styles = StyleSheet.create({
     paddingTop: 20,
     paddingBottom: 20,
     paddingLeft: 50,
+    marginTop: 10,
     borderRadius: 30,
   },
   leftSection2: {

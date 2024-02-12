@@ -1,15 +1,17 @@
 import React, { useState, useRef } from "react";
-import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,} from "react-native";
+import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,Modal,Button} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import next from "../assets/next.png";
 import sidebarIcon from "../assets/menu.png";
+import SidebarMenu from '../menu/SideBar.js';
 import app from "../services/firebase/firebaseConfig.js";
 import { getDatabase, ref, set } from "firebase/database";
 
 const MonitorScreen = () => {
   const navigation = useNavigation();
+  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
   const goToTurbidity = () => {
     navigation.navigate("TurbidityScreen");
@@ -17,6 +19,11 @@ const MonitorScreen = () => {
   const goTopH = () => {
     navigation.navigate("PHScreen");
   };
+
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
   const [selectedValveControl, setSelectedValveControl] = useState(null);
   const translateX = useRef(new Animated.Value(0)).current;
 
@@ -41,7 +48,7 @@ const MonitorScreen = () => {
     <View style={styles.container}>
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
-        <TouchableOpacity style={styles.sidebarIconContainer}>
+        <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
           <Image source={sidebarIcon} style={styles.sidebarIcon} />
         </TouchableOpacity>
         {/* Top container for parameter selection */}
@@ -88,6 +95,7 @@ const MonitorScreen = () => {
           </View>
         </View>
       </View>
+      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -108,7 +116,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "absolute",
     top: 0,
-    bottom: "3%",
+    bottom: 0,
     left: "3%",
     right: "3%",
     paddingHorizontal: 10,
@@ -121,7 +129,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 60,
+    top: 30,
     right: 8,
   },
   sidebarIcon: {
@@ -175,6 +183,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
+    marginTop: 20,
   },
   switchContainer: {
     alignItems: "center",
@@ -183,8 +192,8 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 10,
     paddingBottom: 10,
-    paddingLeft: 120,
-    paddingRight: 120,
+    paddingLeft: 130,
+    paddingRight: 130,
   },
   switchDescription: {
     fontSize: 24,

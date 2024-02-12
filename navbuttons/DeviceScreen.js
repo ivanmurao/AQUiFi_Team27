@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Button } from 'react-native';
+import SidebarMenu from '../menu/SideBar.js';
 import sidebarIcon from "../assets/menu.png";
-import sidebarLogo from "../assets/sidebarIcon.png";
 import turbidity from '../assets/turbidity.png';
 import ph from '../assets/ph.png';
 import arduino from '../assets/arduino.png';
@@ -9,6 +9,7 @@ import raspi from '../assets/raspi.png';
 import valve from '../assets/valve.png';
 import mobile from '../assets/mobile.png';
 import info from '../assets/Info.png';
+
 
 const DeviceScreen = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -49,38 +50,6 @@ const DeviceScreen = () => {
         <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
           <Image source={sidebarIcon} style={styles.sidebarIcon} />
         </TouchableOpacity>
-        {/* Sidebar */}
-        <Modal
-          animationType="slide"
-          transparent={true}
-          visible={isSidebarVisible}
-          onRequestClose={toggleSidebar}
-        >
-          <View style={styles.sidebarContainer}>
-            {/* Sidebar Logo */}
-            <View style={styles.sidebarHeader}>
-              <Image source={sidebarLogo} style={styles.sidebarLogo} />
-            </View>
-
-            {/* Sidebar Items */}
-            <View style={styles.sidebarItems}>
-              <TouchableOpacity style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>Item 1</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>Item 2</Text>
-              </TouchableOpacity>
-              <TouchableOpacity style={styles.sidebarItem}>
-                <Text style={styles.sidebarItemText}>Item 3</Text>
-              </TouchableOpacity>
-            </View>
-
-            {/* Exit Button */}
-            <View style={styles.sidebarExit}>
-              <Button title="Exit" color="#FF0000" onPress={toggleSidebar} />
-            </View>
-          </View>
-        </Modal>
         <View style={styles.compContainer}>
             <Text style={styles.compDescription}>Device Components</Text>
             {/* Arduino Button */}
@@ -236,7 +205,7 @@ const DeviceScreen = () => {
                   Solenoid Valves are control devices that can either open or close a fluid flow when electrically activated or deactivated. 
                 </Text>
                 <Text style={styles.modalInfoText}>
-                  It is a crucial component in water quality management as it will control the flow of water when the sensors detect an anomaly. Specifically, the system is designed by default to open the solenoid valve. When the measured water parameters isn't within the standard maximum allowable range, the solenoid valve will automatically shut off.   
+                  It is a crucial component in water quality management as it will control the flow of water when the sensors detect an anomaly. Specifically, the system is designed by default to open the solenoid valve. When the measured water parameters isn't within the standard maximum allowable range, the solenoid valve will automatically shut off.
                 </Text>
                 <Button 
                 title="Close" 
@@ -271,6 +240,7 @@ const DeviceScreen = () => {
             </View>
           </Modal>
       </View>
+      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -296,7 +266,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 60,
+    top: 30,
     right: 8,
   },
   sidebarIcon: {
@@ -325,7 +295,6 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     paddingTop: 20,
     paddingBottom: 20,
-
     marginBottom: 20,
     borderColor: 'black',
   },
@@ -404,38 +373,6 @@ const styles = StyleSheet.create({
     marginTop: 10,
     marginBottom: 20,
     color: '#333',
-  },
-  sidebarContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-    justifyContent: 'space-between',
-  },
-  sidebarHeader: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  sidebarLogo: {
-    width: 100,
-    height: 100, // Adjust the size as needed
-  },
-  sidebarItems: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  sidebarItem: {
-    marginBottom: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
-    borderWidth: 1,
-    borderRadius: 5,
-    borderColor: '#000',
-  },
-  sidebarItemText: {
-    fontSize: 16,
-  },
-  sidebarExit: {
-    marginTop: 20,
   },
 });
 
