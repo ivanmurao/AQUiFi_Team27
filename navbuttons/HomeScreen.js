@@ -7,10 +7,11 @@ import ph from "../assets/ph.png";
 import data from "../services/firebase/gaugeReadData";
 
 const HomeScreen = () => {
-  const phraw = data("pH_Level/ph_Level_Values");
-  const tbraw = data("Turbidity_Level/Turbidity_Level_Values");
-  const phValue = parseFloat(phraw);
-  const turbValue = parseFloat(tbraw);
+  const rawPHValue = data("pH_Level/ph_Level_Values");
+  const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
+  const phValue = parseFloat(rawPHValue);
+  const turbidityValue = parseFloat(rawTurbidityValue);
+  console.log(rawPHValue, phValue)
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
@@ -124,7 +125,7 @@ const HomeScreen = () => {
                 r="45"
                 stroke="#7EA3CC"
                 strokeWidth="10"
-                strokeDasharray={`${(turbValue / 5) * 282.5} 565`}
+                strokeDasharray={`${(turbidityValue / 5) * 282.5} 565`}
                 strokeLinecap="butt"
                 fill="transparent"
               />
@@ -137,7 +138,7 @@ const HomeScreen = () => {
                 fill="#000"
                 dy="8"
               >
-                {turbValue.toFixed(1)}
+                {turbidityValue.toFixed(1)}
               </SvgText>
             </Svg>
           </View>
