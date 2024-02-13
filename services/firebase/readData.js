@@ -22,9 +22,9 @@ export default function useData(timestampPath, valuePath) {
         const seconds = time.getSeconds();
 
         const dataDict = { x: `${hours}:${minutes}:${seconds}`, y: rawPHLevel };
+
         dataValues.push(dataDict);
       });
-
       const limitDataValues = dataValues.slice(-6);
 
       setData(limitDataValues);

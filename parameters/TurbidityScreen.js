@@ -1,11 +1,19 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image, Modal, Button } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  Image,
+  Modal,
+  Button,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import sidebarIcon from "../assets/menu.png";
-import SidebarMenu from '../menu/SideBar.js';
+import SidebarMenu from "../menu/SideBar.js";
 import forecastedData from "../services/firebase/readForecastedData";
 import ForecastedLineGraph from "../components/ForecastedLineGraph";
 
@@ -21,11 +29,16 @@ const TurbidityScreen = () => {
     navigation.goBack();
   };
 
-  const turbidityData = data("pH_Level/Timestamp", "pH_Level/ph_Level_Values");
-  const forecastedTurbidityData = forecastedData(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values"
+  const turbidityData = data(
+    "Turbidity_Level/Timestamp",
+    "Turbidity_Level/Turbidity_Level_Values"
   );
+  const forecastedTurbidityData = forecastedData(
+    "Turbidity_Level/Timestamp",
+    "Turbidity_Level/Turbidity_Level_Values"
+  );
+
+  console.log(turbidityData);
 
   return (
     <View style={styles.container}>
@@ -36,7 +49,10 @@ const TurbidityScreen = () => {
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
           {/* Side Bar Icon */}
-          <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
+          <TouchableOpacity
+            style={styles.sidebarIconContainer}
+            onPress={toggleSidebar}
+          >
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
           <Text style={styles.title}>Turbidity</Text>

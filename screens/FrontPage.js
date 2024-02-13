@@ -22,7 +22,7 @@ const FrontPage = ({ navigation }) => {
       <Image source={AquiFi} style={styles.logo} />
       <TouchableOpacity style={styles.proceedButton}>
         <Text style={[styles.buttonText, { opacity: blinkVisible }]}>
-         ••• Press anywhere to continue •••
+          Press anywhere to continue
         </Text>
       </TouchableOpacity>
     </View>
