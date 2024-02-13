@@ -13,6 +13,7 @@ import ForecastedLineGraph from "../components/ForecastedLineGraph";
 const PHScreen = () => {
   const navigation = useNavigation();
   const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [selectedInterval, setSelectedInterval] = useState("1 hr");
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
@@ -28,6 +29,11 @@ const PHScreen = () => {
     "pH_Level/ph_Level_Values"
   );
 
+  const handleIntervalChange = (interval) => {
+    setSelectedInterval(interval);
+    
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
@@ -42,6 +48,21 @@ const PHScreen = () => {
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
           <Text style={styles.title}>pH</Text>
+          {/* Interval Buttons */}
+          <View style={styles.intervalButtons}>
+            <TouchableOpacity onPress={() => handleIntervalChange("1 hr")} style={selectedInterval === "1 hr" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>1 hr</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIntervalChange("1 day")} style={selectedInterval === "1 day" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>1 day</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIntervalChange("1 week")} style={selectedInterval === "1 week" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>1 week</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIntervalChange("All")} style={selectedInterval === "All" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>All</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 
@@ -83,7 +104,7 @@ const styles = StyleSheet.create({
   frame: {
     flex: 1,
     position: "relative",
-
+    backgroundColor: "white",
   },
   accent: {
     flex: 1,
@@ -96,8 +117,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
     backgroundColor: "#255C99",
     justifyContent: "center",
-    paddingHorizontal: 20,
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
   },
   backIconContainer: {
@@ -119,48 +139,27 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
   },
-  sidebarContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 20,
-    justifyContent: 'space-between',
-  },
-  sidebarHeader: {
-    alignItems: 'center',
-    marginBottom: 20,
-  },
-  sidebarLogo: {
-    width: 100,
-    height: 120, 
-  },
-  sidebarItems: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  sidebarItem: {
-    marginBottom: 50,
-    paddingVertical: 10,
-    paddingHorizontal: 50,
-    borderBottomWidth: 2,
-    borderColor: "#A0A0A0",
-    flexDirection: 'row', 
-  },
-  sidebarItemText: {
-    fontSize: 16,
-  },
-  sbicon: {
-    width: 40,
-    height: 40,
-    marginRight: 20,
-  },
-  sidebarExit: {
+  intervalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
     marginTop: 10,
   },
-  title: {
-    color: "white",
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 20,
+  intervalButton: {
+    backgroundColor: "#fff",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    margin: 2,
+  },
+  selectedButton: {
+    backgroundColor: "#7EA3CC",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    margin: 2,
+  },
+  buttonText: {
+    color: "#000",
   },
   fillOut: {
     flex: 1,
@@ -171,7 +170,15 @@ const styles = StyleSheet.create({
     right: "5%",
     elevation: 5,
     backgroundColor: "#F5F5F5",
-    borderRadius: 40,
+    borderTopLeftRadius: 40,
+    borderTopRightRadius: 40,
+    borderBottomLeftRadius: 40,
+    borderBottomRightRadius: 40,
+  },
+  title: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
   },
 });
 
