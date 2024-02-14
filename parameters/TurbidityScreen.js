@@ -21,6 +21,7 @@ import ForecastedLineGraph from "../components/ForecastedLineGraph";
 const TurbidityScreen = () => {
   const navigation = useNavigation();
   const [isSidebarVisible, setSidebarVisible] = useState(false);
+  const [selectedInterval, setSelectedInterval] = useState("1 hr");
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
@@ -41,11 +42,17 @@ const TurbidityScreen = () => {
 
   console.log(turbidityData);
 
+  const handleIntervalChange = (interval) => {
+    setSelectedInterval(interval);
+    
+  };
+
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
       <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
+          
           {/* Back Icon */}
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
             <Image source={backIcon} style={styles.backIcon} />
@@ -58,6 +65,21 @@ const TurbidityScreen = () => {
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
           <Text style={styles.title}>Turbidity</Text>
+          {/* Interval Buttons */}
+          <View style={styles.intervalButtons}>
+            <TouchableOpacity onPress={() => handleIntervalChange("1 hr")} style={selectedInterval === "1 hr" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>1 hr</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIntervalChange("1 day")} style={selectedInterval === "1 day" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>1 day</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIntervalChange("1 week")} style={selectedInterval === "1 week" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>1 week</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => handleIntervalChange("All")} style={selectedInterval === "All" ? styles.selectedButton : styles.intervalButton}>
+              <Text style={styles.buttonText}>All</Text>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
 
@@ -112,7 +134,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 40,
     backgroundColor: "#255C99",
     justifyContent: "center",
-    flexDirection: "row",
+    flexDirection: "column",
     alignItems: "center",
   },
   backIconContainer: {
@@ -133,6 +155,28 @@ const styles = StyleSheet.create({
   sidebarIcon: {
     width: 30,
     height: 30,
+  },
+  intervalButtons: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    marginTop: 10,
+  },
+  intervalButton: {
+    backgroundColor: "#fff",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    margin: 2,
+  },
+  selectedButton: {
+    backgroundColor: "#7EA3CC",
+    paddingVertical: 8,
+    paddingHorizontal: 12,
+    borderRadius: 20,
+    margin: 2,
+  },
+  buttonText: {
+    color: "#000",
   },
   fillOut: {
     flex: 1,

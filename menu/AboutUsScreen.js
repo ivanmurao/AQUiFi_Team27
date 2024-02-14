@@ -4,7 +4,6 @@ import { useNavigation } from "@react-navigation/native";
 import ContainerBG from "../assets/ContainerBG.png";
 import backIcon from "../assets/Back.png";
 
-
 const AboutUsScreen = () => {
   const navigation = useNavigation();
   
