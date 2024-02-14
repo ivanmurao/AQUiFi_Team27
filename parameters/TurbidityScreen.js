@@ -12,6 +12,7 @@ import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
+import ContainerBG from "../assets/ContainerBG.png";
 import sidebarIcon from "../assets/menu.png";
 import SidebarMenu from "../menu/SideBar.js";
 import forecastedData from "../services/firebase/readForecastedData";
@@ -43,6 +44,7 @@ const TurbidityScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
+      <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
           {/* Back Icon */}
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
@@ -88,6 +90,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     bottom: "0%",
+  },
+  containerBG: {
+    flex: 1,
+    height: 850,
+    width: 420,
   },
   frame: {
     flex: 1,
@@ -143,9 +150,8 @@ const styles = StyleSheet.create({
   },
   title: {
     color: "white",
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: "bold",
-    marginTop: 20,
   },
 });
 

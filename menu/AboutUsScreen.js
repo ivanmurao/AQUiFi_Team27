@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image, Modal, Button } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image, ImageBackground } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import ContainerBG from "../assets/ContainerBG.png";
 import backIcon from "../assets/Back.png";
 
 
@@ -14,6 +15,7 @@ const AboutUsScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
+      <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
           {/* Back Icon */}
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
@@ -35,11 +37,15 @@ const styles = StyleSheet.create({
     flex: 1,
     bottom: 0,
   },
+  containerBG: {
+    flex: 1,
+    height: 870,
+    width: 420,
+  },
   frame: {
     flex: 1,
     position: "relative",
     backgroundColor: "white",
-    paddingHorizontal: 10,
   },
   accent: {
     flex: 1,
