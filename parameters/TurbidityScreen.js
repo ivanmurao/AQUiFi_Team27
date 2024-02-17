@@ -7,6 +7,7 @@ import {
   Image,
   Modal,
   Button,
+  ImageBackground,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
@@ -33,19 +34,19 @@ const TurbidityScreen = () => {
 
   const turbidityData = data(
     "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values"
+    "Turbidity_Level/Turbidity_Level_Values", selectedInterval
   );
   const forecastedTurbidityData = forecastedData(
     "Turbidity_Level/Timestamp",
     "Turbidity_Level/Turbidity_Level_Values"
   );
 
-  console.log(turbidityData);
-
   const handleIntervalChange = (interval) => {
-    setSelectedInterval(interval);
+    setSelectedInterval(interval);`123`
     
   };
+
+  console.log(selectedInterval)
 
   return (
     <View style={styles.container}>
@@ -67,13 +68,13 @@ const TurbidityScreen = () => {
           <Text style={styles.title}>Turbidity</Text>
           {/* Interval Buttons */}
           <View style={styles.intervalButtons}>
-            <TouchableOpacity onPress={() => handleIntervalChange("1 hr")} style={selectedInterval === "1 hr" ? styles.selectedButton : styles.intervalButton}>
+            <TouchableOpacity onPress={() => handleIntervalChange(6)} style={selectedInterval === 6 ? styles.selectedButton : styles.intervalButton}>
               <Text style={styles.buttonText}>1 hr</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleIntervalChange("1 day")} style={selectedInterval === "1 day" ? styles.selectedButton : styles.intervalButton}>
+            <TouchableOpacity onPress={() => handleIntervalChange(24)} style={selectedInterval === 24 ? styles.selectedButton : styles.intervalButton}>
               <Text style={styles.buttonText}>1 day</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={() => handleIntervalChange("1 week")} style={selectedInterval === "1 week" ? styles.selectedButton : styles.intervalButton}>
+            <TouchableOpacity onPress={() => handleIntervalChange(168)} style={selectedInterval === 168 ? styles.selectedButton : styles.intervalButton}>
               <Text style={styles.buttonText}>1 week</Text>
             </TouchableOpacity>
             <TouchableOpacity onPress={() => handleIntervalChange("All")} style={selectedInterval === "All" ? styles.selectedButton : styles.intervalButton}>
