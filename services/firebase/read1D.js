@@ -18,11 +18,14 @@ export default function useData(timestampPath, valuePath) {
           const rawPHLevel = sensorSnapshot.child(valuePath).val();
           const time = new Date(rawTimestamp);
 
-          const dataPoint = { x: formatTime(time), y: rawPHLevel };
+          const dataPoint = {
+            x: formatTime(time),
+            y: rawPHLevel
+          };
           dataValues.push(dataPoint);
         });
 
-        const limitDataValues = dataValues.slice(-6);
+        const limitDataValues = dataValues.slice(-24);
         setData(limitDataValues);
       }, (error) => {
         console.error("Error fetching data:", error);

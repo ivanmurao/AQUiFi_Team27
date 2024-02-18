@@ -2,41 +2,40 @@ import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
 import app from "./firebaseConfig";
 
-export default function useForecastedData(timestampPath, valuePath) {
-  const [forecastedData, setForecastedData] = useState([]);
+export default function useData(timestampPath, valuePath) {
+  const [dataAll, setData] = useState([]);
 
   useEffect(() => {
     const fetchData = () => {
       const db = getDatabase(app);
-      const forecastedRef = ref(db, "Sensor/Forecasted/");
+      const sensorRef = ref(db, "Sensor/Raw/");
 
-      onValue(forecastedRef, (snapshot) => {
-        const forecastedDataValues = [];
+      onValue(sensorRef, (snapshot) => {
+        const dataValues = [];
 
-        snapshot.forEach((forecastedSnapshot) => {
-          const rawTimestamp = forecastedSnapshot.child(timestampPath).val();
-          const rawPHLevel = forecastedSnapshot.child(valuePath).val();
+        snapshot.forEach((sensorSnapshot) => {
+          const rawTimestamp = sensorSnapshot.child(timestampPath).val();
+          const rawPHLevel = sensorSnapshot.child(valuePath).val();
           if (rawTimestamp && rawPHLevel) {
             const time = new Date(rawTimestamp);
             const dataPoint = {
               x: formatTime(time),
               y: rawPHLevel
             };
-            forecastedDataValues.push(dataPoint);
+            dataValues.push(dataPoint);
           }
         });
 
-        const limitForecastedDataValues = forecastedDataValues.slice(-6);
-        setForecastedData(limitForecastedDataValues);
+        setData(dataValues);
       }, (error) => {
-        console.error("Error fetching forecasted data:", error);
+        console.error("Error fetching data:", error);
       });
     };
 
     fetchData(); // Initial fetch
 
     // Subscribe to changes
-    const unsubscribe = onValue(ref(getDatabase(app), "Sensor/Forecasted/"), fetchData);
+    const unsubscribe = onValue(ref(getDatabase(app), "Sensor/Raw/"), fetchData);
 
     return () => {
       // Unsubscribe when component unmounts
@@ -44,7 +43,7 @@ export default function useForecastedData(timestampPath, valuePath) {
     };
   }, [timestampPath, valuePath]);
 
-  return forecastedData;
+  return dataAll;
 }
 
 function formatTime(time) {

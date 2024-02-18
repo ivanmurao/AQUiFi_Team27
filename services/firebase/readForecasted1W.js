@@ -26,7 +26,7 @@ export default function useForecastedData(timestampPath, valuePath) {
           }
         });
 
-        const limitForecastedDataValues = forecastedDataValues.slice(-6);
+        const limitForecastedDataValues = forecastedDataValues.slice(-168); // Last 24 entries for 1 week
         setForecastedData(limitForecastedDataValues);
       }, (error) => {
         console.error("Error fetching forecasted data:", error);

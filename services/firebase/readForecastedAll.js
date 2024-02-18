@@ -26,8 +26,7 @@ export default function useForecastedData(timestampPath, valuePath) {
           }
         });
 
-        const limitForecastedDataValues = forecastedDataValues.slice(-6);
-        setForecastedData(limitForecastedDataValues);
+        setForecastedData(forecastedDataValues);
       }, (error) => {
         console.error("Error fetching forecasted data:", error);
       });
