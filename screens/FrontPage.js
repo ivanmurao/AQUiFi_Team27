@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
 import AquiFi from "../assets/pd-logo-1.png";
+import Status from "../components/StatusBar";
 
 const FrontPage = ({ navigation }) => {
   const [blinkVisible, setBlinkVisible] = useState(0.3);
@@ -19,6 +20,7 @@ const FrontPage = ({ navigation }) => {
 
   return (
     <View style={styles.container} onTouchEnd={goToLandingPage}>
+      <Status />
       <Image source={AquiFi} style={styles.logo} />
       <TouchableOpacity style={styles.proceedButton}>
         <Text style={[styles.buttonText, { opacity: blinkVisible }]}>

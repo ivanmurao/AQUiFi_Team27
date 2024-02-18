@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
 import SidebarMenu from "../menu/SideBar.js";
+import Status from "../components/StatusBar.js";
 import logoIcon from "../assets/logoIcon.png";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
@@ -41,6 +42,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Status />
       <View style={styles.frame}>
         <View style={styles.accent}>
           {/* Date and Greetings */}
@@ -182,7 +184,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     flex: 1,
     marginHorizontal: 10,
-    marginTop: 30,
+    marginTop: 10,
   },
   date: {
     color: "white",
@@ -195,7 +197,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 30,
+    top: 10,
     right: 20,
   },
   sidebarIcon: {
@@ -214,7 +216,7 @@ const styles = StyleSheet.create({
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "15%",
+    top: "10%",
     bottom: "5%",
     left: "7%",
     right: "7%",
@@ -235,6 +237,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     marginBottom: 30,
     borderRadius: 30,
+    elevation: 5,
   },
   leftSection1: {
     flexDirection: "column",
@@ -249,6 +252,7 @@ const styles = StyleSheet.create({
     paddingRight: 35,
     left: 20,
     alignItems: "center",
+    elevation: 5,
   },
   pHValue: {
     fontSize: 16,
@@ -277,6 +281,7 @@ const styles = StyleSheet.create({
     paddingLeft: 50,
     marginTop: 10,
     borderRadius: 30,
+    elevation: 5,
   },
   leftSection2: {
     flexDirection: "column",
@@ -289,6 +294,7 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingLeft: 35,
     paddingRight: 35,
+    elevation: 5,
   },
   containerTitle2: {
     fontSize: 16,

@@ -1,6 +1,7 @@
 import React, { useState, useRef } from "react";
 import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,Modal,Button} from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import Status from "../components/StatusBar";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import next from "../assets/next.png";
@@ -46,6 +47,7 @@ const MonitorScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Status />
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
         <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
@@ -125,11 +127,11 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     borderRadius: 30,
-    marginTop: 50,
+    marginTop: 20,
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 30,
+    top: 10,
     right: 8,
   },
   sidebarIcon: {
@@ -155,6 +157,7 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     marginBottom: 15,
     borderColor: "black",
+    elevation: 5,
   },
   icon: {
     width: 60,
@@ -194,6 +197,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     paddingLeft: 130,
     paddingRight: 130,
+    elevation: 5,
   },
   switchDescription: {
     fontSize: 24,

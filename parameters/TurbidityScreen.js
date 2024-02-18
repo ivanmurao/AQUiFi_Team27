@@ -11,6 +11,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "../components/LineGraph";
+import Status from "../components/StatusBar";
 import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import ContainerBG from "../assets/ContainerBG.png";
@@ -85,6 +86,7 @@ const TurbidityScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Status />
       <View style={styles.frame}>
         <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
@@ -273,7 +275,7 @@ const styles = StyleSheet.create({
   },
   backIconContainer: {
     position: "absolute",
-    top: 30,
+    top: 10,
     left: 20,
   },
   backIcon: {
@@ -283,7 +285,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 30,
+    top: 10,
     right: 20,
   },
   sidebarIcon: {
@@ -294,6 +296,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-around",
     marginTop: 10,
+    marginBottom: 10,
+    elevation: 5,
   },
   intervalButton: {
     backgroundColor: "#fff",

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, Modal, Button } from 'react-native';
 import SidebarMenu from '../menu/SideBar.js';
+import Status from '../components/StatusBar.js';
 import sidebarIcon from "../assets/menu.png";
 import turbidity from '../assets/turbidity.png';
 import ph from '../assets/ph.png';
@@ -45,6 +46,7 @@ const DeviceScreen = () => {
 
   return (
     <View style={styles.container}>
+      <Status />
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
         <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
@@ -266,7 +268,7 @@ const styles = StyleSheet.create({
   },
   sidebarIconContainer: {
     position: "absolute",
-    top: 30,
+    top: 10,
     right: 8,
   },
   sidebarIcon: {
@@ -277,7 +279,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     borderRadius: 30,
-    marginTop: 80,
+    marginTop: 50,
   },
   compDescription: {
     fontSize: 24,
@@ -293,10 +295,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#7EA3CC',
     paddingHorizontal: 20,
     borderRadius: 30,
-    paddingTop: 20,
-    paddingBottom: 20,
+    paddingTop: 17,
+    paddingBottom: 17,
     marginBottom: 20,
     borderColor: 'black',
+    elevation: 5,
   },
   icon: {
     width: 40,
