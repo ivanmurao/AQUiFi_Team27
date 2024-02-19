@@ -55,8 +55,8 @@ const styles = StyleSheet.create({
   xAxisStyle: {
     grid: { stroke: "transparent" },
     // tickLabels: { fontSize: 0, padding: 0 },
-    axisLabel: { padding: 30, fontSize: 13, fontWeight: "bold" },
-    tickLabels: { angle: -45 },
+    axisLabel: { padding: 10/*38*/, fontSize: 13, fontWeight: "bold" },
+    tickLabels: { angle: -45, fontSize: 0, padding: 0 },
   },
 });
 

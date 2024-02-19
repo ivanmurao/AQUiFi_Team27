@@ -29,7 +29,7 @@ import forecastedDataAll from "../services/firebase/readForecastedAll";
 const TurbidityScreen = () => {
   const navigation = useNavigation();
   const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const [selectedInterval, setSelectedInterval] = useState("1 hour");
+  const [selectedInterval, setSelectedInterval] = useState("Current");
 
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
@@ -105,7 +105,7 @@ const TurbidityScreen = () => {
           {/* Interval Buttons */}
           <View style={styles.intervalButtons}>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("1 hour")}
+              onPress={() => handleIntervalChange("Current")}
               style={
                 selectedInterval === 6
                   ? styles.selectedButton
@@ -149,7 +149,7 @@ const TurbidityScreen = () => {
       </View>
 
       <View style={styles.fillOut}>
-        {selectedInterval === "1 hour" && (
+        {selectedInterval === "Current" && (
           <LineGraph
             data={turbidityData}
             tickValues={[0, 1, 2, 3, 4, 5, 6]}
@@ -194,7 +194,7 @@ const TurbidityScreen = () => {
           />
         )}
 
-        {selectedInterval === "1 hour" && (
+        {selectedInterval === "Current" && (
           <ForecastedLineGraph
             data={forecastedTurbidityData}
             tickValues={[0, 1, 2, 3, 4, 5, 6]}
