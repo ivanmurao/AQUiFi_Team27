@@ -37,4 +37,12 @@ jobs:
       - name: Create preview
         uses: expo/expo-github-action/preview@v8
         with:
+          env: 
+            API_KEY: ${{ vars.API_KEY }}
+            AUTH_DOMAIN: ${{ vars.AUTH_DOMAIN }}
+            DATABASE_URL: ${{ vars.DATABASE_URL }}
+            PROJECT_ID: ${{ vars.PROJECT_ID }}
+            STORAGE_BUCKET: ${{ vars.STORAGE_BUCKET }}
+            MESSAGING_SENDER_ID: ${{ vars.MESSAGING_SENDER_ID }}
+            APP_ID: ${{ vars.APP_ID }}
           command: eas update --auto
