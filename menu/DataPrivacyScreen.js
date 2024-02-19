@@ -4,8 +4,7 @@ import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/Back.png";
 import ContainerBG from "../assets/ContainerBG.png";
 
-
-const FaqScreen = () => {
+const DataPrivacyScreen = () => {
   const navigation = useNavigation();
   
   const goBack = () => {
@@ -21,7 +20,7 @@ const FaqScreen = () => {
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
-          <Text style={styles.title}>Frequently Asked Questions</Text>
+          <Text style={styles.title}>Data Privacy</Text>
         </View>
       </View>
 
@@ -90,4 +89,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default FaqScreen;
+export default DataPrivacyScreen;

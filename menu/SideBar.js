@@ -5,7 +5,7 @@ import { useNavigation } from "@react-navigation/native";
 import sidebarLogo from "../assets/sidebarIcon.png";
 import aboutus from '../assets/aboutus.png';
 import toc from '../assets/toc.png';
-import faqs from '../assets/faqs.png';
+import privacy from '../assets/Privacy.png';
 import exit from '../assets/exit.png';
 
 const SidebarMenu = ({ isVisible, onClose }) => {
@@ -17,8 +17,8 @@ const SidebarMenu = ({ isVisible, onClose }) => {
   const goToTermScreen = () => {
     navigation.navigate("TermScreen");
   };
-  const goToFaqScreen = () => {
-    navigation.navigate("FaqScreen");
+  const goToDataPrivacyScreen = () => {
+    navigation.navigate("DataPrivacyScreen");
   };
 
   const slideAnim = useRef(new Animated.Value(-400)).current;
@@ -43,9 +43,9 @@ const SidebarMenu = ({ isVisible, onClose }) => {
         <Image source={toc} style={styles.sbicon} />
         <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.sidebarItem} onPress={goToFaqScreen}>
-        <Image source={faqs} style={styles.sbicon} />
-        <Text style={styles.sidebarItemText}>FAQs</Text>
+      <TouchableOpacity style={styles.sidebarItem} onPress={goToDataPrivacyScreen}>
+        <Image source={privacy} style={styles.sbicon} />
+        <Text style={styles.sidebarItemText}>Data Privacy</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.sidebarExit} onPress={onClose}>

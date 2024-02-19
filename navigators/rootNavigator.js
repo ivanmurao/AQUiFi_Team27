@@ -3,7 +3,7 @@ import FrontPage from "../screens/FrontPage";
 import HomeScreen from "../navbuttons/HomeScreen";
 import TabNavigator from "./tabNavigator";
 import AboutUsScreen from "../menu/AboutUsScreen";
-import FaqScreen from "../menu/FaqScreen";
+import DataPrivacyScreen from "../menu/DataPrivacyScreen";
 import TermScreen from "../menu/TermScreen";
 
 const RootNavigator = () => {
@@ -22,8 +22,8 @@ const RootNavigator = () => {
         options={{ headerShown: false }}
       />
       <Stack.Screen
-        name="FaqScreen"
-        component={FaqScreen}
+        name="DataPrivacyScreen"
+        component={DataPrivacyScreen}
         options={{ headerShown: false }}
       />
       <Stack.Screen
