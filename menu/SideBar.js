@@ -41,11 +41,11 @@ const SidebarMenu = ({ isVisible, onClose }) => {
       </TouchableOpacity>
       <TouchableOpacity style={styles.sidebarItem} onPress={goToTermScreen}>
         <Image source={toc} style={styles.sbicon} />
-        <Text style={styles.sidebarItemText}>Terms & Conditions</Text>
+        <Text style={styles.sidebarItemText}>Terms of Agreement</Text>
       </TouchableOpacity>
       <TouchableOpacity style={styles.sidebarItem} onPress={goToDataPrivacyScreen}>
         <Image source={privacy} style={styles.sbicon} />
-        <Text style={styles.sidebarItemText}>Data Privacy</Text>
+        <Text style={styles.sidebarItemText}>Data Privacy Policy</Text>
       </TouchableOpacity>
 
       <TouchableOpacity style={styles.sidebarExit} onPress={onClose}>

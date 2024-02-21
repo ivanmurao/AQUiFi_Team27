@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-import { View, StyleSheet, Text, TouchableOpacity, Image, ImageBackground } from "react-native";
+import { View, StyleSheet, Text, TouchableOpacity, Image, ImageBackground, ScrollView } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import backIcon from "../assets/Back.png";
 import ContainerBG from "../assets/ContainerBG.png";
+import policy from "../assets/policy.png";
 
 const DataPrivacyScreen = () => {
   const navigation = useNavigation();
@@ -20,13 +21,14 @@ const DataPrivacyScreen = () => {
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
-          <Text style={styles.title}>Data Privacy</Text>
+          <Text style={styles.title}>Data Privacy Policy</Text>
         </View>
       </View>
 
-      <View style={styles.fillOut}>
+      <ScrollView style={styles.fillOut}>
+        <Image source={policy} style={styles.policyLogo} />
         
-      </View>
+      </ScrollView>
     </View>
   );
 };
@@ -80,12 +82,18 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "absolute",
     top: "15%",
-    bottom: "5%",
+    bottom: "2%",
     left: "5%",
     right: "5%",
     elevation: 5,
-    backgroundColor: "#F5F5F5",
-    borderRadius: 40,
+    backgroundColor: "white",
+    borderRadius: 30,
+  },
+  policyLogo: {
+    alignSelf: 'center',
+    height: 250,
+    width: 170,
+    resizeMode: "contain",
   },
 });
 
