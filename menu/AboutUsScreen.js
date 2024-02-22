@@ -1,4 +1,3 @@
-import React, { useState } from "react";
 import {
   View,
   StyleSheet,
@@ -41,12 +40,20 @@ const AboutUsScreen = () => {
       <ScrollView style={styles.fillOut}>
         <Image source={compLogo} style={styles.compLogo} />
         <Text style={styles.compDescription}>
-          Aquasynapse is a start-up company based in Metro Manila, Philippines focused on providing a drinking water quality management control system with a Mobile application that allows the water refilling station businesses to solve the problem concerning secondary contamination. The company consists of five Computer Engineering students from Technological Institute of the Philippines - Quezon City.{"\n\n\n"}
-          The company also has a feasible solution and is dedicated to providing full assistance to water refilling station businesses in providing a drinking water quality monitoring system with a control system for them  to consistently provide safe and clean drinking water to their valued customers.  
+          Aquasynapse is a start-up company based in Metro Manila, Philippines
+          focused on providing a drinking water quality management control
+          system with a Mobile application that allows the water refilling
+          station businesses to solve the problem concerning secondary
+          contamination. The company consists of five Computer Engineering
+          students from Technological Institute of the Philippines - Quezon
+          City.{"\n\n\n"}
+          The company also has a feasible solution and is dedicated to providing
+          full assistance to water refilling station businesses in providing a
+          drinking water quality monitoring system with a control system for
+          them to consistently provide safe and clean drinking water to their
+          valued customers.
         </Text>
-        <Text style={styles.teamHeader}>
-          The Team
-        </Text>
+        <Text style={styles.teamHeader}>The Team</Text>
         <View style={styles.memberContainer}>
           <View style={styles.deetsContainer}>
             <Image source={agripa} style={styles.formalPic} />
@@ -55,7 +62,6 @@ const AboutUsScreen = () => {
               Data Science{"\n"}
               qvkcagripa@tip.edu.ph
             </Text>
-
           </View>
           <View style={styles.deetsContainer}>
             <Image source={delapeña} style={styles.formalPic} />
@@ -152,7 +158,7 @@ const styles = StyleSheet.create({
     borderRadius: 30,
   },
   compLogo: {
-    alignSelf: 'center',
+    alignSelf: "center",
     height: 200,
     width: 200,
     borderRadius: 40,
@@ -161,48 +167,48 @@ const styles = StyleSheet.create({
   compDescription: {
     fontSize: 16,
     paddingHorizontal: 20,
-    textAlign: 'justify',
+    textAlign: "justify",
     paddingBottom: 30,
     borderBottomWidth: 2,
-    borderColor: '#D3C0C0',
+    borderColor: "#D3C0C0",
   },
   teamHeader: {
     paddingTop: 30,
     fontSize: 24,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   memberContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: "center",
     borderRadius: 30,
     marginTop: 20,
     paddingHorizontal: 15,
   },
   deetsContainer: {
-    flexDirection: 'row', 
-    backgroundColor: '#255C99',
+    flexDirection: "row",
+    backgroundColor: "#255C99",
     borderRadius: 30,
     paddingTop: 10,
     paddingBottom: 10,
     marginBottom: 20,
-    borderColor: 'black',
+    borderColor: "black",
     elevation: 5,
   },
   formalPic: {
     height: 85,
     width: 85,
-    resizeMode: 'contain',
+    resizeMode: "contain",
     borderRadius: 30,
     marginRight: 10,
     marginLeft: 10,
   },
   memberDeets: {
     fontSize: 16,
-    color: 'white',
+    color: "white",
     marginTop: 10,
-    marginLeft: 20, 
-    textAlign: 'justify'
+    marginLeft: 20,
+    textAlign: "justify",
   },
 });
 

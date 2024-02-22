@@ -1,12 +1,22 @@
 import React, { useState, useRef } from "react";
-import {View,Text,StyleSheet,Image,Pressable,Animated,TouchableOpacity,Modal,Button} from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  Pressable,
+  Animated,
+  TouchableOpacity,
+  Modal,
+  Button,
+} from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Status from "../components/StatusBar";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import next from "../assets/next.png";
 import sidebarIcon from "../assets/menu.png";
-import SidebarMenu from '../menu/SideBar.js';
+import SidebarMenu from "../menu/SideBar.js";
 import app from "../services/firebase/firebaseConfig.js";
 import { getDatabase, ref, set } from "firebase/database";
 
@@ -40,9 +50,7 @@ const MonitorScreen = () => {
       duration: 200,
       useNativeDriver: false,
     }).start();
-    newValue == "Open Valve"
-      ? set(buttonRef,  "H" )
-      : set(buttonRef,  "L" );
+    newValue == "Open Valve" ? set(buttonRef, "H") : set(buttonRef, "L");
   };
 
   return (
@@ -50,7 +58,10 @@ const MonitorScreen = () => {
       <Status />
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
-        <TouchableOpacity style={styles.sidebarIconContainer} onPress={toggleSidebar}>
+        <TouchableOpacity
+          style={styles.sidebarIconContainer}
+          onPress={toggleSidebar}
+        >
           <Image source={sidebarIcon} style={styles.sidebarIcon} />
         </TouchableOpacity>
         {/* Top container for parameter selection */}
@@ -112,7 +123,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: "#255C99",
     justifyContent: "space-between",
-
   },
   fillOut: {
     flex: 1,
