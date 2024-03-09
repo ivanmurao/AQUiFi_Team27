@@ -4136,11 +4136,6 @@ expo-keep-awake@~12.8.2:
   resolved "https://registry.yarnpkg.com/expo-keep-awake/-/expo-keep-awake-12.8.2.tgz#6cfdf8ad02b5fa130f99d4a1eb98e459d5b4332e"
   integrity sha512-uiQdGbSX24Pt8nGbnmBtrKq6xL/Tm3+DuDRGBk/3ZE/HlizzNosGRIufIMJ/4B4FRw4dw8KU81h2RLuTjbay6g==
 
-expo-linear-gradient@^11.0.3:
-  version "11.4.0"
-  resolved "https://registry.yarnpkg.com/expo-linear-gradient/-/expo-linear-gradient-11.4.0.tgz#20ecad4d11e66e35b31600e5389ec9c4067f7312"
-  integrity sha512-qtIfsLs7NOpfxYrFSJL5uLtNHIkBHQFuQ3f7++XpoJTSm4eQVFxjjkCGWiLIrkpVjKzmgp3DLuIVsadsGX21lA==
-
 expo-manifests@~0.13.0:
   version "0.13.2"
   resolved "https://registry.yarnpkg.com/expo-manifests/-/expo-manifests-0.13.2.tgz#02b28bb2fb002ef93a03faf1ede9ecaa43e5d6c0"
@@ -6414,7 +6409,6 @@ react-native-gauge@^0.1.2:
   integrity sha512-6f/r3zKup92o67gv1skohLWnj5xDpBzq/Mgpedw872gZ2VLqA+0Ar8mEr1CRPp5GNa2nD1NhG2Z1/bLgt8DsFA==
   dependencies:
     "@react-native-masked-view/masked-view" "^0.2.6"
-    expo-linear-gradient "^11.0.3"
     react-native-anchor-point "^1.0.6"
     react-native-progress "github:cwnicoletti/react-native-progress"
     react-native-svg "^12.1.1"
