@@ -8,6 +8,7 @@ import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import sidebarIcon from "../assets/menu.png";
 import data from "../services/firebase/gaugeReadData";
+import AlertNotification from "../components/AlertNotification.js";
 
 const HomeScreen = () => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
@@ -44,6 +45,7 @@ const HomeScreen = () => {
     <View style={styles.container}>
       <Status />
       <View style={styles.frame}>
+      
         <View style={styles.accent}>
           {/* Date and Greetings */}
           <View style={styles.dateGreetingsContainer}>
@@ -57,6 +59,10 @@ const HomeScreen = () => {
           >
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
+          <View style={styles.alertContainer}>
+            <AlertNotification/>
+          </View>
+          
         </View>
       </View>
       <View style={styles.fillOut}>
@@ -170,6 +176,13 @@ const styles = StyleSheet.create({
   frame: {
     flex: 1,
     paddingHorizontal: 10,
+  },
+  alertContainer: {
+    position: "absolute",
+    top: 80,
+    left: 0,
+    right: 20,
+    alignItems: "flex-end",
   },
   accent: {
     position: "absolute",
