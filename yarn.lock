@@ -3990,6 +3990,7 @@ __metadata:
     react: "npm:18.2.0"
     react-dom: "npm:18.2.0"
     react-native: "npm:0.73.6"
+    react-native-alert-notification: "npm:^0.4.0"
     react-native-animatable: "npm:^1.4.0"
     react-native-circular-progress: "npm:^1.3.9"
     react-native-circular-progress-indicator: "npm:^4.4.2"
@@ -4000,7 +4001,7 @@ __metadata:
     react-native-gesture-handler: "npm:~2.14.0"
     react-native-progress: "npm:^5.0.1"
     react-native-reanimated: "npm:~3.6.2"
-    react-native-safe-area-context: "npm:4.8.2"
+    react-native-safe-area-context: "npm:^4.10.1"
     react-native-simple-gauge: "npm:^0.3.1"
     react-native-svg: "npm:14.1.0"
     react-native-web: "npm:~0.19.6"
@@ -9026,6 +9027,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"react-native-alert-notification@npm:^0.4.0":
+  version: 0.4.0
+  resolution: "react-native-alert-notification@npm:0.4.0"
+  peerDependencies:
+    react: "*"
+    react-native: ">=0.62.0"
+    react-native-safe-area-context: "*"
+  checksum: 10c0/b335059ab8440367342c02385143b8ba9ccae2389ea96edc99efb8776a5251e04d7c329a3a41ba4702cc99ee64c10d0420f2b3df21ee186688d9107871d14225
+  languageName: node
+  linkType: hard
+
 "react-native-anchor-point@npm:^1.0.6":
   version: 1.0.6
   resolution: "react-native-anchor-point@npm:1.0.6"
@@ -9208,13 +9220,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-safe-area-context@npm:4.8.2":
-  version: 4.8.2
-  resolution: "react-native-safe-area-context@npm:4.8.2"
+"react-native-safe-area-context@npm:^4.10.1":
+  version: 4.10.1
+  resolution: "react-native-safe-area-context@npm:4.10.1"
   peerDependencies:
     react: "*"
     react-native: "*"
-  checksum: 10c0/5430ef5d4f3510debd964423aa7ae2f9f4f3aea6e928b0dc6f7e63c21e967f3e71377a3b5df0bd5ceca291c4818670ee77afb3fc7a1091061449ae0fd3ed00b2
+  checksum: 10c0/4d9210f68535d90200a03e18015053f1bd72d6cb562866716d7a206e64956bd0d5fb022788f1882144193c554866e04a0a68c90600ca8c982ab3ab546a68c198
   languageName: node
   linkType: hard
 
