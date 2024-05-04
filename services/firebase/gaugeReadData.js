@@ -4,13 +4,15 @@ import app from "./firebaseConfig";
 
 export default function useData(dataPath) {
   const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    const db = getDatabase(app);
-    const sensorRef = ref(db, "Sensor/Raw/");
-
     const fetchData = () => {
-      onValue(sensorRef, (snapshot) => {
+      const db = getDatabase(app);
+      const sensorRef = ref(db, "Sensor/Raw/");
+
+      try {
+        const snapshot = onValue(sensorRef);
         const dataValues = [];
 
         snapshot.forEach((sensorSnapshot) => {
@@ -22,16 +24,17 @@ export default function useData(dataPath) {
 
         const limitDataValues = dataValues.slice(-1);
         setData(limitDataValues);
-      }, (error) => {
+        setLoading(false);
+      } catch (error) {
         console.error("Error fetching data:", error);
-      });
+      }
     };
 
     fetchData(); // Initial fetch
 
     // Subscribe to changes
     const unsubscribe = onValue(sensorRef, fetchData, {
-      onlyOnce: false // Listen for continuous updates
+      onlyOnce: false, // Listen for continuous updates
     });
 
     return () => {
@@ -40,5 +43,5 @@ export default function useData(dataPath) {
     };
   }, [dataPath]); // Re-run effect when dataPath changes
 
-  return data;
+  return { data, loading };
 }

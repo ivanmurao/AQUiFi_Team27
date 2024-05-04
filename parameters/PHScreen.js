@@ -28,15 +28,12 @@ const PHScreen = () => {
   const navigation = useNavigation();
   const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [selectedInterval, setSelectedInterval] = useState("Current");
-
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
-
   const goBack = () => {
     navigation.goBack();
   };
-
   const phData = data(
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values",
@@ -46,7 +43,6 @@ const PHScreen = () => {
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values"
   );
-
   const phData1D = data1D(
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values",
@@ -56,7 +52,6 @@ const PHScreen = () => {
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values"
   );
-
   const phData1W = data1W(
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values",
@@ -66,7 +61,6 @@ const PHScreen = () => {
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values"
   );
-
   const phDataAll = dataAll(
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values",
@@ -76,11 +70,9 @@ const PHScreen = () => {
     "pH_Level/Timestamp",
     "pH_Level/ph_Level_Values"
   );
-
   const handleIntervalChange = (interval) => {
     setSelectedInterval(interval);
   };
-
   return (
     <View style={styles.container}>
       <Status />
@@ -144,7 +136,6 @@ const PHScreen = () => {
           </View>
         </View>
       </View>
-
       <View style={styles.fillOut}>
         {selectedInterval === "Current" && (
           <LineGraph
@@ -190,7 +181,6 @@ const PHScreen = () => {
             value="y"
           />
         )}
-
         {selectedInterval === "Current" && (
           <ForecastedLineGraph
             data={forecastedPHData}

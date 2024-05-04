@@ -7,23 +7,34 @@ import logoIcon from "../assets/logoIcon.png";
 import turbidity from "../assets/turbidity.png";
 import ph from "../assets/ph.png";
 import sidebarIcon from "../assets/menu.png";
-import data from "../services/firebase/gaugeReadData";
+// import { data } from "../services/firebase/gaugeReadData";
+import {
+  collection,
+  getFirestore,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import app from "../services/firebase/firebaseConfig";
 
 const HomeScreen = () => {
+  // State Management
   const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const rawPHValue = data("pH_Level/ph_Level_Values");
-  const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
-  const phValue = parseFloat(rawPHValue);
-  const turbidityValue = parseFloat(rawTurbidityValue);
+  const [phValue, setPHValue] = useState(0);
+  const [turbidityValue, setTurbidityValue] = useState(0);
+  // const rawPHValue = data("pH_Level/ph_Level_Values");
+  // const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
+  // const phValue = parseFloat(rawPHValue);
+  // const turbidityValue = parseFloat(rawTurbidityValue);
 
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
-  };
+  // Constant Values
+  // const phValue = 7;
+  // const turbidityValue = 3;
 
   const currentTime = new Date();
   const hour = currentTime.getHours();
   let greeting;
-
   if (hour < 12) {
     greeting = "Good Morning!";
   } else if (hour < 18) {
@@ -31,7 +42,6 @@ const HomeScreen = () => {
   } else {
     greeting = "Good Evening!";
   }
-
   const dateOptions = {
     weekday: "long",
     year: "numeric",
@@ -39,6 +49,69 @@ const HomeScreen = () => {
     day: "numeric",
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
+
+  // Event Handlers
+  const toggleSidebar = () => {
+    setSidebarVisible(!isSidebarVisible);
+  };
+
+  // Initialize Firestore
+  const db = getFirestore(app);
+
+  // Firestore Collections
+  const SENSOR_PH_VALUE_COLLECTION = collection(db, "SENSOR_PH_LEVEL_VALUES");
+  const SENSOR_TURBIDITY_VALUE_COLLECTION = collection(
+    db,
+    "SENSOR_TURBIDITY_LEVEL_VALUES"
+  );
+
+  // Side Effects
+
+  useEffect(() => {
+    let isMounted = true;
+
+    const fetchData = async () => {
+      try {
+        const phValuesQuery = query(
+          SENSOR_PH_VALUE_COLLECTION,
+          orderBy("Timestamp", "desc"),
+          limit(1)
+        );
+        const turbidityValuesQuery = query(
+          SENSOR_TURBIDITY_VALUE_COLLECTION,
+          orderBy("Timestamp", "desc"),
+          limit(1)
+        );
+
+        // const phSnapshot = await phValuesQuery.get();
+        // const turbiditySnapshot = await turbidityValuesQuery.get();
+
+        if (!isMounted) return; // Prevent state updates if component is unmounted
+
+        onSnapshot(phValuesQuery, (phSnapshot) => {
+          phSnapshot.forEach((doc) => {
+            const rawPHValues = doc.data().PHLevelValues;
+            setPHValue(rawPHValues);
+          });
+        });
+
+        onSnapshot(turbidityValuesQuery, (turbiditySnapshot) => {
+          turbiditySnapshot.forEach((doc) => {
+            const rawTurbidityValues = doc.data().TurbidityLevelValues;
+            setTurbidityValue(rawTurbidityValues);
+          });
+        });
+      } catch (error) {
+        console.error("Error fetching sensor data:", error);
+      }
+    };
+
+    fetchData();
+
+    return () => {
+      isMounted = false; // Set to false when component unmounts
+    };
+  }, []); // Empty dependency array to run only on mount and unmount
 
   return (
     <View style={styles.container}>

@@ -27,221 +27,211 @@ import dataAll from "../services/firebase/readAll";
 import forecastedDataAll from "../services/firebase/readForecastedAll";
 
 const TurbidityScreen = () => {
-  const navigation = useNavigation();
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const [selectedInterval, setSelectedInterval] = useState("Current");
-
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
-  };
-
-  const goBack = () => {
-    navigation.goBack();
-  };
-
-  const turbidityData = data(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values",
-    selectedInterval
-  );
-  const forecastedTurbidityData = forecastedData(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values"
-  );
-
-  const turbidityData1D = data1D(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values",
-    selectedInterval
-  );
-  const forecastedTurbidityData1D = forecastedData1D(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values"
-  );
-
-  const turbidityData1W = data1W(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values",
-    selectedInterval
-  );
-  const forecastedTurbidityData1W = forecastedData1W(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values"
-  );
-
-  const turbidityDataAll = dataAll(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values",
-    selectedInterval
-  );
-  const forecastedTurbidityDataAll = forecastedDataAll(
-    "Turbidity_Level/Timestamp",
-    "Turbidity_Level/Turbidity_Level_Values"
-  );
-
-  const handleIntervalChange = (interval) => {
-    setSelectedInterval(interval);
-    `123`;
-  };
-
-  return (
-    <View style={styles.container}>
-      <Status />
-      <View style={styles.frame}>
-        <ImageBackground source={ContainerBG} style={styles.containerBG} />
-        <View style={styles.accent}>
-          {/* Back Icon */}
-          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
-            <Image source={backIcon} style={styles.backIcon} />
-          </TouchableOpacity>
-          {/* Side Bar Icon */}
-          <TouchableOpacity
-            style={styles.sidebarIconContainer}
-            onPress={toggleSidebar}
-          >
-            <Image source={sidebarIcon} style={styles.sidebarIcon} />
-          </TouchableOpacity>
-          <Text style={styles.title}>Turbidity</Text>
-          {/* Interval Buttons */}
-          <View style={styles.intervalButtons}>
-            <TouchableOpacity
-              onPress={() => handleIntervalChange("Current")}
-              style={
-                selectedInterval === 6
-                  ? styles.selectedButton
-                  : styles.intervalButton
-              }
-            >
-              <Text style={styles.buttonText}>Current</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleIntervalChange("1 day")}
-              style={
-                selectedInterval === 24
-                  ? styles.selectedButton
-                  : styles.intervalButton
-              }
-            >
-              <Text style={styles.buttonText}>1 day</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleIntervalChange("1 week")}
-              style={
-                selectedInterval === 168
-                  ? styles.selectedButton
-                  : styles.intervalButton
-              }
-            >
-              <Text style={styles.buttonText}>1 week</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={() => handleIntervalChange("All")}
-              style={
-                selectedInterval === "All"
-                  ? styles.selectedButton
-                  : styles.intervalButton
-              }
-            >
-              <Text style={styles.buttonText}>All</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.fillOut}>
-        {selectedInterval === "Current" && (
-          <LineGraph
-            data={turbidityData}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 day" && (
-          <LineGraph
-            data={turbidityData1D}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 week" && (
-          <LineGraph
-            data={turbidityData1W}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "All" && (
-          <LineGraph
-            data={turbidityDataAll}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-
-        {selectedInterval === "Current" && (
-          <ForecastedLineGraph
-            data={forecastedTurbidityData}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 day" && (
-          <ForecastedLineGraph
-            data={forecastedTurbidityData1D}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 week" && (
-          <ForecastedLineGraph
-            data={forecastedTurbidityData1W}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "All" && (
-          <ForecastedLineGraph
-            data={forecastedTurbidityDataAll}
-            tickValues={[0, 1, 2, 3, 4, 5, 6]}
-            domain={[0, 6]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-      </View>
-      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
-    </View>
-  );
+  // const navigation = useNavigation();
+  // const [isSidebarVisible, setSidebarVisible] = useState(false);
+  // const [selectedInterval, setSelectedInterval] = useState("Current");
+  // const toggleSidebar = () => {
+  //   setSidebarVisible(!isSidebarVisible);
+  // };
+  // const goBack = () => {
+  //   navigation.goBack();
+  // };
+  // const turbidityData = data(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values",
+  //   selectedInterval
+  // );
+  // const forecastedTurbidityData = forecastedData(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values"
+  // );
+  // const turbidityData1D = data1D(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values",
+  //   selectedInterval
+  // );
+  // const forecastedTurbidityData1D = forecastedData1D(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values"
+  // );
+  // const turbidityData1W = data1W(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values",
+  //   selectedInterval
+  // );
+  // const forecastedTurbidityData1W = forecastedData1W(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values"
+  // );
+  // const turbidityDataAll = dataAll(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values",
+  //   selectedInterval
+  // );
+  // const forecastedTurbidityDataAll = forecastedDataAll(
+  //   "Turbidity_Level/Timestamp",
+  //   "Turbidity_Level/Turbidity_Level_Values"
+  // );
+  // const handleIntervalChange = (interval) => {
+  //   setSelectedInterval(interval);
+  //   `123`;
+  // };
+  // return (
+  //   <View style={styles.container}>
+  //     <Status />
+  //     <View style={styles.frame}>
+  //       <ImageBackground source={ContainerBG} style={styles.containerBG} />
+  //       <View style={styles.accent}>
+  //         {/* Back Icon */}
+  //         <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
+  //           <Image source={backIcon} style={styles.backIcon} />
+  //         </TouchableOpacity>
+  //         {/* Side Bar Icon */}
+  //         <TouchableOpacity
+  //           style={styles.sidebarIconContainer}
+  //           onPress={toggleSidebar}
+  //         >
+  //           <Image source={sidebarIcon} style={styles.sidebarIcon} />
+  //         </TouchableOpacity>
+  //         <Text style={styles.title}>Turbidity</Text>
+  //         {/* Interval Buttons */}
+  //         <View style={styles.intervalButtons}>
+  //           <TouchableOpacity
+  //             onPress={() => handleIntervalChange("Current")}
+  //             style={
+  //               selectedInterval === 6
+  //                 ? styles.selectedButton
+  //                 : styles.intervalButton
+  //             }
+  //           >
+  //             <Text style={styles.buttonText}>Current</Text>
+  //           </TouchableOpacity>
+  //           <TouchableOpacity
+  //             onPress={() => handleIntervalChange("1 day")}
+  //             style={
+  //               selectedInterval === 24
+  //                 ? styles.selectedButton
+  //                 : styles.intervalButton
+  //             }
+  //           >
+  //             <Text style={styles.buttonText}>1 day</Text>
+  //           </TouchableOpacity>
+  //           <TouchableOpacity
+  //             onPress={() => handleIntervalChange("1 week")}
+  //             style={
+  //               selectedInterval === 168
+  //                 ? styles.selectedButton
+  //                 : styles.intervalButton
+  //             }
+  //           >
+  //             <Text style={styles.buttonText}>1 week</Text>
+  //           </TouchableOpacity>
+  //           <TouchableOpacity
+  //             onPress={() => handleIntervalChange("All")}
+  //             style={
+  //               selectedInterval === "All"
+  //                 ? styles.selectedButton
+  //                 : styles.intervalButton
+  //             }
+  //           >
+  //             <Text style={styles.buttonText}>All</Text>
+  //           </TouchableOpacity>
+  //         </View>
+  //       </View>
+  //     </View>
+  //     <View style={styles.fillOut}>
+  //       {selectedInterval === "Current" && (
+  //         <LineGraph
+  //           data={turbidityData}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Date"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "1 day" && (
+  //         <LineGraph
+  //           data={turbidityData1D}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Date"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "1 week" && (
+  //         <LineGraph
+  //           data={turbidityData1W}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Date"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "All" && (
+  //         <LineGraph
+  //           data={turbidityDataAll}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Date"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "Current" && (
+  //         <ForecastedLineGraph
+  //           data={forecastedTurbidityData}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Hours"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "1 day" && (
+  //         <ForecastedLineGraph
+  //           data={forecastedTurbidityData1D}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Hours"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "1 week" && (
+  //         <ForecastedLineGraph
+  //           data={forecastedTurbidityData1W}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Hours"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //       {selectedInterval === "All" && (
+  //         <ForecastedLineGraph
+  //           data={forecastedTurbidityDataAll}
+  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
+  //           domain={[0, 6]}
+  //           xlabel="Hours"
+  //           ylabel="Turbidity Level"
+  //           time="x"
+  //           value="y"
+  //         />
+  //       )}
+  //     </View>
+  //     <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
+  //   </View>
+  // );
 };
 
 const styles = StyleSheet.create({
