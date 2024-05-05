@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -7,72 +7,84 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import Status from "../components/StatusBar";
 import LineGraph from "../components/LineGraph";
-import data from "../services/firebase/readData";
 import backIcon from "../assets/Back.png";
 import ContainerBG from "../assets/ContainerBG.png";
 import sidebarIcon from "../assets/menu.png";
 import SidebarMenu from "../menu/SideBar.js";
-import forecastedData from "../services/firebase/readForecastedData";
 import ForecastedLineGraph from "../components/ForecastedLineGraph";
-import data1D from "../services/firebase/read1D";
-import forecastedData1D from "../services/firebase/readForecasted1D";
-import data1W from "../services/firebase/read1W";
-import forecastedData1W from "../services/firebase/readForecasted1W";
-import dataAll from "../services/firebase/readAll";
-import forecastedDataAll from "../services/firebase/readForecastedAll";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  limit,
+  onSnapshot,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { app } from "../services/firebase/firebaseConfig";
 
-const PHScreen = () => {
-  const navigation = useNavigation();
+const PHScreen = ({ navigation }) => {
   const [isSidebarVisible, setSidebarVisible] = useState(false);
-  const [selectedInterval, setSelectedInterval] = useState("Current");
+  const [selectedInterval, setSelectedInterval] = useState(6);
+  const [phValues, setPHValues] = useState([]);
+
   const toggleSidebar = () => {
     setSidebarVisible(!isSidebarVisible);
   };
   const goBack = () => {
     navigation.goBack();
   };
-  const phData = data(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values",
-    selectedInterval
-  );
-  const forecastedPHData = forecastedData(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values"
-  );
-  const phData1D = data1D(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values",
-    selectedInterval
-  );
-  const forecastedPHData1D = forecastedData1D(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values"
-  );
-  const phData1W = data1W(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values",
-    selectedInterval
-  );
-  const forecastedPHData1W = forecastedData1W(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values"
-  );
-  const phDataAll = dataAll(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values",
-    selectedInterval
-  );
-  const forecastedPHDataAll = forecastedDataAll(
-    "pH_Level/Timestamp",
-    "pH_Level/ph_Level_Values"
-  );
   const handleIntervalChange = (interval) => {
     setSelectedInterval(interval);
   };
+
+  // Initialize Firestore
+  const db = getFirestore(app);
+
+  // Firestore Collections
+  const SENSOR_PH_VALUE_COLLECTION = collection(db, "SENSOR_PH_LEVEL_VALUES");
+  const SENSOR_TURBIDITY_VALUE_COLLECTION = collection(
+    db,
+    "SENSOR_TURBIDITY_LEVEL_VALUES"
+  );
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function fetchPHValues() {
+      let phValuesQuery;
+      if (selectedInterval === "All") {
+        phValuesQuery = query(
+          SENSOR_PH_VALUE_COLLECTION,
+          orderBy("Timestamp", "desc")
+        );
+      } else {
+        phValuesQuery = query(
+          SENSOR_PH_VALUE_COLLECTION,
+          orderBy("Timestamp", "desc"),
+          limit(selectedInterval)
+        );
+      }
+
+      if (!isMounted) return;
+
+      const phValuesSnapshot = await getDocs(phValuesQuery);
+      const phValues = phValuesSnapshot.docs.map((doc) => ({
+        x: doc.data().Timestamp,
+        y: doc.data().PHLevelValues,
+      }));
+      setPHValues(phValues);
+    }
+
+    fetchPHValues();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [selectedInterval]);
+
   return (
     <View style={styles.container}>
       <Status />
@@ -94,9 +106,9 @@ const PHScreen = () => {
           {/* Interval Buttons */}
           <View style={styles.intervalButtons}>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("Current")}
+              onPress={() => handleIntervalChange(6)}
               style={
-                selectedInterval === "Current"
+                selectedInterval === 6
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -104,9 +116,9 @@ const PHScreen = () => {
               <Text style={styles.buttonText}>Current</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("1 day")}
+              onPress={() => handleIntervalChange(24)}
               style={
-                selectedInterval === "1 day"
+                selectedInterval === 24
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -114,9 +126,9 @@ const PHScreen = () => {
               <Text style={styles.buttonText}>1 day</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("1 week")}
+              onPress={() => handleIntervalChange(168)}
               style={
-                selectedInterval === "1 week"
+                selectedInterval === 168
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -131,100 +143,31 @@ const PHScreen = () => {
                   : styles.intervalButton
               }
             >
-              <Text style={styles.buttonText}>All</Text>
+              <Text style={styles.buttonText}>Max</Text>
             </TouchableOpacity>
           </View>
         </View>
       </View>
       <View style={styles.fillOut}>
-        {selectedInterval === "Current" && (
-          <LineGraph
-            data={phData}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 day" && (
-          <LineGraph
-            data={phData1D}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 week" && (
-          <LineGraph
-            data={phData1W}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "All" && (
-          <LineGraph
-            data={phDataAll}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Date"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "Current" && (
-          <ForecastedLineGraph
-            data={forecastedPHData}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 day" && (
-          <ForecastedLineGraph
-            data={forecastedPHData1D}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "1 week" && (
-          <ForecastedLineGraph
-            data={forecastedPHData1W}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
-        {selectedInterval === "All" && (
-          <ForecastedLineGraph
-            data={forecastedPHDataAll}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Hours"
-            ylabel="Turbidity Level"
-            time="x"
-            value="y"
-          />
-        )}
+        <LineGraph
+          data={phValues}
+          tickValues={[2, 4, 6, 8, 10, 12]}
+          domain={[0, 12]}
+          xlabel="Date"
+          ylabel="Turbidity Level"
+          time="x"
+          value="y"
+        />
+
+        {/* <ForecastedLineGraph
+          data={forecastedPHData}
+          tickValues={[2, 4, 6, 8, 10, 12]}
+          domain={[0, 12]}
+          xlabel="Hours"
+          ylabel="Turbidity Level"
+          time="x"
+          value="y"
+        /> */}
       </View>
       <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
