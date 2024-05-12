@@ -1,36 +1,62 @@
 import React from "react";
-import { StyleSheet, View, TouchableOpacity, Image, Text } from "react-native"; // Added Text for debugging
-import { Dialog, ALERT_TYPE } from "react-native-alert-notification";
-import alertIcon from "../assets/alert.png";
+import { View, Text, StyleSheet, TouchableOpacity, Modal, Image } from "react-native";
 
-const AlertNotification = () => {
-  const showDialog = () => {
-    console.log("Dialog will show now."); 
-    Dialog.show({
-      type: ALERT_TYPE.SUCCESS,
-      title: "Success",
-      textBody: "Congrats! This is a custom notification.",
-    });
-  };
-
+const AlertNotification = ({ isVisible, onClose }) => {
   return (
-    <View style={styles.alertContainer}>
-      <TouchableOpacity onPress={showDialog}>
-        <Image source={alertIcon} style={styles.icon} />
-      </TouchableOpacity>
-    </View>
+    <Modal
+      animationType="slide"
+      transparent={true}
+      visible={isVisible}
+      onRequestClose={onClose}
+    >
+      <View style={styles.centeredView}>
+        <View style={styles.modalView}>
+          <Image source={require("../assets/alert.png")} style={styles.icon} />
+          <Text style={styles.message}>
+            pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.
+          </Text>
+          <TouchableOpacity style={styles.button} onPress={onClose}>
+            <Text style={styles.buttonText}>Understood</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </Modal>
   );
 };
 
 const styles = StyleSheet.create({
-  alertContainer: {
-    position: "absolute",
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
     alignItems: "center",
-
+    backgroundColor: "rgba(0,0,0,0.5)", 
+  },
+  modalView: {
+    backgroundColor: "white",
+    borderRadius: 20,
+    padding: 20,
+    alignItems: "center",
+    elevation: 5,
   },
   icon: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
+    marginBottom: 20,
+  },
+  message: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: "center",
+  },
+  button: {
+    backgroundColor: "#7EA3CC",
+    paddingVertical: 10,
+    paddingHorizontal: 20,
+    borderRadius: 10,
+  },
+  buttonText: {
+    color: "white",
+    fontSize: 16,
   },
 });
 

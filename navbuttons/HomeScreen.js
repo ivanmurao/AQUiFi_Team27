@@ -9,6 +9,9 @@ import ph from "../assets/ph.png";
 import sidebarIcon from "../assets/menu.png";
 import data from "../services/firebase/gaugeReadData";
 import AlertNotification from "../components/AlertNotification.js";
+import PHColorChart from "../components/pHColorChart.js";
+import TurbColorChart from "../components/TurbColorChart.js";
+
 // import { data } from "../services/firebase/gaugeReadData";
 import {
   collection,
@@ -29,6 +32,26 @@ const HomeScreen = () => {
   // const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
   // const phValue = parseFloat(rawPHValue);
   // const turbidityValue = parseFloat(rawTurbidityValue);
+
+  const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
+  const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
+  const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
+
+  const handleAlertButtonPress = () => {
+    setIsAlertModalVisible(true);
+  };
+
+  const handleAlertModalClose = () => {
+    setIsAlertModalVisible(false);
+  };
+
+  const handleContainer1Press = () => {
+    setIsPHColorChartVisible(true);
+  };
+
+  const handleContainer2Press = () => {
+    setIsTurbColorChartVisible(true);
+  };
 
   // Constant Values
   // const phValue = 7;
@@ -113,13 +136,12 @@ const HomeScreen = () => {
     return () => {
       isMounted = false; // Set to false when component unmounts
     };
-  }, []); // Empty dependency array to run only on mount and unmount
+  }, [isPHColorChartVisible]); // Empty dependency array to run only on mount and unmount
 
   return (
     <View style={styles.container}>
       <Status />
       <View style={styles.frame}>
-      
         <View style={styles.accent}>
           {/* Date and Greetings */}
           <View style={styles.dateGreetingsContainer}>
@@ -134,9 +156,20 @@ const HomeScreen = () => {
             <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
           <View style={styles.alertContainer}>
-            <AlertNotification/>
+            <TouchableOpacity
+              style={styles.alertButton}
+              onPress={handleAlertButtonPress}
+            >
+              <Image
+                source={require("../assets/alert.png")}
+                style={styles.alerticon}
+              />
+            </TouchableOpacity>
+            <AlertNotification
+              isVisible={isAlertModalVisible}
+              onClose={handleAlertModalClose}
+            />
           </View>
-          
         </View>
       </View>
       <View style={styles.fillOut}>
@@ -147,97 +180,109 @@ const HomeScreen = () => {
         <Text style={styles.title}>Alkaline Water</Text>
         <Text style={styles.title}>Monitoring System</Text>
         {/* Container 1 */}
-        <View style={styles.container1}>
-          {/* Left Section */}
-          <View style={styles.leftSection1}>
-            <Image source={ph} style={styles.icon} />
-            <Text style={styles.containerTitle1}>pH</Text>
+        <TouchableOpacity onPress={handleContainer1Press}>
+          <View style={styles.container1}>
+            {/* Left Section */}
+            <View style={styles.leftSection1}>
+              <Image source={ph} style={styles.icon} />
+              <Text style={styles.containerTitle1}>pH</Text>
+            </View>
+            {/* Right Section */}
+            <View style={styles.rightSection1}>
+              {/* Circular Gauge */}
+              <Svg width="100" height="100">
+                {/* Background Circle */}
+                <Circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#E1E1E1"
+                  strokeWidth="10"
+                  fill="transparent"
+                />
+                {/* pH Value Circle */}
+                <Circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#7EA3CC"
+                  strokeWidth="10"
+                  strokeDasharray={`${(phValue / 15) * 282.5} 565`}
+                  strokeLinecap="butt"
+                  fill="transparent"
+                />
+                {/* Text Displaying pH Value */}
+                <SvgText
+                  x="50%"
+                  y="50%"
+                  fontSize="16"
+                  textAnchor="middle"
+                  fill="#000"
+                  dy="8"
+                >
+                  {phValue.toFixed(1)}
+                </SvgText>
+              </Svg>
+            </View>
           </View>
-          {/* Right Section */}
-          <View style={styles.rightSection1}>
-            {/* Circular Gauge */}
-            <Svg width="100" height="100">
-              {/* Background Circle */}
-              <Circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="#E1E1E1"
-                strokeWidth="10"
-                fill="transparent"
-              />
-              {/* pH Value Circle */}
-              <Circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="#7EA3CC"
-                strokeWidth="10"
-                strokeDasharray={`${(phValue / 15) * 282.5} 565`}
-                strokeLinecap="butt"
-                fill="transparent"
-              />
-              {/* Text Displaying pH Value */}
-              <SvgText
-                x="50%"
-                y="50%"
-                fontSize="16"
-                textAnchor="middle"
-                fill="#000"
-                dy="8"
-              >
-                {phValue.toFixed(1)}
-              </SvgText>
-            </Svg>
-          </View>
-        </View>
+        </TouchableOpacity>
 
         {/* Container 2 */}
-        <View style={styles.container2}>
-          {/* Left Section */}
-          <View style={styles.leftSection2}>
-            <Image source={turbidity} style={styles.icon} />
-            <Text style={styles.containerTitle2}>TURBIDITY</Text>
+        <TouchableOpacity onPress={handleContainer2Press}>
+          <View style={styles.container2}>
+            {/* Left Section */}
+            <View style={styles.leftSection2}>
+              <Image source={turbidity} style={styles.icon} />
+              <Text style={styles.containerTitle2}>TURBIDITY</Text>
+            </View>
+            {/* Right Section */}
+            <View style={styles.rightSection2}>
+              {/* Circular Gauge */}
+              <Svg width="100" height="100">
+                {/* Background Circle */}
+                <Circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#E1E1E1"
+                  strokeWidth="10"
+                  fill="transparent"
+                />
+                {/* turbidity Value Circle */}
+                <Circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#7EA3CC"
+                  strokeWidth="10"
+                  strokeDasharray={`${(turbidityValue / 5) * 282.5} 565`}
+                  strokeLinecap="butt"
+                  fill="transparent"
+                />
+                {/* Text Displaying turbidity Value */}
+                <SvgText
+                  x="50%"
+                  y="50%"
+                  fontSize="16"
+                  textAnchor="middle"
+                  fill="#000"
+                  dy="8"
+                >
+                  {turbidityValue.toFixed(1)}
+                </SvgText>
+              </Svg>
+            </View>
           </View>
-          {/* Right Section */}
-          <View style={styles.rightSection2}>
-            {/* Circular Gauge */}
-            <Svg width="100" height="100">
-              {/* Background Circle */}
-              <Circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="#E1E1E1"
-                strokeWidth="10"
-                fill="transparent"
-              />
-              {/* turbidity Value Circle */}
-              <Circle
-                cx="50"
-                cy="50"
-                r="45"
-                stroke="#7EA3CC"
-                strokeWidth="10"
-                strokeDasharray={`${(turbidityValue / 5) * 282.5} 565`}
-                strokeLinecap="butt"
-                fill="transparent"
-              />
-              {/* Text Displaying turbidity Value */}
-              <SvgText
-                x="50%"
-                y="50%"
-                fontSize="16"
-                textAnchor="middle"
-                fill="#000"
-                dy="8"
-              >
-                {turbidityValue.toFixed(1)}
-              </SvgText>
-            </Svg>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
+      <PHColorChart
+        isVisible={isPHColorChartVisible}
+        onClose={() => setIsPHColorChartVisible(false)}
+      />
+      <TurbColorChart
+        isVisible={isTurbColorChartVisible}
+        onClose={() => setIsTurbColorChartVisible(false)}
+      />
       <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
@@ -253,11 +298,18 @@ const styles = StyleSheet.create({
   },
   alertContainer: {
     position: "absolute",
-    top: 80,
+    top: 60,
     left: 0,
-    right: 20,
+    right: 15,
     alignItems: "flex-end",
   },
+
+  alerticon: {
+    width: 40,
+    height: 40,
+    marginBottom: 20,
+  },
+
   accent: {
     position: "absolute",
     top: 0,
@@ -318,11 +370,10 @@ const styles = StyleSheet.create({
   container1: {
     flexDirection: "row",
     backgroundColor: "#7EA3CC",
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
     marginTop: 40,
-    marginBottom: 30,
     borderRadius: 30,
     elevation: 5,
   },
@@ -363,10 +414,10 @@ const styles = StyleSheet.create({
   container2: {
     flexDirection: "row",
     backgroundColor: "#7EA3CC",
-    paddingTop: 20,
-    paddingBottom: 20,
-    paddingLeft: 50,
-    marginTop: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    padding: 20,
+    marginTop: 50,
     borderRadius: 30,
     elevation: 5,
   },
@@ -381,6 +432,8 @@ const styles = StyleSheet.create({
     paddingBottom: 30,
     paddingLeft: 35,
     paddingRight: 35,
+    left: 10,
+    alignItems: "center",
     elevation: 5,
   },
   containerTitle2: {
