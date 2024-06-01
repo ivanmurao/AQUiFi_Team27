@@ -199,7 +199,7 @@ const styles = StyleSheet.create({
     height: 85,
     width: 85,
     resizeMode: "contain",
-    borderRadius: 30,
+    borderRadius: 24,
     marginRight: 10,
     marginLeft: 10,
   },
@@ -208,7 +208,7 @@ const styles = StyleSheet.create({
     color: "white",
     marginTop: 10,
     marginLeft: 20,
-    textAlign: "justify",
+    textAlign: "left",
   },
 });
 

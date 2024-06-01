@@ -45,6 +45,24 @@ const TurbColorChart = ({ isVisible, onClose }) => {
             </View>
           </View>
 
+           {/* Arrow Indicator */}
+           <View style={styles.indicatorContainer}>
+            <View style={styles.indicator1}/>
+            <View style={styles.indicator2}/>
+          </View>
+
+          {/* Indicator Text */}
+          <View style={styles.indicatorDesContainer}>
+            <Text style={styles.indicatorDes1}>Not Recommended</Text>
+            <Text style={styles.indicatorDes2}> Acceptable Value for</Text>
+          </View>
+
+          {/* Indicator Text */}
+          <View style={styles.indicatorDes2Container}>
+            <Text style={styles.indicatorDes22}>Drinking Water</Text>
+          </View>
+          
+
           {/* Close Button */}
           <TouchableOpacity style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Close</Text>
@@ -86,7 +104,7 @@ const styles = StyleSheet.create({
   colorBoxesContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginBottom: 20,
+    marginBottom: 10,
   },
   colorBox: {
     width: 30,
@@ -100,6 +118,60 @@ const styles = StyleSheet.create({
     color: "black",
     fontWeight: "medium",
     fontSize: 16,
+  },
+
+  indicatorContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 290,
+    justifyContent: "space-between",
+    marginBottom: 5,
+  },
+
+  indicator1: {
+    width: 85,
+    height: 10,
+    borderWidth: 2,
+    borderTopWidth:0,
+  },
+
+  indicator2: {
+    width: 165,
+    height: 10,
+    borderWidth: 2,
+    borderTopWidth:0,
+  },
+
+  indicatorDesContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 320,
+    justifyContent: "space-between",
+  },
+
+  indicatorDes1: {
+    color: "#7EA3CC",
+    fontWeight: "600"
+  },
+
+  indicatorDes2: {
+    color: "#7EA3CC",
+    marginRight: 27,
+    fontWeight: "600"
+  },
+
+  indicatorDes2Container: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "flex-end",
+    width: 287,
+    marginBottom: 20,
+  },
+
+  indicatorDes22: {
+    color: "#7EA3CC",
+    marginRight: 27,
+    fontWeight: "600"
   },
 
   button: {

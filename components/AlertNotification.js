@@ -1,5 +1,12 @@
 import React from "react";
-import { View, Text, StyleSheet, TouchableOpacity, Modal, Image } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  Modal,
+  Image,
+} from "react-native";
 
 const AlertNotification = ({ isVisible, onClose }) => {
   return (
@@ -11,9 +18,16 @@ const AlertNotification = ({ isVisible, onClose }) => {
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
-          <Image source={require("../assets/alert.png")} style={styles.icon} />
+          <View style={styles.upperContent}>
+            <Image
+              source={require("../assets/alert.png")}
+              style={styles.icon}
+            />
+            <Text style={styles.warningText}>Warning!</Text>
+          </View>
           <Text style={styles.message}>
-            pH is Acidic. It is not recommended to drink the water. Valve will automatically shut off.
+            pH is Acidic. It is not recommended to drink the water. Valve will
+            automatically shut off.
           </Text>
           <TouchableOpacity style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Understood</Text>
@@ -29,26 +43,45 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0,0,0,0.5)", 
+    backgroundColor: "rgba(0,0,0,0.5)",
   },
+  
   modalView: {
     backgroundColor: "white",
+    width: 340,
     borderRadius: 20,
-    padding: 20,
-    alignItems: "center",
+    padding: 30,
+    justifyContent: "flex-start",
     elevation: 5,
   },
+
+  upperContent: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+    flexDirection: "row",
+    marginBottom: 20,
+  },
+
   icon: {
     width: 50,
     height: 50,
-    marginBottom: 20,
+    marginRight: 10,
   },
+
+  warningText: {
+    fontSize: 20,
+    fontWeight: "600",
+  },
+
   message: {
     fontSize: 16,
-    marginBottom: 20,
-    textAlign: "center",
+    marginBottom: 40,
+    textAlign: "left",
   },
+
   button: {
+    justifyContent: "center",
+    alignSelf: "center",
     backgroundColor: "#7EA3CC",
     paddingVertical: 10,
     paddingHorizontal: 20,

@@ -46,6 +46,20 @@ const pHColorChart = ({ isVisible, onClose }) => {
             </View>
           </View>
 
+          {/* Arrow Indicator */}
+          <View style={styles.indicatorArrowContainer}>
+            <View style={styles.indicatorArrow1}/>
+            <View style={styles.indicatorArrow2}/>
+            <View style={styles.indicatorArrow3}/>
+          </View>
+
+          {/* Indicator Text */}
+          <View style={styles.indicatorTextContainer}>
+            <Text style={styles.indicatorText1}>Acidic</Text>
+            <Text style={styles.indicatorText2}>Neutral</Text>
+            <Text style={styles.indicatorText3}>Alkaline</Text>
+          </View>
+
           {/* Close Button */}
           <TouchableOpacity style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Close</Text>
@@ -87,8 +101,9 @@ const styles = StyleSheet.create({
   colorBoxesContainer: {
     flexDirection: "row",
     justifyContent: "space-evenly",
-    marginBottom: 20,
+    marginBottom: 10,
   },
+  
   colorBox: {
     width: 30,
     height: 30,
@@ -102,6 +117,61 @@ const styles = StyleSheet.create({
     fontWeight: "medium",
     fontSize: 16,
   },
+
+  indicatorArrowContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 290,
+    justifyContent: "space-between",
+    marginBottom: 5,
+  },
+
+  indicatorArrow1: {
+    width: 125,
+    height: 10,
+    borderWidth: 2,
+    borderTopWidth:0,
+  },
+
+  indicatorArrow2: {
+    height: 10,
+    borderLeftWidth: 2,
+  },
+
+  indicatorArrow3: {
+    width: 85,
+    height: 10,
+    borderTopWidth:0,
+    borderWidth: 2,
+  },
+
+  indicatorTextContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    width: 290,
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+
+  indicatorText1: {
+    color: "#7EA3CC",
+    marginLeft: 45,
+    fontWeight: "600"
+    
+  },
+
+  indicatorText2: {
+    color: "#7EA3CC",
+    marginLeft: 25,
+    fontWeight: "600"
+  },
+
+  indicatorText3: {
+    color: "#7EA3CC",
+    marginRight: 15,
+    fontWeight: "600"
+  },
+
   button: {
     backgroundColor: "#255C99",
     paddingVertical: 8,
