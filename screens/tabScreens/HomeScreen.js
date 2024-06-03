@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
-import Status from "@components/StatusBar.js";
 import logoIcon from "@assets/images/logos/aquifi-light.png";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
@@ -132,7 +131,6 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Status />
       <View style={styles.frame}>
         <View style={styles.accent}>
           {/* Date and Greetings */}

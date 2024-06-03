@@ -11,7 +11,6 @@ import {
   Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import Status from "@components/StatusBar";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
 import next from "@assets/images/icons/next.png";
@@ -48,7 +47,6 @@ const MonitorScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Status />
       <View style={styles.fillOut}>
         {/* Top container for parameter selection */}
         <View style={styles.topContainer}>

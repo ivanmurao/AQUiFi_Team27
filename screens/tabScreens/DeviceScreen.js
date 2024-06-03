@@ -8,7 +8,6 @@ import {
   Modal,
   Button,
 } from "react-native";
-import Status from "@components/StatusBar.js";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
 import arduino from "@assets/images/prototype-components/arduino.png";
@@ -46,7 +45,6 @@ const DeviceScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Status />
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
         <View style={styles.compContainer}>
@@ -291,7 +289,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     borderRadius: 30,
-    marginTop: 50,
   },
   compDescription: {
     fontSize: 24,

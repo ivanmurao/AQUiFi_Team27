@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import LineGraph from "@components/LineGraph.js";
-import Status from "@components/StatusBar.js";
 import data from "@hooks/readData.js";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
@@ -66,7 +65,6 @@ const TurbidityScreen = () => {
   // };
   // return (
   //   <View style={styles.container}>
-  //     <Status />
   //     <View style={styles.frame}>
   //       <ImageBackground source={ContainerBG} style={styles.containerBG} />
   //       <View style={styles.accent}>

@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { View, Image, StyleSheet, TouchableOpacity, Text } from "react-native";
+import { View, Image, StyleSheet, TouchableOpacity, Text, StatusBar } from "react-native";
 import AquiFi from "@assets/images/logos/aquifi-tagline-dark.png";
-import Status from "@components/StatusBar";
 
 const LandingPage = ({ navigation }) => {
   const [blinkVisible, setBlinkVisible] = useState(0.3);
@@ -20,7 +19,7 @@ const LandingPage = ({ navigation }) => {
 
   return (
     <View style={styles.container} onTouchEnd={goToLandingPage}>
-      <Status />
+      <StatusBar backgroundColor={"white"} />
       <Image source={AquiFi} style={styles.logo} />
       <TouchableOpacity style={styles.proceedButton}>
         <Text style={[styles.buttonText, { opacity: blinkVisible }]}>

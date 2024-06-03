@@ -7,7 +7,6 @@ import {
   Image,
   ImageBackground,
 } from "react-native";
-import Status from "@components/StatusBar";
 import LineGraph from "@components/LineGraph";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
@@ -81,7 +80,6 @@ const PHScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <Status />
       <View style={styles.frame}>
         <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
