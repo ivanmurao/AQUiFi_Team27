@@ -32,6 +32,7 @@ export default function DrawerNavigator() {
             elevation: 0, // Remove shadow on Android
             shadowOpacity: 0, // Remove shadow on iOS
           },
+          headerTintColor: "white",
           drawerActiveTintColor: "black",
           drawerInactiveTintColor: "black",
           headerTitle: "",
