@@ -19,10 +19,7 @@ const AlertNotification = ({ isVisible, onClose }) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={styles.upperContent}>
-            <Image
-              source={require("../assets/alert.png")}
-              style={styles.icon}
-            />
+            <Image source={require("@assets/images/icons/alert.png")} style={styles.icon} />
             <Text style={styles.warningText}>Warning!</Text>
           </View>
           <Text style={styles.message}>
@@ -45,7 +42,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     backgroundColor: "rgba(0,0,0,0.5)",
   },
-  
+
   modalView: {
     backgroundColor: "white",
     width: 340,

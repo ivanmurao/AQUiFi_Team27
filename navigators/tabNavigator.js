@@ -2,11 +2,11 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Image } from "react-native";
 import MonitorNavigator from "./monitorNavigator";
-import Home from "../navbuttons/HomeScreen";
-import Device from "../navbuttons/DeviceScreen";
-import HomeIcon from "../assets/HomeIcon.png";
-import MonitorIcon from "../assets/Monitor.png";
-import IoTIcon from "../assets/IoT.png";
+import Home from "@screens/tabScreens/HomeScreen";
+import Device from "@screens/tabScreens/DeviceScreen";
+import HomeIcon from "@assets/images/icons/home.png";
+import MonitorIcon from "@assets/images/icons/monitor.png";
+import IoTIcon from "@assets/images/icons/iot.png";
 
 const TabNavigator = () => {
   const Tab = createBottomTabNavigator(); 

@@ -1,6 +1,6 @@
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
-import app from "./firebaseConfig";
+import app from "@services/firebase/firebaseConfig";
 
 export default function useData(dataPath) {
   const [data, setData] = useState([]);

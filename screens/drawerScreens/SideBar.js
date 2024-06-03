@@ -9,11 +9,11 @@ import {
   Animated,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import sidebarLogo from "../assets/sidebarIcon.png";
-import aboutus from "../assets/aboutus.png";
-import toc from "../assets/toc.png";
-import privacy from "../assets/Privacy.png";
-import exit from "../assets/exit.png";
+import sidebarLogo from "@assets/images/logos/aquifi-dark.png";
+import aboutus from "@assets/images/icons/about-us.png";
+import toc from "@assets/images/icons/toc.png";
+import privacy from "@assets/images/icons/privacy.png";
+import exit from "@assets/images/icons/exit.png";
 
 const SidebarMenu = ({ isVisible, onClose }) => {
   const navigation = useNavigation();

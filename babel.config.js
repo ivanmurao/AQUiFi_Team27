@@ -11,6 +11,20 @@ module.exports = function (api) {
           path: ".env",
         },
       ],
+      [
+        "module-resolver",
+        {
+          alias: {
+            "@components": "./components",
+            "@screens": "./screens",
+            "@assets": "./assets",
+            "@utils": "./utils",
+            "@navigations": "./navigations",
+            "@services": "./services",
+            "@hooks": "./hooks",
+          },
+        },
+      ],
     ],
   };
 };

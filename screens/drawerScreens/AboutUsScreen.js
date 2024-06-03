@@ -8,14 +8,14 @@ import {
   ScrollView,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import ContainerBG from "../assets/ContainerBG.png";
-import backIcon from "../assets/Back.png";
-import compLogo from "../assets/company-logo.png";
-import agripa from "../assets/agripa.png";
-import delapeña from "../assets/delapeña.png";
-import murao from "../assets/murao.png";
-import naldo from "../assets/naldo.png";
-import vasquez from "../assets/vasquez.png";
+import ContainerBG from "@assets/images/background-container.png";
+import backIcon from "@assets/images/icons/back.png";
+import compLogo from "@assets/images/logos/company-logo.png";
+import agripa from "@assets/images/members/agripa.png";
+import delapeña from "@assets/images/members/dela-peña.png";
+import murao from "@assets/images/members/murao.png";
+import naldo from "@assets/images/members/naldo.png";
+import vasquez from "@assets/images/members/vasquez.png";
 
 const AboutUsScreen = () => {
   const navigation = useNavigation();

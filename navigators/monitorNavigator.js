@@ -1,8 +1,7 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import MonitorScreen from "../navbuttons/MonitorScreen";
-import TurbidityScreen from "../parameters/TurbidityScreen";
-import PHScreen from "../parameters/PHScreen";
-
+import MonitorScreen from "@screens/tabScreens/MonitorScreen";
+import TurbidityScreen from "@screens/parameters/TurbidityScreen";
+import PHScreen from "@screens/parameters/PHScreen";
 
 const MonitorNavigator = () => {
   const Stack = createStackNavigator();
@@ -24,7 +23,6 @@ const MonitorNavigator = () => {
         component={PHScreen}
         options={{ headerShown: false }}
       />
-      
     </Stack.Navigator>
   );
 };

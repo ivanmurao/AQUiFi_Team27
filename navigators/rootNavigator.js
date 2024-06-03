@@ -1,10 +1,10 @@
 import { createStackNavigator } from "@react-navigation/stack";
-import FrontPage from "../screens/FrontPage";
-import HomeScreen from "../navbuttons/HomeScreen";
+import FrontPage from "@screens/LandingPage";
+import HomeScreen from "@screens/tabScreens/HomeScreen";
 import TabNavigator from "./tabNavigator";
-import AboutUsScreen from "../menu/AboutUsScreen";
-import DataPrivacyScreen from "../menu/DataPrivacyScreen";
-import TermScreen from "../menu/TermScreen";
+import AboutUsScreen from "@screens/drawerScreens/AboutUsScreen";
+import DataPrivacyScreen from "@screens/drawerScreens/DataPrivacyScreen";
+import TermScreen from "@screens/drawerScreens/TermScreen";
 
 const RootNavigator = () => {
   const Stack = createStackNavigator();

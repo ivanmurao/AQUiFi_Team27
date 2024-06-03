@@ -1,6 +1,6 @@
 import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
-import app from "./firebaseConfig";
+import app from "@services/firebase/firebaseConfig";
 
 export default function useForecastedData(timestampPath, valuePath) {
   const [forecastedData, setForecastedData] = useState([]);
@@ -26,7 +26,8 @@ export default function useForecastedData(timestampPath, valuePath) {
           }
         });
 
-        setForecastedData(forecastedDataValues);
+        const limitForecastedDataValues = forecastedDataValues.slice(-6);
+        setForecastedData(limitForecastedDataValues);
       }, (error) => {
         console.error("Error fetching forecasted data:", error);
       });
