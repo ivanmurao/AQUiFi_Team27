@@ -1,9 +1,20 @@
+# Expo cahce
 .expo
 
+# Node modules
 node_modules/
 
+# Environment variables
 .env
 
+# Build files
 dist/
 
-.yarn
+# Yarn cache
+.pnp.*
+.yarn/*
+!.yarn/patches
+!.yarn/plugins
+!.yarn/releases
+!.yarn/sdks
+!.yarn/versions
