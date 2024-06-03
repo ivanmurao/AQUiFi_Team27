@@ -8,7 +8,16 @@
       "android": {
         "buildType": "apk"
       },
-      "channel": "preview"
+      "channel": "preview",
+      "env": {
+        "API_KEY": "${EXPO_PUBLIC_API_KEY}",
+        "AUTH_DOMAIN": "${EXPO_PUBLIC_AUTH_DOMAIN}",
+        "DATABASE_URL": "${EXPO_PUBLIC_DATABASE_URL}",
+        "PROJECT_ID": "${EXPO_PUBLIC_PROJECT_ID}",
+        "STORAGE_BUCKET": "${EXPO_PUBLIC_STORAGE_BUCKET}",
+        "MESSAGING_SENDER_ID": "${EXPO_PUBLIC_MESSAGING_SENDER_ID}",
+        "APP_ID": "${EXPO_PUBLIC_APP_ID}"
+      }
     },
     "preview2": {
       "android": {

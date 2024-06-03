@@ -3301,12 +3301,10 @@ __metadata:
     react-native-animatable: "npm:^1.4.0"
     react-native-circular-progress: "npm:^1.3.9"
     react-native-circular-progress-indicator: "npm:^4.4.2"
-    react-native-dotenv: "npm:^3.4.9"
     react-native-elements: "npm:^3.4.3"
     react-native-exit-app: "npm:^2.0.0"
     react-native-gauge: "npm:^0.1.2"
     react-native-gesture-handler: "npm:~2.16.1"
-    react-native-progress: "npm:^5.0.1"
     react-native-reanimated: "npm:~3.10.1"
     react-native-safe-area-context: "npm:4.10.1"
     react-native-screens: "npm:3.31.1"
@@ -4804,7 +4802,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"dotenv@npm:^16.4.4, dotenv@npm:^16.4.5, dotenv@npm:~16.4.5":
+"dotenv@npm:^16.4.4, dotenv@npm:~16.4.5":
   version: 16.4.5
   resolution: "dotenv@npm:16.4.5"
   checksum: 10c0/48d92870076832af0418b13acd6e5a5a3e83bb00df690d9812e94b24aff62b88ade955ac99a05501305b8dc8f1b0ee7638b18493deb6fe93d680e5220936292f
@@ -5216,15 +5214,6 @@ __metadata:
   peerDependencies:
     expo: "*"
   checksum: 10c0/8548e46991739f42456428141b574c9d83ef77f2a79f371b5c6c1b77364759d4a993af8d40c027a904b5870d41165c99e3e4a8fea93316853819ba16fac0d692
-  languageName: node
-  linkType: hard
-
-"expo-linear-gradient@npm:^11.0.3":
-  version: 11.4.0
-  resolution: "expo-linear-gradient@npm:11.4.0"
-  peerDependencies:
-    expo: "*"
-  checksum: 10c0/701843afabe897e02484c48e7538da83269830cee37fd01a78dcea28c6404e9b8385be95887310632cebd28cc943b885e72d96aaee30bfceccaf6709236b9c9e
   languageName: node
   linkType: hard
 
@@ -8802,17 +8791,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-native-dotenv@npm:^3.4.9":
-  version: 3.4.11
-  resolution: "react-native-dotenv@npm:3.4.11"
-  dependencies:
-    dotenv: "npm:^16.4.5"
-  peerDependencies:
-    "@babel/runtime": ^7.20.6
-  checksum: 10c0/9ed4a37fb59030706d17a1cc49d05af9d8fc57dcb2ef97e122b844f3ab6f6331ebc089afac559fe5bddf37806aa282b4118005f1b27aae5e37fdc3fc8bd7625c
-  languageName: node
-  linkType: hard
-
 "react-native-elements@npm:^3.4.3":
   version: 3.4.3
   resolution: "react-native-elements@npm:3.4.3"
@@ -8844,9 +8822,7 @@ __metadata:
   resolution: "react-native-gauge@npm:0.1.2"
   dependencies:
     "@react-native-masked-view/masked-view": "npm:^0.2.6"
-    expo-linear-gradient: "npm:^11.0.3"
     react-native-anchor-point: "npm:^1.0.6"
-    react-native-progress: "github:cwnicoletti/react-native-progress"
     react-native-svg: "npm:^12.1.1"
   peerDependencies:
     react: "*"
@@ -8867,28 +8843,6 @@ __metadata:
     react: "*"
     react-native: "*"
   checksum: 10c0/cd31794870edc51bc7051bf22893b19cebda5754c2fbd381f72e6ae6a718c26c5cf6966ad2f80e15e3a3217d09cc3e2e1637132f70bf44aacf62ea15a7636c98
-  languageName: node
-  linkType: hard
-
-"react-native-progress@github:cwnicoletti/react-native-progress":
-  version: 5.0.0
-  resolution: "react-native-progress@https://github.com/cwnicoletti/react-native-progress.git#commit=991350aaf7a90157c2fbda6ec312d949db0b3adf"
-  dependencies:
-    prop-types: "npm:^15.7.2"
-  peerDependencies:
-    react-native-svg: "*"
-  checksum: 10c0/2b3bcdeeee1de8d877637c1ac0cfbae49b12676c272a3207cf0895e858351ebae58a6965bf4be791b53c8902d7d3ab65a72e2e4214312c03b9686f2c5c14462e
-  languageName: node
-  linkType: hard
-
-"react-native-progress@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "react-native-progress@npm:5.0.1"
-  dependencies:
-    prop-types: "npm:^15.7.2"
-  peerDependencies:
-    react-native-svg: "*"
-  checksum: 10c0/a8c549609c18268ee8e0e95bfe3f4fad3eaeb7df5f2a4c69c72d5c229e56d19536055a6308b9aa501639702691b81ac0dd37794991aebe9793246eb3609dec38
   languageName: node
   linkType: hard
 
