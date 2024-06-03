@@ -85,7 +85,7 @@ const HomeScreen = () => {
         <View style={styles.logoImageContainer}>
           <Image source={logoIcon} style={styles.logoImage} />
         </View>
-        <Text style={styles.title}>Alkaline Water</Text>
+        <Text style={styles.title}>Purified Water</Text>
         <Text style={styles.title}>Monitoring System</Text>
         {/* Container 1 */}
         <TouchableOpacity onPress={handleContainer1Press}>
