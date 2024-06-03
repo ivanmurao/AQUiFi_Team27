@@ -7,8 +7,6 @@ import {
   Pressable,
   Animated,
   TouchableOpacity,
-  Modal,
-  Button,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
@@ -31,7 +29,7 @@ const MonitorScreen = () => {
   const translateX = useRef(new Animated.Value(0)).current;
 
   const db = getDatabase(app);
-  const buttonRef = ref(db, "Sensor/Button/");
+  const buttonRef = ref(db, "BUTTON_STATE/");
 
   const toggleValve = () => {
     const newValue =

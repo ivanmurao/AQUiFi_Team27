@@ -18,6 +18,7 @@ const TabNavigator = () => {
           paddingTop: 10,
           height: 50,
         },
+        lazy: true,
       }}
     >
       <Tab.Screen

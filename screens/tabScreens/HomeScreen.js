@@ -1,34 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
-import logoIcon from "@assets/images/logos/aquifi-light.png";
-import turbidity from "@assets/images/icons/turbidity-meter.png";
-import ph from "@assets/images/icons/ph-meter.png";
-// import data from "@hooks/gaugeReadData";
+
+import gaugeReadData from "@hooks/gaugeReadData";
+
 import AlertNotification from "@components/AlertNotification.js";
 import PHColorChart from "@components/pHColorChart.js";
 import TurbColorChart from "@components/TurbColorChart.js";
 
-// import { data } from "@hooks/gaugeReadData";
-import {
-  collection,
-  getFirestore,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import app from "@services/firebase/firebaseConfig";
+import logoIcon from "@assets/images/logos/aquifi-light.png";
+import turbidity from "@assets/images/icons/turbidity-meter.png";
+import ph from "@assets/images/icons/ph-meter.png";
 
 const HomeScreen = () => {
-  // State Management
-  const [phValue, setPHValue] = useState(0);
-  const [turbidityValue, setTurbidityValue] = useState(0);
-  // const rawPHValue = data("pH_Level/ph_Level_Values");
-  // const rawTurbidityValue = data("Turbidity_Level/Turbidity_Level_Values");
-  // const phValue = parseFloat(rawPHValue);
-  // const turbidityValue = parseFloat(rawTurbidityValue);
-
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
   const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
   const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
@@ -49,10 +33,6 @@ const HomeScreen = () => {
     setIsTurbColorChartVisible(true);
   };
 
-  // Constant Values
-  // const phValue = 7;
-  // const turbidityValue = 3;
-
   const currentTime = new Date();
   const hour = currentTime.getHours();
   let greeting;
@@ -71,63 +51,8 @@ const HomeScreen = () => {
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
-  // Initialize Firestore
-  const db = getFirestore(app);
-
-  // Firestore Collections
-  const SENSOR_PH_VALUE_COLLECTION = collection(db, "SENSOR_PH_LEVEL_VALUES");
-  const SENSOR_TURBIDITY_VALUE_COLLECTION = collection(
-    db,
-    "SENSOR_TURBIDITY_LEVEL_VALUES"
-  );
-
-  // Side Effects
-
-  useEffect(() => {
-    let isMounted = true;
-
-    const fetchData = async () => {
-      try {
-        const phValuesQuery = query(
-          SENSOR_PH_VALUE_COLLECTION,
-          orderBy("Timestamp", "desc"),
-          limit(1)
-        );
-        const turbidityValuesQuery = query(
-          SENSOR_TURBIDITY_VALUE_COLLECTION,
-          orderBy("Timestamp", "desc"),
-          limit(1)
-        );
-
-        // const phSnapshot = await phValuesQuery.get();
-        // const turbiditySnapshot = await turbidityValuesQuery.get();
-
-        if (!isMounted) return; // Prevent state updates if component is unmounted
-
-        onSnapshot(phValuesQuery, (phSnapshot) => {
-          phSnapshot.forEach((doc) => {
-            const rawPHValues = doc.data().PHLevelValues;
-            setPHValue(rawPHValues);
-          });
-        });
-
-        onSnapshot(turbidityValuesQuery, (turbiditySnapshot) => {
-          turbiditySnapshot.forEach((doc) => {
-            const rawTurbidityValues = doc.data().TurbidityLevelValues;
-            setTurbidityValue(rawTurbidityValues);
-          });
-        });
-      } catch (error) {
-        console.error("Error fetching sensor data:", error);
-      }
-    };
-
-    fetchData();
-
-    return () => {
-      isMounted = false; // Set to false when component unmounts
-    };
-  }, [isPHColorChartVisible]); // Empty dependency array to run only on mount and unmount
+  const { phValue, turbidityValue } = gaugeReadData();
+  console.log(phValue, turbidityValue);
 
   return (
     <View style={styles.container}>
@@ -138,7 +63,6 @@ const HomeScreen = () => {
             <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.greetings}>{greeting}</Text>
           </View>
-          {/* Side Bar Icon */}
           <View style={styles.alertContainer}>
             <TouchableOpacity
               style={styles.alertButton}

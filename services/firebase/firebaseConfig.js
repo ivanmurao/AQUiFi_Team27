@@ -10,6 +10,7 @@ import {
   MESSAGING_SENDER_ID,
   APP_ID,
 } from "@env";
+import { getDatabase } from "firebase/database";
 
 const firebaseConfig = {
   apiKey: API_KEY,
@@ -27,4 +28,6 @@ initializeAuth(app, {
   persistence: getReactNativePersistence(ReactNativeAsyncStorage),
 });
 
-export default app;
+const db = getDatabase(app);
+
+export { app, db };

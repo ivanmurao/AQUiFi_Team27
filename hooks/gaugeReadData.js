@@ -1,47 +1,31 @@
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
-import app from "@services/firebase/firebaseConfig";
+import { onValue, ref, off } from "firebase/database";
+import { db } from "@services/firebase/firebaseConfig.js";
 
-export default function useData(dataPath) {
-  const [data, setData] = useState([]);
-  const [loading, setLoading] = useState(true);
+const gaugeReadData = () => {
+  const [phValue, setPhValue] = useState(0);
+  const [turbidityValue, setTurbValue] = useState(0);
 
   useEffect(() => {
-    const fetchData = () => {
-      const db = getDatabase(app);
-      const sensorRef = ref(db, "Sensor/Raw/");
+    const phSensorRef = ref(db, "PH_GAUGE_VALUE");
+    const turbSensorRef = ref(db, "TURBIDITY_GAUGE_VALUE");
 
-      try {
-        const snapshot = onValue(sensorRef);
-        const dataValues = [];
-
-        snapshot.forEach((sensorSnapshot) => {
-          const rawData = sensorSnapshot.child(dataPath).val();
-          if (rawData) {
-            dataValues.push(rawData);
-          }
-        });
-
-        const limitDataValues = dataValues.slice(-1);
-        setData(limitDataValues);
-        setLoading(false);
-      } catch (error) {
-        console.error("Error fetching data:", error);
-      }
-    };
-
-    fetchData(); // Initial fetch
-
-    // Subscribe to changes
-    const unsubscribe = onValue(sensorRef, fetchData, {
-      onlyOnce: false, // Listen for continuous updates
+    const phListener = onValue(phSensorRef, (snapshot) => {
+      setPhValue(snapshot.val());
     });
 
-    return () => {
-      // Unsubscribe when component unmounts
-      unsubscribe();
-    };
-  }, [dataPath]); // Re-run effect when dataPath changes
+    const turbListener = onValue(turbSensorRef, (snapshot) => {
+      setTurbValue(snapshot.val());
+    });
 
-  return { data, loading };
-}
+    // Cleanup function to remove listeners when the component unmounts
+    return () => {
+      off(phSensorRef, "value", phListener);
+      off(turbSensorRef, "value", turbListener);
+    };
+  }, []);
+
+  return { phValue, turbidityValue };
+};
+
+export default gaugeReadData;
