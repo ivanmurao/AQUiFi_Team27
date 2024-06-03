@@ -11,8 +11,6 @@ import Status from "@components/StatusBar";
 import LineGraph from "@components/LineGraph";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
-import sidebarIcon from "@assets/images/icons/menu.png";
-import SidebarMenu from "@screens/drawerScreens/SideBar.js";
 import ForecastedLineGraph from "@components/ForecastedLineGraph";
 import {
   collection,
@@ -26,13 +24,9 @@ import {
 import { app } from "@services/firebase/firebaseConfig";
 
 const PHScreen = ({ navigation }) => {
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [selectedInterval, setSelectedInterval] = useState(6);
   const [phValues, setPHValues] = useState([]);
 
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
-  };
   const goBack = () => {
     navigation.goBack();
   };
@@ -94,13 +88,6 @@ const PHScreen = ({ navigation }) => {
           {/* Back Icon */}
           <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
             <Image source={backIcon} style={styles.backIcon} />
-          </TouchableOpacity>
-          {/* Side Bar Icon */}
-          <TouchableOpacity
-            style={styles.sidebarIconContainer}
-            onPress={toggleSidebar}
-          >
-            <Image source={sidebarIcon} style={styles.sidebarIcon} />
           </TouchableOpacity>
           <Text style={styles.title}>pH</Text>
           {/* Interval Buttons */}
@@ -169,7 +156,6 @@ const PHScreen = ({ navigation }) => {
           value="y"
         /> */}
       </View>
-      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -212,15 +198,6 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     tintColor: "white",
-  },
-  sidebarIconContainer: {
-    position: "absolute",
-    top: 10,
-    right: 20,
-  },
-  sidebarIcon: {
-    width: 30,
-    height: 30,
   },
   intervalButtons: {
     flexDirection: "row",

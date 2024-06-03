@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
-import SidebarMenu from "@screens/drawerScreens/SideBar.js";
 import Status from "@components/StatusBar.js";
 import logoIcon from "@assets/images/logos/aquifi-light.png";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
-import sidebarIcon from "@assets/images/icons/menu.png";
 // import data from "@hooks/gaugeReadData";
 import AlertNotification from "@components/AlertNotification.js";
 import PHColorChart from "@components/pHColorChart.js";
@@ -25,7 +23,6 @@ import app from "@services/firebase/firebaseConfig";
 
 const HomeScreen = () => {
   // State Management
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [phValue, setPHValue] = useState(0);
   const [turbidityValue, setTurbidityValue] = useState(0);
   // const rawPHValue = data("pH_Level/ph_Level_Values");
@@ -74,11 +71,6 @@ const HomeScreen = () => {
     day: "numeric",
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
-
-  // Event Handlers
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
-  };
 
   // Initialize Firestore
   const db = getFirestore(app);
@@ -149,12 +141,6 @@ const HomeScreen = () => {
             <Text style={styles.greetings}>{greeting}</Text>
           </View>
           {/* Side Bar Icon */}
-          <TouchableOpacity
-            style={styles.sidebarIconContainer}
-            onPress={toggleSidebar}
-          >
-            <Image source={sidebarIcon} style={styles.sidebarIcon} />
-          </TouchableOpacity>
           <View style={styles.alertContainer}>
             <TouchableOpacity
               style={styles.alertButton}
@@ -283,7 +269,6 @@ const HomeScreen = () => {
         isVisible={isTurbColorChartVisible}
         onClose={() => setIsTurbColorChartVisible(false)}
       />
-      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -333,15 +318,6 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 18,
     fontWeight: "bold",
-  },
-  sidebarIconContainer: {
-    position: "absolute",
-    top: 10,
-    right: 20,
-  },
-  sidebarIcon: {
-    width: 30,
-    height: 30,
   },
   logoImageContainer: {
     alignItems: "center",

@@ -3312,6 +3312,7 @@ __metadata:
     react-native-screens: "npm:3.31.1"
     react-native-simple-gauge: "npm:^0.3.1"
     react-native-svg: "npm:15.2.0"
+    react-native-swiper: "npm:^1.6.0"
     react-native-vector-icons: "npm:^10.1.0"
     react-native-web: "npm:~0.19.6"
     react-navigation: "npm:^5.0.0"
@@ -8575,7 +8576,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
+"prop-types@npm:^15.5.10, prop-types@npm:^15.7.2, prop-types@npm:^15.8.1":
   version: 15.8.1
   resolution: "prop-types@npm:15.8.1"
   dependencies:
@@ -9001,6 +9002,15 @@ __metadata:
     react: "*"
     react-native: ">=0.50.0"
   checksum: 10c0/20fc5f9ac4c2a841aa4087d202c23f20ab7d49c4a7aa4f82307b08fd3962bae8008942a4b95bc16250b72c94829e3a858f29716f388a924c7feb58e030ee08d7
+  languageName: node
+  linkType: hard
+
+"react-native-swiper@npm:^1.6.0":
+  version: 1.6.0
+  resolution: "react-native-swiper@npm:1.6.0"
+  dependencies:
+    prop-types: "npm:^15.5.10"
+  checksum: 10c0/5cddf220f8a910b82220aafd1b17a51dd6d2cc2cab14304c133409b2198f88ff8de9cde016f2d1ca1e0f2c742500bc2db98db4b44317ad49feea9d68747b596e
   languageName: node
   linkType: hard
 

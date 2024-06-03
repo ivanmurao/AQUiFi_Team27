@@ -1,34 +1,20 @@
-import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
   Image,
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
 import policy from "@assets/images/icons/policy.png";
 
 const DataPrivacyScreen = () => {
-  const navigation = useNavigation();
-
-  const goBack = () => {
-    navigation.goBack();
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
         <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
-          {/* Back Icon */}
-          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
-            <Image source={backIcon} style={styles.backIcon} />
-          </TouchableOpacity>
           <Text style={styles.title}>Data Privacy Policy</Text>
         </View>
       </View>
@@ -119,19 +105,19 @@ const styles = StyleSheet.create({
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
-    top: 80,
+    top: 0,
   },
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "15%",
+    top: "5%",
     bottom: "2%",
     left: "5%",
     right: "5%",
     elevation: 5,
     backgroundColor: "white",
     borderRadius: 30,
-    paddingHorizontal: 10,
+    paddingHorizontal: 30,
   },
   policyLogo: {
     alignSelf: "center",
@@ -143,10 +129,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign: "justify",
   },
   sectionContent: {
     fontSize: 16,
     marginBottom: 20,
+    textAlign: "justify",
   },
 });
 

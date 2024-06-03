@@ -15,18 +15,12 @@ import Status from "@components/StatusBar.js";
 import data from "@hooks/readData.js";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
-import sidebarIcon from "@assets/images/icons/menu.png";
-import SidebarMenu from "@screens/drawerScreens/SideBar.js";
 import forecastedData from "@hooks/readForecastedData.js";
 import ForecastedLineGraph from "@components/ForecastedLineGraph.js";
 
 const TurbidityScreen = () => {
   // const navigation = useNavigation();
-  // const [isSidebarVisible, setSidebarVisible] = useState(false);
   // const [selectedInterval, setSelectedInterval] = useState("Current");
-  // const toggleSidebar = () => {
-  //   setSidebarVisible(!isSidebarVisible);
-  // };
   // const goBack = () => {
   //   navigation.goBack();
   // };
@@ -81,12 +75,6 @@ const TurbidityScreen = () => {
   //           <Image source={backIcon} style={styles.backIcon} />
   //         </TouchableOpacity>
   //         {/* Side Bar Icon */}
-  //         <TouchableOpacity
-  //           style={styles.sidebarIconContainer}
-  //           onPress={toggleSidebar}
-  //         >
-  //           <Image source={sidebarIcon} style={styles.sidebarIcon} />
-  //         </TouchableOpacity>
   //         <Text style={styles.title}>Turbidity</Text>
   //         {/* Interval Buttons */}
   //         <View style={styles.intervalButtons}>
@@ -223,7 +211,6 @@ const TurbidityScreen = () => {
   //         />
   //       )}
   //     </View>
-  //     <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
   //   </View>
   // );
 };
@@ -266,15 +253,6 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     tintColor: "white",
-  },
-  sidebarIconContainer: {
-    position: "absolute",
-    top: 10,
-    right: 20,
-  },
-  sidebarIcon: {
-    width: 30,
-    height: 30,
   },
   intervalButtons: {
     flexDirection: "row",

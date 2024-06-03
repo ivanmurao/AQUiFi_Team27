@@ -8,9 +8,7 @@ import {
   Modal,
   Button,
 } from "react-native";
-import SidebarMenu from "@screens/drawerScreens/SideBar.js";
 import Status from "@components/StatusBar.js";
-import sidebarIcon from "@assets/images/icons/menu.png";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
 import arduino from "@assets/images/prototype-components/arduino.png";
@@ -20,17 +18,12 @@ import mobile from "@assets/images/prototype-components/mobile-phone.png";
 import info from "@assets/images/icons/info.png";
 
 const DeviceScreen = () => {
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
   const [isArduinoModalVisible, setArduinoModalVisible] = useState(false);
   const [isRaspiModalVisible, setRaspiModalVisible] = useState(false);
   const [isTurbModalVisible, setTurbModalVisible] = useState(false);
   const [ispHModalVisible, setpHModalVisible] = useState(false);
   const [isValveModalVisible, setValveModalVisible] = useState(false);
   const [isMobileModalVisible, setMobileModalVisible] = useState(false);
-
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
-  };
 
   const toggleArduinoModal = () => {
     setArduinoModalVisible(!isArduinoModalVisible);
@@ -56,12 +49,6 @@ const DeviceScreen = () => {
       <Status />
       <View style={styles.fillOut}>
         {/* Side Bar Icon */}
-        <TouchableOpacity
-          style={styles.sidebarIconContainer}
-          onPress={toggleSidebar}
-        >
-          <Image source={sidebarIcon} style={styles.sidebarIcon} />
-        </TouchableOpacity>
         <View style={styles.compContainer}>
           <Text style={styles.compDescription}>Device Components</Text>
           {/* Arduino Button */}
@@ -277,7 +264,6 @@ const DeviceScreen = () => {
           </View>
         </Modal>
       </View>
-      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -300,15 +286,6 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: "3%",
     right: "3%",
-  },
-  sidebarIconContainer: {
-    position: "absolute",
-    top: 10,
-    right: 8,
-  },
-  sidebarIcon: {
-    width: 30,
-    height: 30,
   },
   compContainer: {
     flex: 1,

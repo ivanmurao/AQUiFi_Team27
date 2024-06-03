@@ -1,34 +1,21 @@
-import React, { useState } from "react";
 import {
   View,
   StyleSheet,
   Text,
-  TouchableOpacity,
   Image,
   ImageBackground,
   ScrollView,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
-import backIcon from "@assets/images/icons/back.png";
+
 import ContainerBG from "@assets/images/background-container.png";
 import agreement from "@assets/images/icons/agreement.png";
 
 const TermScreen = () => {
-  const navigation = useNavigation();
-
-  const goBack = () => {
-    navigation.goBack();
-  };
-
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
         <ImageBackground source={ContainerBG} style={styles.containerBG} />
         <View style={styles.accent}>
-          {/* Back Icon */}
-          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
-            <Image source={backIcon} style={styles.backIcon} />
-          </TouchableOpacity>
           <Text style={styles.title}>Terms of Agreement</Text>
         </View>
       </View>
@@ -95,8 +82,6 @@ const styles = StyleSheet.create({
   },
   containerBG: {
     flex: 1,
-    height: 870,
-    width: 420,
   },
   frame: {
     flex: 1,
@@ -117,33 +102,23 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20,
     flexDirection: "row",
   },
-  backIconContainer: {
-    position: "absolute",
-    top: 30,
-    left: 20,
-  },
-  backIcon: {
-    width: 30,
-    height: 30,
-    tintColor: "white",
-  },
   title: {
     color: "white",
     fontSize: 24,
     fontWeight: "bold",
-    top: 80,
+    top: 0,
   },
   fillOut: {
     flex: 1,
     position: "absolute",
-    top: "15%",
+    top: "5%",
     bottom: "2%",
     left: "5%",
     right: "5%",
     elevation: 5,
     backgroundColor: "white",
     borderRadius: 30,
-    paddingHorizontal: 10,
+    paddingHorizontal: 30,
   },
   agreementLogo: {
     alignSelf: "center",
@@ -155,10 +130,12 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 10,
+    textAlign: "justify",
   },
   sectionContent: {
     fontSize: 16,
     marginBottom: 20,
+    textAlign: "justify",
   },
 });
 

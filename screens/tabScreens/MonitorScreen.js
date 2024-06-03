@@ -15,24 +15,17 @@ import Status from "@components/StatusBar";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
 import next from "@assets/images/icons/next.png";
-import sidebarIcon from "@assets/images/icons/menu.png";
-import SidebarMenu from "../drawerScreens/SideBar.js";
 import app from "@services/firebase/firebaseConfig.js";
 import { getDatabase, ref, set } from "firebase/database";
 
 const MonitorScreen = () => {
   const navigation = useNavigation();
-  const [isSidebarVisible, setSidebarVisible] = useState(false);
 
   const goToTurbidity = () => {
     navigation.navigate("TurbidityScreen");
   };
   const goTopH = () => {
     navigation.navigate("PHScreen");
-  };
-
-  const toggleSidebar = () => {
-    setSidebarVisible(!isSidebarVisible);
   };
 
   const [selectedValveControl, setSelectedValveControl] = useState(null);
@@ -57,13 +50,6 @@ const MonitorScreen = () => {
     <View style={styles.container}>
       <Status />
       <View style={styles.fillOut}>
-        {/* Side Bar Icon */}
-        <TouchableOpacity
-          style={styles.sidebarIconContainer}
-          onPress={toggleSidebar}
-        >
-          <Image source={sidebarIcon} style={styles.sidebarIcon} />
-        </TouchableOpacity>
         {/* Top container for parameter selection */}
         <View style={styles.topContainer}>
           <Text style={styles.description}>
@@ -108,7 +94,6 @@ const MonitorScreen = () => {
           </View>
         </View>
       </View>
-      <SidebarMenu isVisible={isSidebarVisible} onClose={toggleSidebar} />
     </View>
   );
 };
@@ -138,15 +123,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     borderRadius: 30,
     marginTop: 20,
-  },
-  sidebarIconContainer: {
-    position: "absolute",
-    top: 10,
-    right: 8,
-  },
-  sidebarIcon: {
-    width: 30,
-    height: 30,
   },
   description: {
     fontSize: 24,
