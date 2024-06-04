@@ -1,51 +1,57 @@
-import { getDatabase, ref, onValue } from "firebase/database";
 import { useEffect, useState } from "react";
-import app from "@services/firebase/firebaseConfig";
+import {
+  collection,
+  getDocs,
+  getFirestore,
+  limit,
+  orderBy,
+  query,
+} from "firebase/firestore";
+import { app } from "@services/firebase/firebaseConfig";
 
-export default function useData(timestampPath, valuePath) {
-  const [data, setData] = useState([]);
+export const useReadData = (selectedInterval, refreshing) => {
+  const [phValues, setPHValues] = useState([]);
+
+  // Initialize Firestore
+  const db = getFirestore(app);
+
+  // Firestore Collections
+  const SENSOR_PH_VALUE_COLLECTION = collection(db, "SENSOR_PH_LEVEL_VALUES");
 
   useEffect(() => {
-    const fetchData = () => {
-      const db = getDatabase(app);
-      const sensorRef = ref(db, "Sensor/Raw/");
+    let isMounted = true;
 
-      onValue(sensorRef, (snapshot) => {
-        const dataValues = [];
+    async function fetchPHValues() {
+      let phValuesQuery;
+      if (selectedInterval === "All") {
+        phValuesQuery = query(
+          SENSOR_PH_VALUE_COLLECTION,
+          orderBy("Timestamp", "desc")
+        );
+      } else {
+        phValuesQuery = query(
+          SENSOR_PH_VALUE_COLLECTION,
+          orderBy("Timestamp", "desc"),
+          limit(selectedInterval)
+        );
+      }
 
-        snapshot.forEach((sensorSnapshot) => {
-          const rawTimestamp = sensorSnapshot.child(timestampPath).val();
-          const rawPHLevel = sensorSnapshot.child(valuePath).val();
-          const time = new Date(rawTimestamp);
+      if (!isMounted) return;
 
-          const dataPoint = { x: formatTime(time), y: rawPHLevel };
-          dataValues.push(dataPoint);
-        });
+      const phValuesSnapshot = await getDocs(phValuesQuery);
+      const phValues = phValuesSnapshot.docs.map((doc) => ({
+        x: doc.data().Timestamp,
+        y: doc.data().PHLevelValues,
+      }));
+      setPHValues(phValues);
+    }
 
-        const limitDataValues = dataValues.slice(-6);
-        setData(limitDataValues);
-      }, (error) => {
-        console.error("Error fetching data:", error);
-      });
-    };
-
-    fetchData(); // Initial fetch
-
-    // Subscribe to changes
-    const unsubscribe = onValue(ref(getDatabase(app), "Sensor/Raw/"), fetchData);
+    fetchPHValues();
 
     return () => {
-      // Unsubscribe when component unmounts
-      unsubscribe();
+      isMounted = false;
     };
-  }, [timestampPath, valuePath]);
+  }, [selectedInterval, refreshing]);
 
-  return data;
-}
-
-function formatTime(time) {
-  const hours = time.getHours().toString().padStart(2, '0');
-  const minutes = time.getMinutes().toString().padStart(2, '0');
-  const seconds = time.getSeconds().toString().padStart(2, '0');
-  return `${hours}:${minutes}:${seconds}`;
-}
+  return phValues;
+};

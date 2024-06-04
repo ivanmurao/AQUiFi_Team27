@@ -1,216 +1,141 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   StyleSheet,
   Text,
   TouchableOpacity,
   Image,
-  Modal,
-  Button,
   ImageBackground,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import LineGraph from "@components/LineGraph.js";
-import data from "@hooks/readData.js";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
+import data from "@hooks/readData.js";
 import forecastedData from "@hooks/readForecastedData.js";
-import ForecastedLineGraph from "@components/ForecastedLineGraph.js";
 
-const TurbidityScreen = () => {
-  // const navigation = useNavigation();
-  // const [selectedInterval, setSelectedInterval] = useState("Current");
-  // const goBack = () => {
-  //   navigation.goBack();
-  // };
-  // const turbidityData = data(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values",
-  //   selectedInterval
-  // );
-  // const forecastedTurbidityData = forecastedData(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values"
-  // );
-  // const turbidityData1D = data1D(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values",
-  //   selectedInterval
-  // );
-  // const forecastedTurbidityData1D = forecastedData1D(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values"
-  // );
-  // const turbidityData1W = data1W(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values",
-  //   selectedInterval
-  // );
-  // const forecastedTurbidityData1W = forecastedData1W(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values"
-  // );
-  // const turbidityDataAll = dataAll(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values",
-  //   selectedInterval
-  // );
-  // const forecastedTurbidityDataAll = forecastedDataAll(
-  //   "Turbidity_Level/Timestamp",
-  //   "Turbidity_Level/Turbidity_Level_Values"
-  // );
-  // const handleIntervalChange = (interval) => {
-  //   setSelectedInterval(interval);
-  //   `123`;
-  // };
-  // return (
-  //   <View style={styles.container}>
-  //     <View style={styles.frame}>
-  //       <ImageBackground source={ContainerBG} style={styles.containerBG} />
-  //       <View style={styles.accent}>
-  //         {/* Back Icon */}
-  //         <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
-  //           <Image source={backIcon} style={styles.backIcon} />
-  //         </TouchableOpacity>
-  //         {/* Side Bar Icon */}
-  //         <Text style={styles.title}>Turbidity</Text>
-  //         {/* Interval Buttons */}
-  //         <View style={styles.intervalButtons}>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange("Current")}
-  //             style={
-  //               selectedInterval === 6
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>Current</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange("1 day")}
-  //             style={
-  //               selectedInterval === 24
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>1 day</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange("1 week")}
-  //             style={
-  //               selectedInterval === 168
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>1 week</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange("All")}
-  //             style={
-  //               selectedInterval === "All"
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>All</Text>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     </View>
-  //     <View style={styles.fillOut}>
-  //       {selectedInterval === "Current" && (
-  //         <LineGraph
-  //           data={turbidityData}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Date"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "1 day" && (
-  //         <LineGraph
-  //           data={turbidityData1D}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Date"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "1 week" && (
-  //         <LineGraph
-  //           data={turbidityData1W}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Date"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "All" && (
-  //         <LineGraph
-  //           data={turbidityDataAll}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Date"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "Current" && (
-  //         <ForecastedLineGraph
-  //           data={forecastedTurbidityData}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Hours"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "1 day" && (
-  //         <ForecastedLineGraph
-  //           data={forecastedTurbidityData1D}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Hours"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "1 week" && (
-  //         <ForecastedLineGraph
-  //           data={forecastedTurbidityData1W}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Hours"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //       {selectedInterval === "All" && (
-  //         <ForecastedLineGraph
-  //           data={forecastedTurbidityDataAll}
-  //           tickValues={[0, 1, 2, 3, 4, 5, 6]}
-  //           domain={[0, 6]}
-  //           xlabel="Hours"
-  //           ylabel="Turbidity Level"
-  //           time="x"
-  //           value="y"
-  //         />
-  //       )}
-  //     </View>
-  //   </View>
-  // );
+const TurbidityScreen = ({ navigation }) => {
+  const [selectedInterval, setSelectedInterval] = useState("Current");
+  const [refreshing, setRefreshing] = useState(false);
+
+  const goBack = () => {
+    navigation.goBack();
+  };
+
+  const handleIntervalChange = (interval) => {
+    setSelectedInterval(interval);
+  };
+
+  const onRefresh = useCallback(() => {
+    setTimeout(() => {
+      setRefreshing(true);
+    }, 2000);
+    console.log(refreshing);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
+
+  const turbidityData = [
+    { x: "2024-06-04T14:22:53.609080", y: 3.63 },
+    { x: "2024-06-04T14:22:53.466483", y: 3.54 },
+    { x: "2024-06-04T14:22:53.342559", y: 3.89 },
+    { x: "2024-06-04T14:22:53.221365", y: 3.69 },
+    { x: "2024-06-04T14:22:53.076867", y: 3.77 },
+    { x: "2024-06-04T14:22:52.930675", y: 3.55 },
+  ];
+
+  return (
+    <View style={styles.container}>
+      <View style={styles.frame}>
+        <ImageBackground source={ContainerBG} style={styles.containerBG} />
+        <View style={styles.accent}>
+          {/* Back Icon */}
+          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
+            <Image source={backIcon} style={styles.backIcon} />
+          </TouchableOpacity>
+          {/* Side Bar Icon */}
+          <Text style={styles.title}>Turbidity</Text>
+          {/* Interval Buttons */}
+          <View style={styles.intervalButtons}>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange("Current")}
+              style={
+                selectedInterval === 6
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>Current</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange("1 day")}
+              style={
+                selectedInterval === 24
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>1 day</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange("1 week")}
+              style={
+                selectedInterval === 168
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>1 week</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange("All")}
+              style={
+                selectedInterval === "All"
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>Max</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      <View style={styles.fillOut}>
+        <ScrollView
+          contentContainerStyle={styles.graphContainer}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressBackgroundColor={"#255C99"}
+              colors={["white"]}
+            />
+          }
+        >
+          <LineGraph
+            data={turbidityData}
+            tickValues={[0, 1, 2, 3, 4, 5, 6]}
+            domain={[0, 6]}
+            xlabel="Date"
+            ylabel="Turbidity Level"
+            time="x"
+            value="y"
+          />
+          <LineGraph
+            data={turbidityData}
+            tickValues={[0, 1, 2, 3, 4, 5, 6]}
+            domain={[0, 6]}
+            xlabel="Date"
+            ylabel="Turbidity Level"
+            time="x"
+            value="y"
+          />
+        </ScrollView>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -220,8 +145,6 @@ const styles = StyleSheet.create({
   },
   containerBG: {
     flex: 1,
-    height: 850,
-    width: 420,
   },
   frame: {
     flex: 1,
@@ -289,6 +212,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
+  },
+  graphContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexGrow: 1,
   },
   title: {
     color: "white",

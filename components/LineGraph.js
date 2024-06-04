@@ -9,6 +9,7 @@ import {
 } from "victory-native";
 
 const LineGraph = ({
+  title,
   data,
   tickValues,
   domain,
@@ -18,42 +19,35 @@ const LineGraph = ({
   value,
 }) => {
   return (
-    <View style={styles.container}>
-      <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
-        <VictoryLabel
-          text="Real-time Data"
-          x={190}
-          y={30}
-          textAnchor="middle"
-          style={{ fontSize: 16, fontWeight: "bold" }}
-        />
-        <VictoryLine animate data={data} x={time} y={value} />
-        <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
-        <VictoryAxis
-          dependentAxis
-          style={styles.yAxisStyle}
-          tickValues={tickValues}
-          domain={domain}
-          label={ylabel}
-        />
-      </VictoryChart>
-    </View>
+    <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
+      <VictoryLabel
+        text={title}
+        x={190}
+        y={30}
+        textAnchor="middle"
+        style={{ fontSize: 16, fontWeight: "bold" }}
+      />
+      <VictoryLine animate data={data} x={time} y={value} />
+      <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
+      <VictoryAxis
+        dependentAxis
+        style={styles.yAxisStyle}
+        tickValues={tickValues}
+        domain={domain}
+        label={ylabel}
+      />
+    </VictoryChart>
   );
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
   yAxisStyle: {
     grid: { stroke: "transparent" },
     axisLabel: { padding: 25, fontSize: 13, fontWeight: "bold" },
   },
   xAxisStyle: {
     grid: { stroke: "transparent" },
-    axisLabel: { padding: 10/*38*/, fontSize: 13, fontWeight: "bold" },
+    axisLabel: { padding: 10, fontSize: 13, fontWeight: "bold" },
     tickLabels: { angle: -45, fontSize: 0, padding: 0 },
   },
 });

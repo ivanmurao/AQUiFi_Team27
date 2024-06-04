@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -6,156 +6,136 @@ import {
   TouchableOpacity,
   Image,
   ImageBackground,
+  ScrollView,
+  RefreshControl,
 } from "react-native";
 import LineGraph from "@components/LineGraph";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
-import ForecastedLineGraph from "@components/ForecastedLineGraph";
-import {
-  collection,
-  getDocs,
-  getFirestore,
-  limit,
-  onSnapshot,
-  orderBy,
-  query,
-} from "firebase/firestore";
-import { app } from "@services/firebase/firebaseConfig";
+import { useReadData } from "@hooks/readData";
 
 const PHScreen = ({ navigation }) => {
-  // const [selectedInterval, setSelectedInterval] = useState(6);
-  // const [phValues, setPHValues] = useState([]);
+  const [selectedInterval, setSelectedInterval] = useState(6);
+  const [refreshing, setRefreshing] = useState(false);
 
-  // const goBack = () => {
-  //   navigation.goBack();
-  // };
-  // const handleIntervalChange = (interval) => {
-  //   setSelectedInterval(interval);
-  // };
+  const goBack = () => {
+    navigation.goBack();
+  };
+  const handleIntervalChange = (interval) => {
+    setSelectedInterval(interval);
+  };
 
-  // // Initialize Firestore
-  // const db = getFirestore(app);
+  const onRefresh = useCallback(() => {
+    setTimeout(() => {
+      setRefreshing(true);
+    }, 2000);
+    console.log(refreshing);
+    setTimeout(() => {
+      setRefreshing(false);
+    }, 2000);
+  }, []);
 
-  // // Firestore Collections
-  // const SENSOR_PH_VALUE_COLLECTION = collection(db, "SENSOR_PH_LEVEL_VALUES");
-  // const SENSOR_TURBIDITY_VALUE_COLLECTION = collection(
-  //   db,
-  //   "SENSOR_TURBIDITY_LEVEL_VALUES"
-  // );
+  const phValues = [
+    { x: "2024-06-04T14:22:53.609080", y: 8.63 },
+    { x: "2024-06-04T14:22:53.466483", y: 8.54 },
+    { x: "2024-06-04T14:22:53.342559", y: 8.89 },
+    { x: "2024-06-04T14:22:53.221365", y: 8.69 },
+    { x: "2024-06-04T14:22:53.076867", y: 8.77 },
+    { x: "2024-06-04T14:22:52.930675", y: 8.55 },
+  ];
 
-  // useEffect(() => {
-  //   let isMounted = true;
+  return (
+    <View style={styles.container}>
+      <View style={styles.frame}>
+        <ImageBackground source={ContainerBG} style={styles.containerBG} />
+        <View style={styles.accent}>
+          {/* Back Icon */}
+          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
+            <Image source={backIcon} style={styles.backIcon} />
+          </TouchableOpacity>
+          <Text style={styles.title}>pH</Text>
+          {/* Interval Buttons */}
+          <View style={styles.intervalButtons}>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange(6)}
+              style={
+                selectedInterval === 6
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>Current</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange(24)}
+              style={
+                selectedInterval === 24
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>1 day</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange(168)}
+              style={
+                selectedInterval === 168
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>1 week</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              onPress={() => handleIntervalChange("All")}
+              style={
+                selectedInterval === "All"
+                  ? styles.selectedButton
+                  : styles.intervalButton
+              }
+            >
+              <Text style={styles.buttonText}>Max</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
+      <View style={styles.fillOut}>
+        <ScrollView
+          contentContainerStyle={styles.graphContainer}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={onRefresh}
+              progressBackgroundColor={"#255C99"}
+              colors={["white"]}
+            />
+          }
+        >
+          <LineGraph
+            title="Sensor Values"
+            data={phValues}
+            tickValues={[2, 4, 6, 8, 10, 12]}
+            domain={[0, 12]}
+            xlabel="Date"
+            ylabel="Turbidity Level"
+            time="x"
+            value="y"
+          />
 
-  //   async function fetchPHValues() {
-  //     let phValuesQuery;
-  //     if (selectedInterval === "All") {
-  //       phValuesQuery = query(
-  //         SENSOR_PH_VALUE_COLLECTION,
-  //         orderBy("Timestamp", "desc")
-  //       );
-  //     } else {
-  //       phValuesQuery = query(
-  //         SENSOR_PH_VALUE_COLLECTION,
-  //         orderBy("Timestamp", "desc"),
-  //         limit(selectedInterval)
-  //       );
-  //     }
-
-  //     if (!isMounted) return;
-
-  //     const phValuesSnapshot = await getDocs(phValuesQuery);
-  //     const phValues = phValuesSnapshot.docs.map((doc) => ({
-  //       x: doc.data().Timestamp,
-  //       y: doc.data().PHLevelValues,
-  //     }));
-  //     setPHValues(phValues);
-  //   }
-
-  //   fetchPHValues();
-
-  //   return () => {
-  //     isMounted = false;
-  //   };
-  // }, [selectedInterval]);
-
-  // return (
-  //   <View style={styles.container}>
-  //     <View style={styles.frame}>
-  //       <ImageBackground source={ContainerBG} style={styles.containerBG} />
-  //       <View style={styles.accent}>
-  //         {/* Back Icon */}
-  //         <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
-  //           <Image source={backIcon} style={styles.backIcon} />
-  //         </TouchableOpacity>
-  //         <Text style={styles.title}>pH</Text>
-  //         {/* Interval Buttons */}
-  //         <View style={styles.intervalButtons}>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange(6)}
-  //             style={
-  //               selectedInterval === 6
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>Current</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange(24)}
-  //             style={
-  //               selectedInterval === 24
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>1 day</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange(168)}
-  //             style={
-  //               selectedInterval === 168
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>1 week</Text>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             onPress={() => handleIntervalChange("All")}
-  //             style={
-  //               selectedInterval === "All"
-  //                 ? styles.selectedButton
-  //                 : styles.intervalButton
-  //             }
-  //           >
-  //             <Text style={styles.buttonText}>Max</Text>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     </View>
-  //     <View style={styles.fillOut}>
-  //       <LineGraph
-  //         data={phValues}
-  //         tickValues={[2, 4, 6, 8, 10, 12]}
-  //         domain={[0, 12]}
-  //         xlabel="Date"
-  //         ylabel="Turbidity Level"
-  //         time="x"
-  //         value="y"
-  //       />
-
-  //       {/* <ForecastedLineGraph
-  //         data={forecastedPHData}
-  //         tickValues={[2, 4, 6, 8, 10, 12]}
-  //         domain={[0, 12]}
-  //         xlabel="Hours"
-  //         ylabel="Turbidity Level"
-  //         time="x"
-  //         value="y"
-  //       /> */}
-  //     </View>
-  //   </View>
-  // );
+          <LineGraph
+            title="Forecast Values"
+            data={phValues}
+            tickValues={[2, 4, 6, 8, 10, 12]}
+            domain={[0, 12]}
+            xlabel="Date"
+            ylabel="Turbidity Level"
+            time="x"
+            value="y"
+          />
+        </ScrollView>
+      </View>
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -165,8 +145,6 @@ const styles = StyleSheet.create({
   },
   containerBG: {
     flex: 1,
-    height: 850,
-    width: 420,
   },
   frame: {
     flex: 1,
@@ -234,6 +212,11 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 40,
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
+  },
+  graphContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    flexGrow: 1,
   },
   title: {
     color: "white",
