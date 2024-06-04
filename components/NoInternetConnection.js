@@ -29,7 +29,7 @@ export default function NoInternetConnection() {
         wasDisconnected = false;
         setTimeout(() => {
           setIsModalVisible(false);
-        }, 3000);
+        }, 5000);
       }
     });
 
