@@ -52,7 +52,6 @@ const HomeScreen = () => {
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
   const { phValue, turbidityValue } = gaugeReadData();
-  console.log(phValue, turbidityValue);
 
   return (
     <View style={styles.container}>

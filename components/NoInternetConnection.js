@@ -11,7 +11,8 @@ export default function NoInternetConnection() {
     let wasDisconnected = false;
 
     const subscription = NetInfo.addEventListener((status) => {
-      if (!status.isConnected && !wasDisconnected) {
+      console.log(!status.isConnected);
+      if (!status.isConnected) {
         // The internet connection has just been lost.
         console.log("Internet connection is lost");
         setIsConnected(false);
@@ -19,7 +20,7 @@ export default function NoInternetConnection() {
         wasDisconnected = true;
         setTimeout(() => {
           setIsModalVisible(false);
-        }, 3000);
+        }, 5000);
       } else if (status.isConnected && wasDisconnected) {
         // The internet connection has just been restored.
         console.log("Internet connection is restored");
