@@ -1,36 +1,66 @@
 import { useEffect, useState } from "react";
-import { Modal, StyleSheet, Text, View } from "react-native";
+import { Modal, Pressable, StyleSheet, Text, View } from "react-native";
 import NetInfo from "@react-native-community/netinfo";
 import { MaterialIcons } from "@expo/vector-icons";
 
 export default function NoInternetConnection() {
   const [isConnected, setIsConnected] = useState(null);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   useEffect(() => {
-    const fetchStatus = async () => {
-      const status = await NetInfo.fetch();
-      setIsConnected(status.isConnected);
-    };
-
-    fetchStatus();
+    let wasDisconnected = false;
 
     const subscription = NetInfo.addEventListener((status) => {
-      setIsConnected(status.isConnected);
+      if (!status.isConnected && !wasDisconnected) {
+        // The internet connection has just been lost.
+        console.log("Internet connection is lost");
+        setIsConnected(false);
+        setIsModalVisible(true);
+        wasDisconnected = true;
+        setTimeout(() => {
+          setIsModalVisible(false);
+        }, 3000);
+      } else if (status.isConnected && wasDisconnected) {
+        // The internet connection has just been restored.
+        console.log("Internet connection is restored");
+        setIsModalVisible(true);
+        setIsConnected(true);
+        wasDisconnected = false;
+        setTimeout(() => {
+          setIsModalVisible(false);
+        }, 3000);
+      }
     });
 
     return () => {
-      subscription && subscription();
+      subscription();
     };
   }, []);
 
   return (
-    <Modal visible={isConnected === false} transparent={true}>
-      <View style={styles.modalContainer}>
+    <Modal visible={isModalVisible} transparent={true}>
+      <Pressable
+        style={styles.modalContainer}
+        onPress={() => {
+          setIsModalVisible(false);
+        }}
+      >
         <View style={styles.container}>
-          <MaterialIcons name="wifi-off" size={24} color="white" />
-          <Text style={styles.text}>You are currently offline</Text>
+          {isConnected ? (
+            <>
+              <MaterialIcons name="wifi" size={24} color="white" />
+              <Text style={styles.text}>
+                Your internet connection was restored
+              </Text>
+            </>
+          ) : (
+            <>
+              <MaterialIcons name="wifi-off" size={24} color="white" />
+              <Text style={styles.text}>You are currently offline</Text>
+            </>
+          )}
         </View>
-      </View>
+      </Pressable>
     </Modal>
   );
 }
