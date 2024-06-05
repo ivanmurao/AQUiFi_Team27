@@ -56,10 +56,7 @@ const HomeScreen = () => {
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
-  // const { phValue, turbidityValue } = gaugeReadData();
-
-  const phValue = 8;
-  const turbidityValue = 5;
+  const { phValue, turbidityValue } = gaugeReadData();
 
   useEffect(() => {
     let alert = false;
