@@ -8,6 +8,9 @@ import AlertNotification from "@components/AlertNotification.js";
 import PHColorChart from "@components/pHColorChart.js";
 import TurbColorChart from "@components/TurbColorChart.js";
 
+import phColorSelector from "@utils/phColorSelector";
+import turbidityColorSelector from "@utils/turbidityColorSelector";
+
 import logoIcon from "@assets/images/logos/aquifi-light.png";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
@@ -52,6 +55,9 @@ const HomeScreen = () => {
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
   const { phValue, turbidityValue } = gaugeReadData();
+
+  const phColor = phColorSelector(phValue);
+  const turbidityColor = turbidityColorSelector(turbidityValue);
 
   return (
     <View style={styles.container}>
@@ -112,7 +118,7 @@ const HomeScreen = () => {
                   cx="50"
                   cy="50"
                   r="45"
-                  stroke="#7EA3CC"
+                  stroke={phColor}
                   strokeWidth="10"
                   strokeDasharray={`${(phValue / 15) * 282.5} 565`}
                   strokeLinecap="butt"
@@ -160,7 +166,7 @@ const HomeScreen = () => {
                   cx="50"
                   cy="50"
                   r="45"
-                  stroke="#7EA3CC"
+                  stroke={turbidityColor}
                   strokeWidth="10"
                   strokeDasharray={`${(turbidityValue / 5) * 282.5} 565`}
                   strokeLinecap="butt"
