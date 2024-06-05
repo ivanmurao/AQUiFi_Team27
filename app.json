@@ -39,6 +39,9 @@
     },
     "updates": {
       "url": "https://u.expo.dev/1ee49b60-0758-4b6e-9d30-adf9c6d5b3fa"
+    },
+    "notification": {
+      "icon": "./assets/icon.png"
     }
   }
 }

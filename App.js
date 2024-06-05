@@ -1,11 +1,15 @@
 import { NavigationContainer } from "@react-navigation/native";
 import RootNavigator from "./navigators/rootNavigator";
+import ValveNotification from "./components/ValveNotification";
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <RootNavigator />
-    </NavigationContainer>
+    <>
+      <ValveNotification />
+      <NavigationContainer>
+        <RootNavigator />
+      </NavigationContainer>
+    </>
   );
 };
 
