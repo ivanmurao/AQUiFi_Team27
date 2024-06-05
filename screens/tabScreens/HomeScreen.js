@@ -18,6 +18,7 @@ import ph from "@assets/images/icons/ph-meter.png";
 const HomeScreen = () => {
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
   const [isNotStandard, setIsNotStandard] = useState(false);
+  const [warnedParameter, setWarnedParameter] = useState(null);
   const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
   const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
 
@@ -55,20 +56,28 @@ const HomeScreen = () => {
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
-  const { phValue, turbidityValue } = gaugeReadData();
+  // const { phValue, turbidityValue } = gaugeReadData();
+
+  const phValue = 8;
+  const turbidityValue = 5;
 
   useEffect(() => {
-    if (phValue < 8) {
-      setIsAlertModalVisible(true);
-      setIsNotStandard(true);
-    } else if (phValue > 10) {
-      setIsAlertModalVisible(true);
-      setIsNotStandard(true);
-    } else {
-      setIsAlertModalVisible(false);
-      setIsNotStandard(false);
+    let alert = false;
+    let parameter = "";
+
+    if (phValue < 8 || phValue > 10) {
+      alert = true;
+      parameter = "pH";
     }
-  }, [phValue]);
+    if (turbidityValue > 5) {
+      alert = true;
+      parameter += parameter ? " and turbidity" : "turbidity";
+    }
+
+    setIsAlertModalVisible(alert);
+    setIsNotStandard(alert);
+    setWarnedParameter(parameter || "None");
+  }, [phValue, turbidityValue]);
 
   const phColor = phColorSelector(phValue);
   const turbidityColor = turbidityColorSelector(turbidityValue);
@@ -94,6 +103,7 @@ const HomeScreen = () => {
                 />
               </TouchableOpacity>
               <AlertNotification
+                parameter={warnedParameter}
                 isVisible={isAlertModalVisible}
                 onClose={handleAlertModalClose}
               />
