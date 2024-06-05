@@ -11,7 +11,6 @@ export default function NoInternetConnection() {
     let wasDisconnected = false;
 
     const subscription = NetInfo.addEventListener((status) => {
-      console.log(!status.isConnected);
       if (!status.isConnected) {
         // The internet connection has just been lost.
         console.log("Internet connection is lost");

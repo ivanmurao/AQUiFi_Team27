@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
 
@@ -17,6 +17,7 @@ import ph from "@assets/images/icons/ph-meter.png";
 
 const HomeScreen = () => {
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
+  const [isNotStandard, setIsNotStandard] = useState(false);
   const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
   const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
 
@@ -56,6 +57,19 @@ const HomeScreen = () => {
 
   const { phValue, turbidityValue } = gaugeReadData();
 
+  useEffect(() => {
+    if (phValue < 8) {
+      setIsAlertModalVisible(true);
+      setIsNotStandard(true);
+    } else if (phValue > 10) {
+      setIsAlertModalVisible(true);
+      setIsNotStandard(true);
+    } else {
+      setIsAlertModalVisible(false);
+      setIsNotStandard(false);
+    }
+  }, [phValue]);
+
   const phColor = phColorSelector(phValue);
   const turbidityColor = turbidityColorSelector(turbidityValue);
 
@@ -68,21 +82,23 @@ const HomeScreen = () => {
             <Text style={styles.date}>{formattedDate}</Text>
             <Text style={styles.greetings}>{greeting}</Text>
           </View>
-          <View style={styles.alertContainer}>
-            <TouchableOpacity
-              style={styles.alertButton}
-              onPress={handleAlertButtonPress}
-            >
-              <Image
-                source={require("@assets/images/icons/alert.png")}
-                style={styles.alerticon}
+          {isNotStandard && (
+            <View style={styles.alertContainer}>
+              <TouchableOpacity
+                style={styles.alertButton}
+                onPress={handleAlertButtonPress}
+              >
+                <Image
+                  source={require("@assets/images/icons/alert.png")}
+                  style={styles.alerticon}
+                />
+              </TouchableOpacity>
+              <AlertNotification
+                isVisible={isAlertModalVisible}
+                onClose={handleAlertModalClose}
               />
-            </TouchableOpacity>
-            <AlertNotification
-              isVisible={isAlertModalVisible}
-              onClose={handleAlertModalClose}
-            />
-          </View>
+            </View>
+          )}
         </View>
       </View>
       <View style={styles.fillOut}>

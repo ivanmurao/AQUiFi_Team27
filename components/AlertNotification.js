@@ -19,12 +19,15 @@ const AlertNotification = ({ isVisible, onClose }) => {
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
           <View style={styles.upperContent}>
-            <Image source={require("@assets/images/icons/alert.png")} style={styles.icon} />
+            <Image
+              source={require("@assets/images/icons/alert.png")}
+              style={styles.icon}
+            />
             <Text style={styles.warningText}>Warning!</Text>
           </View>
           <Text style={styles.message}>
-            pH is Acidic. It is not recommended to drink the water. Valve will
-            automatically shut off.
+            The pH level is not within the standard range; therefore, it is not
+            safe to drink the water. The valve will automatically shut off.
           </Text>
           <TouchableOpacity style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Understood</Text>
