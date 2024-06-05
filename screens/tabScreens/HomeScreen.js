@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
 
-import gaugeReadData from "@hooks/gaugeReadData";
+import useGaugeData from "@hooks/readGaugeData";
 
 import AlertNotification from "@components/AlertNotification.js";
 import PHColorChart from "@components/pHColorChart.js";
@@ -56,7 +56,7 @@ const HomeScreen = () => {
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
 
-  const { phValue, turbidityValue } = gaugeReadData();
+  const { phValue, turbidityValue } = useGaugeData();
 
   useEffect(() => {
     let alert = false;
@@ -144,7 +144,7 @@ const HomeScreen = () => {
                   stroke={phColor}
                   strokeWidth="10"
                   strokeDasharray={`${(phValue / 15) * 282.5} 565`}
-                  strokeLinecap="butt"
+                  strokeLinecap="round"
                   fill="transparent"
                 />
                 {/* Text Displaying pH Value */}
@@ -192,7 +192,7 @@ const HomeScreen = () => {
                   stroke={turbidityColor}
                   strokeWidth="10"
                   strokeDasharray={`${(turbidityValue / 5) * 282.5} 565`}
-                  strokeLinecap="butt"
+                  strokeLinecap="round"
                   fill="transparent"
                 />
                 {/* Text Displaying turbidity Value */}

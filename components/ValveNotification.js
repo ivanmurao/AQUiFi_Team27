@@ -46,7 +46,6 @@ export default function ValveNotification() {
 
     onValue(buttonRef, (snapshot) => {
       const data = snapshot.val();
-      console.log("Data: ", data);
       if (data === "H") {
         schedulePushNotification();
       }

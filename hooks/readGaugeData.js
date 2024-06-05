@@ -2,8 +2,8 @@ import { useEffect, useState } from "react";
 import { onValue, ref, off } from "firebase/database";
 import { db } from "@services/firebase/firebaseConfig.js";
 
-const gaugeReadData = () => {
-  const [phValue, setPhValue] = useState(0);
+const useGaugeData = () => {
+  const [phValue, setPhValue] = useState(8);
   const [turbidityValue, setTurbValue] = useState(0);
 
   useEffect(() => {
@@ -28,4 +28,4 @@ const gaugeReadData = () => {
   return { phValue, turbidityValue };
 };
 
-export default gaugeReadData;
+export default useGaugeData;

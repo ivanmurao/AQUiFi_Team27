@@ -12,8 +12,7 @@ import {
 import LineGraph from "@components/LineGraph.js";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
-import data from "@hooks/readData.js";
-import forecastedData from "@hooks/readForecastedData.js";
+import useParameterData from "@hooks/readParameterData.js";
 
 const TurbidityScreen = ({ navigation }) => {
   const [selectedInterval, setSelectedInterval] = useState("Current");
@@ -28,23 +27,18 @@ const TurbidityScreen = ({ navigation }) => {
   };
 
   const onRefresh = useCallback(() => {
-    setTimeout(() => {
-      setRefreshing(true);
-    }, 2000);
-    console.log(refreshing);
+    setRefreshing(true);
+
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   }, []);
 
-  const turbidityData = [
-    { x: "2024-06-04T14:22:53.609080", y: 3.63 },
-    { x: "2024-06-04T14:22:53.466483", y: 3.54 },
-    { x: "2024-06-04T14:22:53.342559", y: 3.89 },
-    { x: "2024-06-04T14:22:53.221365", y: 3.69 },
-    { x: "2024-06-04T14:22:53.076867", y: 3.77 },
-    { x: "2024-06-04T14:22:52.930675", y: 3.55 },
-  ];
+  const turbidityData = useParameterData(
+    "TURBIDITY_SENSOR_VALUES",
+    "turbidityLevelValue",
+    refreshing
+  );
 
   return (
     <View style={styles.container}>
@@ -115,6 +109,7 @@ const TurbidityScreen = ({ navigation }) => {
           }
         >
           <LineGraph
+            title="Sensor Values"
             data={turbidityData}
             tickValues={[0, 1, 2, 3, 4, 5, 6]}
             domain={[0, 6]}
@@ -124,6 +119,7 @@ const TurbidityScreen = ({ navigation }) => {
             value="y"
           />
           <LineGraph
+            title="Forecast Values"
             data={turbidityData}
             tickValues={[0, 1, 2, 3, 4, 5, 6]}
             domain={[0, 6]}

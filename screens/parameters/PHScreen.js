@@ -12,7 +12,7 @@ import {
 import LineGraph from "@components/LineGraph";
 import backIcon from "@assets/images/icons/back.png";
 import ContainerBG from "@assets/images/background-container.png";
-import { useReadData } from "@hooks/readData";
+import useParameterData from "@hooks/readParameterData";
 
 const PHScreen = ({ navigation }) => {
   const [selectedInterval, setSelectedInterval] = useState(6);
@@ -26,23 +26,18 @@ const PHScreen = ({ navigation }) => {
   };
 
   const onRefresh = useCallback(() => {
-    setTimeout(() => {
-      setRefreshing(true);
-    }, 2000);
-    console.log(refreshing);
+    setRefreshing(true);
+
     setTimeout(() => {
       setRefreshing(false);
     }, 2000);
   }, []);
 
-  const phValues = [
-    { x: "2024-06-04T14:22:53.609080", y: 8.63 },
-    { x: "2024-06-04T14:22:53.466483", y: 8.54 },
-    { x: "2024-06-04T14:22:53.342559", y: 8.89 },
-    { x: "2024-06-04T14:22:53.221365", y: 8.69 },
-    { x: "2024-06-04T14:22:53.076867", y: 8.77 },
-    { x: "2024-06-04T14:22:52.930675", y: 8.55 },
-  ];
+  const phValues = useParameterData(
+    "PH_SENSOR_VALUES",
+    "phLevelValue",
+    refreshing
+  );
 
   return (
     <View style={styles.container}>
@@ -117,7 +112,7 @@ const PHScreen = ({ navigation }) => {
             tickValues={[2, 4, 6, 8, 10, 12]}
             domain={[0, 12]}
             xlabel="Date"
-            ylabel="Turbidity Level"
+            ylabel="pH Level"
             time="x"
             value="y"
           />
@@ -128,7 +123,7 @@ const PHScreen = ({ navigation }) => {
             tickValues={[2, 4, 6, 8, 10, 12]}
             domain={[0, 12]}
             xlabel="Date"
-            ylabel="Turbidity Level"
+            ylabel="pH Level"
             time="x"
             value="y"
           />
