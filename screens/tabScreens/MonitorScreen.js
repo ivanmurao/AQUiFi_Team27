@@ -1,4 +1,4 @@
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import {
   View,
   Text,
@@ -12,8 +12,9 @@ import { useNavigation } from "@react-navigation/native";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
 import next from "@assets/images/icons/next.png";
-import app from "@services/firebase/firebaseConfig.js";
-import { getDatabase, ref, set } from "firebase/database";
+import { db } from "@services/firebase/firebaseConfig.js";
+import { ref, set } from "firebase/database";
+import useButtonState from "../../hooks/readButtonState";
 
 const MonitorScreen = () => {
   const navigation = useNavigation();
@@ -25,22 +26,39 @@ const MonitorScreen = () => {
     navigation.navigate("PHScreen");
   };
 
-  const [selectedValveControl, setSelectedValveControl] = useState(null);
-  const translateX = useRef(new Animated.Value(0)).current;
-
-  const db = getDatabase(app);
+  // Solenoid Valve Control
+  // Database reference for the button state
   const buttonRef = ref(db, "BUTTON_STATE/");
+
+  // Button state management
+  const [selectedValveControl, setSelectedValveControl] = useState(null);
+
+  // Custom hook to read the button state
+  const buttonState = useButtonState();
+  useEffect(() => {
+    if (buttonState === null) return;
+    const initialButtonState =
+      buttonState === "H" ? "Close Valve" : "Open Valve";
+    setSelectedValveControl(initialButtonState);
+  }, [buttonState]);
+
+  const translateX = useRef(new Animated.Value(0)).current;
+  Animated.timing(translateX, {
+    toValue: selectedValveControl === "Close Valve" ? 30 : 0,
+    duration: 200,
+    useNativeDriver: false,
+  }).start();
 
   const toggleValve = () => {
     const newValue =
-      selectedValveControl === "Close Valve" ? "Open Valve" : "Close Valve";
+      selectedValveControl === "Open Valve" ? "Close Valve" : "Open Valve";
     setSelectedValveControl(newValue);
     Animated.timing(translateX, {
-      toValue: newValue === "Open Valve" ? 30 : 0,
+      toValue: newValue === "Close Valve" ? 30 : 0,
       duration: 200,
       useNativeDriver: false,
     }).start();
-    newValue == "Open Valve" ? set(buttonRef, "H") : set(buttonRef, "L");
+    newValue == "Close Valve" ? set(buttonRef, "H") : set(buttonRef, "L");
   };
 
   return (

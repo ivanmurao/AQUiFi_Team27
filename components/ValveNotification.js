@@ -3,8 +3,7 @@ import { Platform } from "react-native";
 import * as Device from "expo-device";
 import * as Notifications from "expo-notifications";
 import Constants from "expo-constants";
-import { onValue, ref } from "firebase/database";
-import { db } from "@services/firebase/firebaseConfig";
+import useButtonState from "@hooks/readButtonState";
 
 Notifications.setNotificationHandler({
   handleNotification: async () => ({
@@ -20,6 +19,8 @@ export default function ValveNotification() {
   const [notification, setNotification] = useState(undefined);
   const notificationListener = useRef();
   const responseListener = useRef();
+
+  const buttonState = useButtonState();
 
   useEffect(() => {
     registerForPushNotificationsAsync().then(
@@ -41,15 +42,9 @@ export default function ValveNotification() {
         console.log(response);
       });
 
-    //   Fetch Valve State
-    const buttonRef = ref(db, "BUTTON_STATE/");
-
-    onValue(buttonRef, (snapshot) => {
-      const data = snapshot.val();
-      if (data === "H") {
-        schedulePushNotification();
-      }
-    });
+    if (buttonState === "H") {
+      schedulePushNotification();
+    }
 
     return () => {
       notificationListener.current &&
