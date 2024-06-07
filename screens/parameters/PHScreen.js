@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,8 +15,9 @@ import ContainerBG from "@assets/images/background-container.png";
 import useParameterData from "@hooks/readParameterData";
 
 const PHScreen = ({ navigation }) => {
-  const [selectedInterval, setSelectedInterval] = useState(6);
+  const [selectedInterval, setSelectedInterval] = useState("TODAY");
   const [refreshing, setRefreshing] = useState(false);
+  const [phValues, setPhValues] = useState();
 
   const goBack = () => {
     navigation.goBack();
@@ -33,11 +34,22 @@ const PHScreen = ({ navigation }) => {
     }, 2000);
   }, []);
 
-  const phValues = useParameterData(
+  const rawPHValues = useParameterData(
     "PH_SENSOR_VALUES",
     "phLevelValue",
     refreshing
   );
+
+  useEffect(() => {
+    if (selectedInterval === "MAX") {
+      setPhValues(rawPHValues);
+    } else {
+      const filteredValues = rawPHValues.filter(
+        (data) => data.interval === selectedInterval
+      );
+      setPhValues(filteredValues);
+    }
+  }, [selectedInterval, rawPHValues]);
 
   return (
     <View style={styles.container}>
@@ -58,9 +70,9 @@ const PHScreen = ({ navigation }) => {
         <View style={styles.wholeGraphContainer}>
           <View style={styles.intervalButtons}>
             <TouchableOpacity
-              onPress={() => handleIntervalChange(6)}
+              onPress={() => handleIntervalChange("TODAY")}
               style={
-                selectedInterval === 6
+                selectedInterval === "TODAY"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -68,9 +80,9 @@ const PHScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>Current</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange(24)}
+              onPress={() => handleIntervalChange("YESTERDAY")}
               style={
-                selectedInterval === 24
+                selectedInterval === "YESTERDAY"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -78,9 +90,9 @@ const PHScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>1 day</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange(168)}
+              onPress={() => handleIntervalChange("ONE_WEEK_AGO")}
               style={
-                selectedInterval === 168
+                selectedInterval === "ONE_WEEK_AGO"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -88,9 +100,9 @@ const PHScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>1 week</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("All")}
+              onPress={() => handleIntervalChange("MAX")}
               style={
-                selectedInterval === "All"
+                selectedInterval === "MAX"
                   ? styles.selectedButton
                   : styles.intervalButton
               }

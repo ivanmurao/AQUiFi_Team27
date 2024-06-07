@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -15,8 +15,9 @@ import ContainerBG from "@assets/images/background-container.png";
 import useParameterData from "@hooks/readParameterData.js";
 
 const TurbidityScreen = ({ navigation }) => {
-  const [selectedInterval, setSelectedInterval] = useState("Current");
+  const [selectedInterval, setSelectedInterval] = useState("TODAY");
   const [refreshing, setRefreshing] = useState(false);
+  const [turbidityData, setTurbidityData] = useState();
 
   const goBack = () => {
     navigation.goBack();
@@ -34,11 +35,22 @@ const TurbidityScreen = ({ navigation }) => {
     }, 2000);
   }, []);
 
-  const turbidityData = useParameterData(
+  const rawTurbidityData = useParameterData(
     "TURBIDITY_SENSOR_VALUES",
     "turbidityLevelValue",
     refreshing
   );
+
+  useEffect(() => {
+    if (selectedInterval === "MAX") {
+      setTurbidityData(rawTurbidityData);
+    } else {
+      const filteredValues = rawTurbidityData.filter(
+        (data) => data.interval === selectedInterval
+      );
+      setTurbidityData(filteredValues);
+    }
+  }, [selectedInterval, rawTurbidityData]);
 
   return (
     <View style={styles.container}>
@@ -59,9 +71,9 @@ const TurbidityScreen = ({ navigation }) => {
         <View style={styles.wholeGraphContainer}>
           <View style={styles.intervalButtons}>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("Current")}
+              onPress={() => handleIntervalChange("TODAY")}
               style={
-                selectedInterval === 6
+                selectedInterval === 'TODAY'
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -69,9 +81,9 @@ const TurbidityScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>Current</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("1 day")}
+              onPress={() => handleIntervalChange("YESTERDAY")}
               style={
-                selectedInterval === 24
+                selectedInterval === 'YESTERDAY'
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -79,9 +91,9 @@ const TurbidityScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>1 day</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("1 week")}
+              onPress={() => handleIntervalChange("ONE_WEEK_AGO")}
               style={
-                selectedInterval === 168
+                selectedInterval === 'ONE_WEEK_AGO'
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -89,9 +101,9 @@ const TurbidityScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>1 week</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              onPress={() => handleIntervalChange("All")}
+              onPress={() => handleIntervalChange("MAX")}
               style={
-                selectedInterval === "All"
+                selectedInterval === "MAX"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
