@@ -82,39 +82,40 @@ const HomeScreen = () => {
   return (
     <View style={styles.container}>
       <View style={styles.frame}>
-        <View style={styles.accent}>
-          {/* Date and Greetings */}
-          <View style={styles.dateGreetingsContainer}>
-            <Text style={styles.date}>{formattedDate}</Text>
-            <Text style={styles.greetings}>{greeting}</Text>
-          </View>
-          {isNotStandard && (
-            <View style={styles.alertContainer}>
-              <TouchableOpacity
-                style={styles.alertButton}
-                onPress={handleAlertButtonPress}
-              >
-                <Image
-                  source={require("@assets/images/icons/alert.png")}
-                  style={styles.alerticon}
-                />
-              </TouchableOpacity>
-              <AlertNotification
-                parameter={warnedParameter}
-                isVisible={isAlertModalVisible}
-                onClose={handleAlertModalClose}
+        {/* Date and Greetings */}
+        <View style={styles.dateGreetingsContainer}>
+          <Text style={styles.date}>{formattedDate}</Text>
+          <Text style={styles.greetings}>{greeting}</Text>
+        </View>
+        {isNotStandard && (
+          <View style={styles.alertContainer}>
+            <TouchableOpacity
+              style={styles.alertButton}
+              onPress={handleAlertButtonPress}
+            >
+              <Image
+                source={require("@assets/images/icons/alert.png")}
+                style={styles.alerticon}
               />
-            </View>
-          )}
-        </View>
+            </TouchableOpacity>
+            <AlertNotification
+              parameter={warnedParameter}
+              isVisible={isAlertModalVisible}
+              onClose={handleAlertModalClose}
+            />
+          </View>
+        )}
       </View>
-      <View style={styles.fillOut}>
+
+      <View style={styles.headerContainer}>
         {/* Logo Image */}
-        <View style={styles.logoImageContainer}>
-          <Image source={logoIcon} style={styles.logoImage} />
-        </View>
+        <Image source={logoIcon} style={styles.logoImage} />
+
         <Text style={styles.title}>Alkaline Water</Text>
         <Text style={styles.title}>Monitoring System</Text>
+      </View>
+
+      <View style={styles.fillOut}>
         {/* Container 1 */}
         <TouchableOpacity onPress={handleContainer1Press}>
           <View style={styles.container1}>
@@ -211,6 +212,8 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
       </View>
+
+      {/* Parameter Chart Modal */}
       <PHColorChart
         isVisible={isPHColorChartVisible}
         onClose={() => setIsPHColorChartVisible(false)}
@@ -224,13 +227,15 @@ const HomeScreen = () => {
 };
 
 const styles = StyleSheet.create({
+  // Main Container
   container: {
     flex: 1,
+    backgroundColor: "#255C99",
+    justifyContent: "space-evenly",
+    paddingHorizontal: 20,
   },
-  frame: {
-    flex: 1,
-    paddingHorizontal: 10,
-  },
+
+  // Alert Button
   alertContainer: {
     position: "absolute",
     top: 60,
@@ -238,27 +243,16 @@ const styles = StyleSheet.create({
     right: 15,
     alignItems: "flex-end",
   },
-
   alerticon: {
     width: 40,
     height: 40,
-    marginBottom: 20,
   },
 
-  accent: {
-    position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    backgroundColor: "#255C99",
-    paddingHorizontal: 20,
-  },
+  // Date and Greetings Container
+  frame: {},
+  // Date and Greetings
   dateGreetingsContainer: {
     alignItems: "flex-start",
-    flex: 1,
-    marginHorizontal: 10,
-    marginTop: 10,
   },
   date: {
     color: "white",
@@ -269,23 +263,15 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: "bold",
   },
-  logoImageContainer: {
+
+  // Header
+  headerContainer: {
     alignItems: "center",
-    bottom: 0,
-    paddingTop: 20,
   },
+  // Logo Image
   logoImage: {
     width: 40,
     height: 55,
-  },
-  fillOut: {
-    flex: 1,
-    position: "absolute",
-    top: "10%",
-    bottom: "5%",
-    left: "7%",
-    right: "7%",
-    paddingHorizontal: 10,
   },
   title: {
     fontSize: 24,
@@ -293,80 +279,70 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: "white",
   },
+
+  // Parameter Gauge
+  // Main Gauge Container
+  fillOut: {
+    paddingHorizontal: 20,
+    gap: 40,
+  },
+  // pH Gauge
   container1: {
     flexDirection: "row",
     backgroundColor: "#7EA3CC",
     alignItems: "center",
     justifyContent: "center",
+    gap: 40,
     padding: 20,
-    marginTop: 40,
     borderRadius: 30,
     elevation: 5,
   },
   leftSection1: {
-    flexDirection: "column",
     alignItems: "center",
+    gap: 20,
   },
   rightSection1: {
     backgroundColor: "#F0f0f0",
     borderRadius: 30,
-    paddingTop: 30,
-    paddingBottom: 30,
-    paddingLeft: 35,
-    paddingRight: 35,
-    left: 20,
-    alignItems: "center",
+    paddingVertical: 30,
+    paddingHorizontal: 35,
     elevation: 5,
-  },
-  pHValue: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "#85A0AF",
-    marginTop: 10,
   },
   icon: {
     width: 60,
     height: 60,
-    marginTop: 30,
-    marginBottom: 20,
-    right: 20,
   },
   containerTitle1: {
     fontSize: 16,
     fontWeight: "bold",
     color: "black",
-    right: 20,
   },
+  // Turbidity Gauge
   container2: {
     flexDirection: "row",
     backgroundColor: "#7EA3CC",
     alignItems: "center",
     justifyContent: "center",
+    gap: 40,
     padding: 20,
-    marginTop: 50,
     borderRadius: 30,
     elevation: 5,
   },
   leftSection2: {
-    flexDirection: "column",
     alignItems: "center",
+    gap: 20,
   },
   rightSection2: {
     backgroundColor: "#F0f0f0",
     borderRadius: 30,
-    paddingTop: 30,
-    paddingBottom: 30,
-    paddingLeft: 35,
-    paddingRight: 35,
-    left: 10,
-    alignItems: "center",
+    paddingVertical: 30,
+    paddingHorizontal: 35,
     elevation: 5,
   },
   containerTitle2: {
     fontSize: 16,
     fontWeight: "bold",
     color: "black",
-    right: 20,
   },
 });
 

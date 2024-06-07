@@ -41,15 +41,21 @@ const PHScreen = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      <View style={styles.frame}>
-        <ImageBackground source={ContainerBG} style={styles.containerBG} />
-        <View style={styles.accent}>
+      <ImageBackground source={ContainerBG} style={styles.containerBG} />
+      <View style={styles.accent}></View>
+
+      <View style={styles.contentContainer}>
+        <View style={styles.headerContainer}>
           {/* Back Icon */}
-          <TouchableOpacity onPress={goBack} style={styles.backIconContainer}>
+          <TouchableOpacity onPress={goBack}>
             <Image source={backIcon} style={styles.backIcon} />
           </TouchableOpacity>
+
           <Text style={styles.title}>pH</Text>
-          {/* Interval Buttons */}
+        </View>
+
+        {/* Interval Buttons */}
+        <View style={styles.wholeGraphContainer}>
           <View style={styles.intervalButtons}>
             <TouchableOpacity
               onPress={() => handleIntervalChange(6)}
@@ -92,89 +98,105 @@ const PHScreen = ({ navigation }) => {
               <Text style={styles.buttonText}>Max</Text>
             </TouchableOpacity>
           </View>
-        </View>
-      </View>
-      <View style={styles.fillOut}>
-        <ScrollView
-          contentContainerStyle={styles.graphContainer}
-          refreshControl={
-            <RefreshControl
-              refreshing={refreshing}
-              onRefresh={onRefresh}
-              progressBackgroundColor={"#255C99"}
-              colors={["white"]}
-            />
-          }
-        >
-          <LineGraph
-            title="Sensor Values"
-            data={phValues}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Date"
-            ylabel="pH Level"
-            time="x"
-            value="y"
-          />
+          <View style={styles.fillOut}>
+            <ScrollView
+              contentContainerStyle={styles.graphContainer}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={onRefresh}
+                  progressBackgroundColor={"#255C99"}
+                  colors={["white"]}
+                />
+              }
+            >
+              <LineGraph
+                title="Sensor Values"
+                data={phValues}
+                tickValues={[2, 4, 6, 8, 10, 12]}
+                domain={[0, 12]}
+                xlabel="Date"
+                ylabel="pH Level"
+                time="x"
+                value="y"
+              />
 
-          <LineGraph
-            title="Forecast Values"
-            data={phValues}
-            tickValues={[2, 4, 6, 8, 10, 12]}
-            domain={[0, 12]}
-            xlabel="Date"
-            ylabel="pH Level"
-            time="x"
-            value="y"
-          />
-        </ScrollView>
+              <LineGraph
+                title="Forecast Values"
+                data={phValues}
+                tickValues={[2, 4, 6, 8, 10, 12]}
+                domain={[0, 12]}
+                xlabel="Date"
+                ylabel="pH Level"
+                time="x"
+                value="y"
+              />
+            </ScrollView>
+          </View>
+        </View>
       </View>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
+  // Main Container
   container: {
     flex: 1,
-    bottom: "0%",
   },
+  // Image Background
   containerBG: {
-    flex: 1,
-  },
-  frame: {
-    flex: 1,
-    position: "relative",
-    backgroundColor: "white",
-  },
-  accent: {
-    flex: 1,
     position: "absolute",
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: "70%",
+    width: "100%",
+    height: "100%",
+    zIndex: -1,
+  },
+  // Header Design
+  accent: {
     borderBottomLeftRadius: 40,
     borderBottomRightRadius: 40,
     backgroundColor: "#255C99",
     justifyContent: "center",
-    flexDirection: "column",
     alignItems: "center",
-  },
-  backIconContainer: {
+    height: "30%",
+    width: "100%",
     position: "absolute",
-    top: 10,
-    left: 20,
+    zIndex: 0,
+  },
+
+  // Content Container
+  contentContainer: {
+    paddingHorizontal: 20,
+    gap: 50,
+  },
+
+  // Header Container
+  headerContainer: {
+    flexDirection: "row",
+    alignItems: "center",
   },
   backIcon: {
     width: 30,
     height: 30,
-    tintColor: "white",
   },
+  title: {
+    color: "white",
+    fontSize: 20,
+    fontWeight: "bold",
+    textAlign: "center",
+    flex: 1,
+  },
+
+  // Whole Graph Container
+  wholeGraphContainer: {
+    gap: 5,
+  },
+
+  // Interval Buttons
   intervalButtons: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 10,
-    marginBottom: 10,
+    justifyContent: "center",
+    gap: 5,
     elevation: 5,
   },
   intervalButton: {
@@ -182,41 +204,24 @@ const styles = StyleSheet.create({
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 20,
-    margin: 2,
   },
   selectedButton: {
     backgroundColor: "#7EA3CC",
     paddingVertical: 8,
     paddingHorizontal: 12,
     borderRadius: 20,
-    margin: 2,
   },
-  buttonText: {
-    color: "#000",
-  },
+
+  // Graph Container
   fillOut: {
-    flex: 1,
-    position: "absolute",
-    top: "20%",
-    bottom: "2%",
-    left: "5%",
-    right: "5%",
     elevation: 5,
     backgroundColor: "#F5F5F5",
-    borderTopLeftRadius: 40,
-    borderTopRightRadius: 40,
-    borderBottomLeftRadius: 40,
-    borderBottomRightRadius: 40,
+    borderRadius: 40,
   },
   graphContainer: {
     justifyContent: "center",
     alignItems: "center",
     flexGrow: 1,
-  },
-  title: {
-    color: "white",
-    fontSize: 20,
-    fontWeight: "bold",
   },
 });
 
