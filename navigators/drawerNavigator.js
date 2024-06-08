@@ -9,11 +9,9 @@ import { Foundation } from "@expo/vector-icons";
 import TabNavigator from "./tabNavigator";
 import AboutUsScreen from "@screens/drawerScreens/AboutUsScreen";
 import DataPrivacyScreen from "@screens/drawerScreens/DataPrivacyScreen";
-import TermScreen from "@screens/drawerScreens/TermScreen";
 
 import sidebarLogo from "@assets/images/logos/aquifi-dark.png";
 import aboutus from "@assets/images/icons/about-us.png";
-import toc from "@assets/images/icons/toc.png";
 import privacy from "@assets/images/icons/privacy.png";
 
 import NoInternetConnection from "@components/NoInternetConnection";
@@ -71,13 +69,6 @@ export default function DrawerNavigator() {
           component={AboutUsScreen}
           options={{
             drawerIcon: () => <Image source={aboutus} style={styles.sbicon} />,
-          }}
-        />
-        <Drawer.Screen
-          name="Terms of Agreement"
-          component={TermScreen}
-          options={{
-            drawerIcon: () => <Image source={toc} style={styles.sbicon} />,
           }}
         />
         <Drawer.Screen

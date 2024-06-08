@@ -57,35 +57,36 @@ const useParameterData = (path, parameter, refreshing) => {
 const filterData = (snapshot, interval, parameter) => {
   const data = [];
 
-  const today = new Date();
-  const startOfToday = new Date(today.setHours(0, 0, 0, 0));
-  const endOfToday = new Date(today.setHours(23, 59, 59, 999));
-
-  const yesterday = new Date(today);
-  yesterday.setDate(today.getDate() - 1);
-  const startOfYesterday = new Date(yesterday.setHours(0, 0, 0, 0));
-  const endOfYesterday = new Date(yesterday.setHours(23, 59, 59, 999));
-
-  const oneWeekAgo = new Date(today);
-  oneWeekAgo.setDate(today.getDate() - 7);
-  const startOfOneWeekAgo = new Date(oneWeekAgo.setHours(0, 0, 0, 0));
-  const endOfOneWeekAgo = new Date(oneWeekAgo.setHours(23, 59, 59, 999));
+  if (!snapshot.exists()) {
+    console.log("Snapshot is empty for", interval);
+    return data;
+  }
 
   snapshot.forEach((childSnapshot) => {
     const rawData = childSnapshot.val();
-    const rawTimestamp = childSnapshot.val().timestamp;
+    const rawTimestamp = rawData.timestamp;
     const timestamp = new Date(rawTimestamp);
+    console.log("Timestamp", timestamp);
+
+    const today = new Date();
+
+    const tomorrow = new Date(today);
+    tomorrow.setDate(today.getDate() + 1);
+
+    const yesterday = new Date(today);
+    yesterday.setDate(today.getDate() - 1);
+
+    const oneWeekAgo = new Date(today);
+    oneWeekAgo.setDate(today.getDate() - 7);
 
     if (
-      (interval === "TODAY" &&
-        timestamp >= startOfToday &&
-        timestamp <= endOfToday) ||
+      (interval === "TODAY" && timestamp >= today && timestamp < tomorrow) ||
       (interval === "YESTERDAY" &&
-        timestamp >= startOfYesterday &&
-        timestamp <= endOfYesterday) ||
+        timestamp >= yesterday &&
+        timestamp < today) ||
       (interval === "ONE_WEEK_AGO" &&
-        timestamp >= startOfOneWeekAgo &&
-        timestamp <= endOfOneWeekAgo)
+        timestamp >= oneWeekAgo &&
+        timestamp < yesterday)
     ) {
       const parameterValue = rawData[parameter];
       data.push({
