@@ -20,7 +20,7 @@ const TermScreen = () => {
         </View>
       </View>
 
-      <ScrollView style={styles.fillOut}>
+      <ScrollView style={styles.fillOut} showsVerticalScrollIndicator={false}>
         <Image source={agreement} style={styles.agreementLogo} />
         <Text style={styles.sectionTitle}>Introduction</Text>
         <Text style={styles.sectionContent}>

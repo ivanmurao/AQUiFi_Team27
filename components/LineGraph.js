@@ -28,7 +28,12 @@ const LineGraph = ({
         style={{ fontSize: 16, fontWeight: "bold" }}
       />
       <VictoryLine animate data={data} x={time} y={value} />
-      <VictoryAxis crossAxis style={styles.xAxisStyle} label={xlabel} />
+      <VictoryAxis
+        crossAxis
+        style={styles.xAxisStyle}
+        label={xlabel}
+        tickFormat={() => ""}
+      />
       <VictoryAxis
         dependentAxis
         style={styles.yAxisStyle}

@@ -249,9 +249,9 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
   graphContainer: {
-    justifyContent: "center",
     alignItems: "center",
     flexGrow: 1,
+    height: "85%",
   },
 });
 

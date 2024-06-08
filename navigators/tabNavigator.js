@@ -9,16 +9,13 @@ import MonitorIcon from "@assets/images/icons/monitor.png";
 import IoTIcon from "@assets/images/icons/iot.png";
 
 const TabNavigator = () => {
-  const Tab = createBottomTabNavigator(); 
+  const Tab = createBottomTabNavigator();
 
   return (
     <Tab.Navigator
       screenOptions={{
-        tabBarStyle: {
-          paddingTop: 10,
-          height: 50,
-        },
         lazy: true,
+        tabBarShowLabel: false,
       }}
     >
       <Tab.Screen

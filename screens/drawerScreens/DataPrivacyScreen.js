@@ -19,7 +19,7 @@ const DataPrivacyScreen = () => {
         </View>
       </View>
 
-      <ScrollView style={styles.fillOut}>
+      <ScrollView style={styles.fillOut} showsVerticalScrollIndicator={false}>
         <Image source={policy} style={styles.policyLogo} />
         <Text style={styles.sectionTitle}>Introduction</Text>
         <Text style={styles.sectionContent}>
