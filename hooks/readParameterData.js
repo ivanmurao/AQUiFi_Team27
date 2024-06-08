@@ -66,7 +66,6 @@ const filterData = (snapshot, interval, parameter) => {
     const rawData = childSnapshot.val();
     const rawTimestamp = rawData.timestamp;
     const timestamp = new Date(rawTimestamp);
-    console.log("Timestamp", timestamp);
 
     const today = new Date();
 
