@@ -19,6 +19,7 @@ const HomeScreen = () => {
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
   const [isNotStandard, setIsNotStandard] = useState(false);
   const [warnedParameter, setWarnedParameter] = useState(null);
+  const [alertMessage, setAlertMessage] = useState(null);
   const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
   const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
 
@@ -61,19 +62,29 @@ const HomeScreen = () => {
   useEffect(() => {
     let alert = false;
     let parameter = "";
+    let alertMessage = "None";
 
-    if (phValue < 8 || phValue > 10) {
+    const isPhOutOfRange = phValue < 8 || phValue > 10;
+    const isTurbidityHigh = turbidityValue > 5;
+
+    if (isPhOutOfRange && isTurbidityHigh) {
+      alert = true;
+      parameter = "pH and turbidity";
+      alertMessage = "neither clean nor alkaline";
+    } else if (isPhOutOfRange) {
       alert = true;
       parameter = "pH";
-    }
-    if (turbidityValue > 5) {
+      alertMessage = "not alkaline";
+    } else if (isTurbidityHigh) {
       alert = true;
-      parameter += parameter ? " and turbidity" : "turbidity";
+      parameter = "turbidity";
+      alertMessage = "not clean";
     }
 
     setIsAlertModalVisible(alert);
     setIsNotStandard(alert);
-    setWarnedParameter(parameter || "None");
+    setWarnedParameter(parameter);
+    setAlertMessage(alertMessage);
   }, [phValue, turbidityValue]);
 
   const phColor = phColorSelector(phValue);
@@ -100,6 +111,7 @@ const HomeScreen = () => {
             </TouchableOpacity>
             <AlertNotification
               parameter={warnedParameter}
+              message={alertMessage}
               isVisible={isAlertModalVisible}
               onClose={handleAlertModalClose}
             />

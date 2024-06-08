@@ -8,7 +8,7 @@ import {
   Image,
 } from "react-native";
 
-const AlertNotification = ({ parameter, isVisible, onClose }) => {
+const AlertNotification = ({ parameter, message, isVisible, onClose }) => {
   return (
     <Modal
       animationType="slide"
@@ -27,8 +27,7 @@ const AlertNotification = ({ parameter, isVisible, onClose }) => {
           </View>
           <Text style={styles.message}>
             The {parameter} level is not within the standard range; therefore,
-            it is not safe to drink the water. The valve will automatically shut
-            off.
+            the water is {message}. The valve will automatically shut off.
           </Text>
           <TouchableOpacity style={styles.button} onPress={onClose}>
             <Text style={styles.buttonText}>Understood</Text>
