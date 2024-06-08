@@ -27,8 +27,8 @@ export default function DrawerNavigator() {
         screenOptions={{
           headerStyle: {
             backgroundColor: "#255C99",
-            elevation: 0, // Remove shadow on Android
-            shadowOpacity: 0, // Remove shadow on iOS
+            elevation: 0,
+            shadowOpacity: 0,
           },
           headerTintColor: "white",
           drawerActiveTintColor: "black",
@@ -46,7 +46,7 @@ export default function DrawerNavigator() {
             paddingVertical: 5,
             marginVertical: 15,
           },
-          drawerStyle: { width: "70%" },
+          drawerStyle: { width: "80%" },
         }}
         drawerContent={(props) => <CustomDrawerContent {...props} />}
       >

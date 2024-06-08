@@ -1,5 +1,12 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  useWindowDimensions,
+} from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
 
 import useGaugeData from "@hooks/readGaugeData";
@@ -91,6 +98,8 @@ const HomeScreen = () => {
 
   const phColor = phColorSelector(phValue);
   const turbidityColor = turbidityColorSelector(turbidityValue);
+
+  const styles = makeStyles(useWindowDimensions().width);
 
   return (
     <View style={styles.container}>
@@ -241,124 +250,125 @@ const HomeScreen = () => {
   );
 };
 
-const styles = StyleSheet.create({
-  // Main Container
-  container: {
-    flex: 1,
-    backgroundColor: "#255C99",
-    justifyContent: "space-evenly",
-    paddingHorizontal: 20,
-  },
+const makeStyles = (width) =>
+  StyleSheet.create({
+    // Main Container
+    container: {
+      flex: 1,
+      backgroundColor: "#255C99",
+      justifyContent: "space-evenly",
+      paddingHorizontal: 20,
+    },
 
-  // Alert Button
-  alertContainer: {
-    position: "absolute",
-    top: 60,
-    left: 0,
-    right: 15,
-    alignItems: "flex-end",
-  },
-  alerticon: {
-    width: 40,
-    height: 40,
-  },
+    // Alert Button
+    alertContainer: {
+      position: "absolute",
+      top: 60,
+      left: 0,
+      right: 15,
+      alignItems: "flex-end",
+    },
+    alerticon: {
+      width: 40,
+      height: 40,
+    },
 
-  // Date and Greetings Container
-  frame: {},
-  // Date and Greetings
-  dateGreetingsContainer: {
-    alignItems: "flex-start",
-  },
-  date: {
-    color: "white",
-    fontSize: 12,
-  },
-  greetings: {
-    color: "white",
-    fontSize: 18,
-    fontWeight: "bold",
-  },
+    // Date and Greetings Container
+    frame: {},
+    // Date and Greetings
+    dateGreetingsContainer: {
+      alignItems: "flex-start",
+    },
+    date: {
+      color: "white",
+      fontSize: 12,
+    },
+    greetings: {
+      color: "white",
+      fontSize: width < 390 ? 14 : 18,
+      fontWeight: "bold",
+    },
 
-  // Header
-  headerContainer: {
-    alignItems: "center",
-  },
-  // Logo Image
-  logoImage: {
-    width: 40,
-    height: 55,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    textAlign: "center",
-    color: "white",
-  },
+    // Header
+    headerContainer: {
+      alignItems: "center",
+    },
+    // Logo Image
+    logoImage: {
+      width: 40,
+      height: 55,
+    },
+    title: {
+      fontSize: width < 390 ? 20 : 24,
+      fontWeight: "bold",
+      textAlign: "center",
+      color: "white",
+    },
 
-  // Parameter Gauge
-  // Main Gauge Container
-  fillOut: {
-    paddingHorizontal: 20,
-    gap: 40,
-  },
-  // pH Gauge
-  container1: {
-    flexDirection: "row",
-    backgroundColor: "#7EA3CC",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 40,
-    padding: 20,
-    borderRadius: 30,
-    elevation: 5,
-  },
-  leftSection1: {
-    alignItems: "center",
-    gap: 20,
-  },
-  rightSection1: {
-    backgroundColor: "#F0f0f0",
-    borderRadius: 30,
-    paddingVertical: 30,
-    paddingHorizontal: 35,
-    elevation: 5,
-  },
-  icon: {
-    width: 60,
-    height: 60,
-  },
-  containerTitle1: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "black",
-  },
-  // Turbidity Gauge
-  container2: {
-    flexDirection: "row",
-    backgroundColor: "#7EA3CC",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 40,
-    padding: 20,
-    borderRadius: 30,
-    elevation: 5,
-  },
-  leftSection2: {
-    alignItems: "center",
-    gap: 20,
-  },
-  rightSection2: {
-    backgroundColor: "#F0f0f0",
-    borderRadius: 30,
-    paddingVertical: 30,
-    paddingHorizontal: 35,
-    elevation: 5,
-  },
-  containerTitle2: {
-    fontSize: 16,
-    fontWeight: "bold",
-    color: "black",
-  },
-});
+    // Parameter Gauge
+    // Main Gauge Container
+    fillOut: {
+      paddingHorizontal: 20,
+      gap: 40,
+    },
+    // pH Gauge
+    container1: {
+      flexDirection: "row",
+      backgroundColor: "#7EA3CC",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 40,
+      padding: 20,
+      borderRadius: 30,
+      elevation: 5,
+    },
+    leftSection1: {
+      alignItems: "center",
+      gap: 20,
+    },
+    rightSection1: {
+      backgroundColor: "#F0f0f0",
+      borderRadius: 30,
+      paddingVertical: 30,
+      paddingHorizontal: 35,
+      elevation: 5,
+    },
+    icon: {
+      width: 60,
+      height: 60,
+    },
+    containerTitle1: {
+      fontSize: width < 390 ? 10 : 16,
+      fontWeight: "bold",
+      color: "black",
+    },
+    // Turbidity Gauge
+    container2: {
+      flexDirection: "row",
+      backgroundColor: "#7EA3CC",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 40,
+      padding: 20,
+      borderRadius: 30,
+      elevation: 5,
+    },
+    leftSection2: {
+      alignItems: "center",
+      gap: 20,
+    },
+    rightSection2: {
+      backgroundColor: "#F0f0f0",
+      borderRadius: 30,
+      paddingVertical: 30,
+      paddingHorizontal: 35,
+      elevation: 5,
+    },
+    containerTitle2: {
+      fontSize: width < 390 ? 10 : 16,
+      fontWeight: "bold",
+      color: "black",
+    },
+  });
 
 export default HomeScreen;
