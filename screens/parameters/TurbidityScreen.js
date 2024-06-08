@@ -17,7 +17,8 @@ import useParameterData from "@hooks/readParameterData.js";
 const TurbidityScreen = ({ navigation }) => {
   const [selectedInterval, setSelectedInterval] = useState("TODAY");
   const [refreshing, setRefreshing] = useState(false);
-  const [turbidityData, setTurbidityData] = useState();
+  const [turbiditySensorData, setTurbiditySensorData] = useState();
+  const [turbidityForecastData, setTurbidityForecastData] = useState();
 
   const goBack = () => {
     navigation.goBack();
@@ -35,22 +36,39 @@ const TurbidityScreen = ({ navigation }) => {
     }, 2000);
   }, []);
 
-  const rawTurbidityData = useParameterData(
+  const rawTurbiditySensorData = useParameterData(
     "TURBIDITY_SENSOR_VALUES",
     "turbidityLevelValue",
     refreshing
   );
 
+  const rawTurbidityForecastData = useParameterData(
+    "TURBIDITY_FORECAST_VALUES",
+    "turbidityLevelValue",
+    refreshing
+  );
+
   useEffect(() => {
+    // Sensor Data
     if (selectedInterval === "MAX") {
-      setTurbidityData(rawTurbidityData);
+      setTurbiditySensorData(rawTurbiditySensorData);
     } else {
-      const filteredValues = rawTurbidityData.filter(
+      const filteredValues = rawTurbiditySensorData.filter(
         (data) => data.interval === selectedInterval
       );
-      setTurbidityData(filteredValues);
+      setTurbiditySensorData(filteredValues);
     }
-  }, [selectedInterval, rawTurbidityData]);
+
+    // Forecast Data
+    if (selectedInterval === "MAX") {
+      setTurbidityForecastData(rawTurbidityForecastData);
+    } else {
+      const filteredValues = rawTurbidityForecastData.filter(
+        (data) => data.interval === selectedInterval
+      );
+      setTurbidityForecastData(filteredValues);
+    }
+  }, [selectedInterval, rawTurbiditySensorData, rawTurbidityForecastData]);
 
   return (
     <View style={styles.container}>
@@ -73,7 +91,7 @@ const TurbidityScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => handleIntervalChange("TODAY")}
               style={
-                selectedInterval === 'TODAY'
+                selectedInterval === "TODAY"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -83,7 +101,7 @@ const TurbidityScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => handleIntervalChange("YESTERDAY")}
               style={
-                selectedInterval === 'YESTERDAY'
+                selectedInterval === "YESTERDAY"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -93,7 +111,7 @@ const TurbidityScreen = ({ navigation }) => {
             <TouchableOpacity
               onPress={() => handleIntervalChange("ONE_WEEK_AGO")}
               style={
-                selectedInterval === 'ONE_WEEK_AGO'
+                selectedInterval === "ONE_WEEK_AGO"
                   ? styles.selectedButton
                   : styles.intervalButton
               }
@@ -125,7 +143,7 @@ const TurbidityScreen = ({ navigation }) => {
             >
               <LineGraph
                 title="Sensor Values"
-                data={turbidityData}
+                data={turbiditySensorData}
                 tickValues={[0, 1, 2, 3, 4, 5, 6]}
                 domain={[0, 6]}
                 xlabel="Date"
@@ -135,7 +153,7 @@ const TurbidityScreen = ({ navigation }) => {
               />
               <LineGraph
                 title="Forecast Values"
-                data={turbidityData}
+                data={turbidityForecastData}
                 tickValues={[0, 1, 2, 3, 4, 5, 6]}
                 domain={[0, 6]}
                 xlabel="Date"

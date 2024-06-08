@@ -17,7 +17,8 @@ import useParameterData from "@hooks/readParameterData";
 const PHScreen = ({ navigation }) => {
   const [selectedInterval, setSelectedInterval] = useState("TODAY");
   const [refreshing, setRefreshing] = useState(false);
-  const [phValues, setPhValues] = useState();
+  const [phSensorData, setPHSensorData] = useState();
+  const [phForecastData, setPHForecastData] = useState();
 
   const goBack = () => {
     navigation.goBack();
@@ -34,22 +35,39 @@ const PHScreen = ({ navigation }) => {
     }, 2000);
   }, []);
 
-  const rawPHValues = useParameterData(
+  const rawPHSensorData = useParameterData(
     "PH_SENSOR_VALUES",
     "phLevelValue",
     refreshing
   );
 
+  const rawPHForecastData = useParameterData(
+    "PH_FORECAST_VALUES",
+    "phLevelValue",
+    refreshing
+  );
+
   useEffect(() => {
+    // Sensor Data
     if (selectedInterval === "MAX") {
-      setPhValues(rawPHValues);
+      setPHSensorData(rawPHSensorData);
     } else {
-      const filteredValues = rawPHValues.filter(
+      const filteredValues = rawPHSensorData.filter(
         (data) => data.interval === selectedInterval
       );
-      setPhValues(filteredValues);
+      setPHSensorData(filteredValues);
     }
-  }, [selectedInterval, rawPHValues]);
+
+    // Forecast Data
+    if (selectedInterval === "MAX") {
+      setPHForecastData(rawPHForecastData);
+    } else {
+      const filteredValues = rawPHForecastData.filter(
+        (data) => data.interval === selectedInterval
+      );
+      setPHForecastData(filteredValues);
+    }
+  }, [selectedInterval, rawPHSensorData, rawPHForecastData]);
 
   return (
     <View style={styles.container}>
@@ -124,7 +142,7 @@ const PHScreen = ({ navigation }) => {
             >
               <LineGraph
                 title="Sensor Values"
-                data={phValues}
+                data={phSensorData}
                 tickValues={[2, 4, 6, 8, 10, 12]}
                 domain={[0, 12]}
                 xlabel="Date"
@@ -135,7 +153,7 @@ const PHScreen = ({ navigation }) => {
 
               <LineGraph
                 title="Forecast Values"
-                data={phValues}
+                data={phForecastData}
                 tickValues={[2, 4, 6, 8, 10, 12]}
                 domain={[0, 12]}
                 xlabel="Date"
