@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,13 +8,32 @@ import {
   Image,
 } from "react-native";
 
-const AlertNotification = ({ parameter, message, isVisible, onClose }) => {
+const AlertNotification = ({
+  parameter,
+  message,
+  isVisible,
+  isClicked,
+  onClose,
+}) => {
+  const [modalVisible, setModalVisible] = useState(isVisible);
+
+  useEffect(() => {
+    if (isClicked) {
+      setModalVisible(true);
+    }
+  }, [isClicked]);
+
+  const handleUnderstood = () => {
+    setModalVisible(false);
+    onClose();
+  };
+
   return (
     <Modal
       animationType="slide"
       transparent={true}
-      visible={isVisible}
-      onRequestClose={onClose}
+      visible={modalVisible}
+      onRequestClose={() => setModalVisible(false)}
     >
       <View style={styles.centeredView}>
         <View style={styles.modalView}>
@@ -29,7 +48,7 @@ const AlertNotification = ({ parameter, message, isVisible, onClose }) => {
             The {parameter} level is not within the standard range; therefore,
             the water is {message}. The valve will automatically shut off.
           </Text>
-          <TouchableOpacity style={styles.button} onPress={onClose}>
+          <TouchableOpacity style={styles.button} onPress={handleUnderstood}>
             <Text style={styles.buttonText}>Understood</Text>
           </TouchableOpacity>
         </View>

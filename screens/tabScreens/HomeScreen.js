@@ -22,13 +22,15 @@ const HomeScreen = () => {
   const [alertMessage, setAlertMessage] = useState(null);
   const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
   const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
+  const [isAlertClicked, setIsAlertClicked] = useState(false);
 
   const handleAlertButtonPress = () => {
-    setIsAlertModalVisible(true);
+    setIsAlertClicked(true);
   };
 
   const handleAlertModalClose = () => {
     setIsAlertModalVisible(false);
+    setIsAlertClicked(false);
   };
 
   const handleContainer1Press = () => {
@@ -113,6 +115,7 @@ const HomeScreen = () => {
               parameter={warnedParameter}
               message={alertMessage}
               isVisible={isAlertModalVisible}
+              isClicked={isAlertClicked}
               onClose={handleAlertModalClose}
             />
           </View>
