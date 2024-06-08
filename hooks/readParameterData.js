@@ -69,9 +69,6 @@ const filterData = (snapshot, interval, parameter) => {
 
     const today = new Date();
 
-    const tomorrow = new Date(today);
-    tomorrow.setDate(today.getDate() + 1);
-
     const yesterday = new Date(today);
     yesterday.setDate(today.getDate() - 1);
 
@@ -79,7 +76,7 @@ const filterData = (snapshot, interval, parameter) => {
     oneWeekAgo.setDate(today.getDate() - 7);
 
     if (
-      (interval === "TODAY" && timestamp >= today && timestamp < tomorrow) ||
+      (interval === "TODAY" && timestamp >= today) ||
       (interval === "YESTERDAY" &&
         timestamp >= yesterday &&
         timestamp < today) ||
