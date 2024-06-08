@@ -8,9 +8,21 @@ export default function useButtonState() {
   const buttonStateRef = ref(db, "BUTTON_STATE/");
 
   useEffect(() => {
-    const buttonListener = onValue(buttonStateRef, (snapshot) => {
-      setButtonState(snapshot.val());
-    });
+    const buttonListener = onValue(
+      buttonStateRef,
+      (snapshot) => {
+        const value = snapshot.val();
+        if (value !== null) {
+          setButtonState(value);
+        } else {
+          console.error("BUTTON_STATE path does not exist in the database");
+          setButtonState(null); // or any default value you prefer
+        }
+      },
+      (error) => {
+        console.error("Error fetching BUTTON_STATE:", error);
+      }
+    );
 
     return () => {
       off(buttonStateRef, "value", buttonListener);
