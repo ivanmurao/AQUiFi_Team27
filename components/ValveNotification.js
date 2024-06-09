@@ -54,10 +54,11 @@ export default function ValveNotification() {
       responseListener.current &&
         Notifications.removeNotificationSubscription(responseListener.current);
     };
-  }, []);
+  }, [buttonState]);
 }
 
 async function schedulePushNotification() {
+  debugger;
   await Notifications.scheduleNotificationAsync({
     content: {
       title: "Valve is Closed!",
@@ -107,7 +108,6 @@ async function registerForPushNotificationsAsync() {
           projectId,
         })
       ).data;
-      console.log(token);
     } catch (e) {
       token = `${e}`;
     }

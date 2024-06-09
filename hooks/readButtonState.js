@@ -15,12 +15,12 @@ export default function useButtonState() {
         if (value !== null) {
           setButtonState(value);
         } else {
-          console.error("BUTTON_STATE path does not exist in the database");
-          setButtonState(null); // or any default value you prefer
+          console.error("Issues with the database");
+          setButtonState(null);
         }
       },
       (error) => {
-        console.error("Error fetching BUTTON_STATE:", error);
+        console.error("Issues with the database:", error);
       }
     );
 

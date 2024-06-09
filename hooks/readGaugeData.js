@@ -17,12 +17,12 @@ const useGaugeData = () => {
         if (value !== null) {
           setPhValue(value);
         } else {
-          console.error("PH_GAUGE_VALUE path does not exist in the database");
+          console.error("Issues with the database");
           setPhValue(8); // or any default value
         }
       },
       (error) => {
-        console.error("Error fetching PH_GAUGE_VALUE:", error);
+        console.error("Issues with the database:", error);
       }
     );
 
@@ -33,14 +33,12 @@ const useGaugeData = () => {
         if (value !== null) {
           setTurbValue(value);
         } else {
-          console.error(
-            "TURBIDITY_GAUGE_VALUE path does not exist in the database"
-          );
+          console.error("Issues with the database");
           setTurbValue(0); // or any default value
         }
       },
       (error) => {
-        console.error("Error fetching TURBIDITY_GAUGE_VALUE:", error);
+        console.error("Issues with the database", error);
       }
     );
 
