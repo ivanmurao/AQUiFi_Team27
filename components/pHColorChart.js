@@ -14,9 +14,7 @@ const pHColorChart = ({ isVisible, onClose }) => {
           {/* Title and Status */}
           <View style={styles.header}>
             <Text style={styles.title}>pH Color Chart</Text>
-            <Text style={styles.status}>Status: </Text>
           </View>
-          
 
           {/* pH Color Boxes */}
           <View style={styles.colorBoxesContainer}>
@@ -48,9 +46,9 @@ const pHColorChart = ({ isVisible, onClose }) => {
 
           {/* Arrow Indicator */}
           <View style={styles.indicatorArrowContainer}>
-            <View style={styles.indicatorArrow1}/>
-            <View style={styles.indicatorArrow2}/>
-            <View style={styles.indicatorArrow3}/>
+            <View style={styles.indicatorArrow1} />
+            <View style={styles.indicatorArrow2} />
+            <View style={styles.indicatorArrow3} />
           </View>
 
           {/* Indicator Text */}
@@ -103,7 +101,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     marginBottom: 10,
   },
-  
+
   colorBox: {
     width: 30,
     height: 30,
@@ -130,7 +128,7 @@ const styles = StyleSheet.create({
     width: 125,
     height: 10,
     borderWidth: 2,
-    borderTopWidth:0,
+    borderTopWidth: 0,
   },
 
   indicatorArrow2: {
@@ -141,7 +139,7 @@ const styles = StyleSheet.create({
   indicatorArrow3: {
     width: 85,
     height: 10,
-    borderTopWidth:0,
+    borderTopWidth: 0,
     borderWidth: 2,
   },
 
@@ -156,20 +154,19 @@ const styles = StyleSheet.create({
   indicatorText1: {
     color: "#7EA3CC",
     marginLeft: 45,
-    fontWeight: "600"
-    
+    fontWeight: "600",
   },
 
   indicatorText2: {
     color: "#7EA3CC",
     marginLeft: 25,
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
   indicatorText3: {
     color: "#7EA3CC",
     marginRight: 15,
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
   button: {

@@ -14,7 +14,6 @@ const TurbColorChart = ({ isVisible, onClose }) => {
           {/* Title and Status */}
           <View style={styles.header}>
             <Text style={styles.title}>Turbidity Color Chart</Text>
-            <Text style={styles.status}>Status: </Text>
           </View>
 
           {/* pH Color Boxes */}
@@ -45,10 +44,10 @@ const TurbColorChart = ({ isVisible, onClose }) => {
             </View>
           </View>
 
-           {/* Arrow Indicator */}
-           <View style={styles.indicatorContainer}>
-            <View style={styles.indicator1}/>
-            <View style={styles.indicator2}/>
+          {/* Arrow Indicator */}
+          <View style={styles.indicatorContainer}>
+            <View style={styles.indicator1} />
+            <View style={styles.indicator2} />
           </View>
 
           {/* Indicator Text */}
@@ -61,7 +60,6 @@ const TurbColorChart = ({ isVisible, onClose }) => {
           <View style={styles.indicatorDes2Container}>
             <Text style={styles.indicatorDes22}>Drinking Water</Text>
           </View>
-          
 
           {/* Close Button */}
           <TouchableOpacity style={styles.button} onPress={onClose}>
@@ -132,14 +130,14 @@ const styles = StyleSheet.create({
     width: 85,
     height: 10,
     borderWidth: 2,
-    borderTopWidth:0,
+    borderTopWidth: 0,
   },
 
   indicator2: {
     width: 165,
     height: 10,
     borderWidth: 2,
-    borderTopWidth:0,
+    borderTopWidth: 0,
   },
 
   indicatorDesContainer: {
@@ -151,13 +149,13 @@ const styles = StyleSheet.create({
 
   indicatorDes1: {
     color: "#7EA3CC",
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
   indicatorDes2: {
     color: "#7EA3CC",
     marginRight: 27,
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
   indicatorDes2Container: {
@@ -171,7 +169,7 @@ const styles = StyleSheet.create({
   indicatorDes22: {
     color: "#7EA3CC",
     marginRight: 27,
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
   button: {
