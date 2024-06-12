@@ -267,53 +267,54 @@ const HomeScreen = () => {
           </View>
         </TouchableOpacity>
 
-        {/* Container 2 */}
-        <TouchableOpacity onPress={handleContainer2Press}>
-          <View style={styles.container2}>
-            {/* Left Section */}
-            <View style={styles.leftSection2}>
-              <Image source={turbidity} style={styles.icon} />
-              <Text style={styles.containerTitle2}>TURBIDITY</Text>
+        {isDefault && (
+          <TouchableOpacity onPress={handleContainer2Press}>
+            <View style={styles.container2}>
+              {/* Left Section */}
+              <View style={styles.leftSection2}>
+                <Image source={turbidity} style={styles.icon} />
+                <Text style={styles.containerTitle2}>TURBIDITY</Text>
+              </View>
+              {/* Right Section */}
+              <View style={styles.rightSection2}>
+                {/* Circular Gauge */}
+                <Svg width="100" height="100">
+                  {/* Background Circle */}
+                  <Circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    stroke="#E1E1E1"
+                    strokeWidth="10"
+                    fill="transparent"
+                  />
+                  {/* turbidity Value Circle */}
+                  <Circle
+                    cx="50"
+                    cy="50"
+                    r="45"
+                    stroke={turbidityColor}
+                    strokeWidth="10"
+                    strokeDasharray={`${(turbidityGaugeValue / 5) * 282.5} 565`}
+                    strokeLinecap="round"
+                    fill="transparent"
+                  />
+                  {/* Text Displaying turbidity Value */}
+                  <SvgText
+                    x="50%"
+                    y="50%"
+                    fontSize="16"
+                    textAnchor="middle"
+                    fill="#000"
+                    dy="8"
+                  >
+                    {turbidityGaugeValue.toFixed(1)}
+                  </SvgText>
+                </Svg>
+              </View>
             </View>
-            {/* Right Section */}
-            <View style={styles.rightSection2}>
-              {/* Circular Gauge */}
-              <Svg width="100" height="100">
-                {/* Background Circle */}
-                <Circle
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  stroke="#E1E1E1"
-                  strokeWidth="10"
-                  fill="transparent"
-                />
-                {/* turbidity Value Circle */}
-                <Circle
-                  cx="50"
-                  cy="50"
-                  r="45"
-                  stroke={turbidityColor}
-                  strokeWidth="10"
-                  strokeDasharray={`${(turbidityGaugeValue / 5) * 282.5} 565`}
-                  strokeLinecap="round"
-                  fill="transparent"
-                />
-                {/* Text Displaying turbidity Value */}
-                <SvgText
-                  x="50%"
-                  y="50%"
-                  fontSize="16"
-                  textAnchor="middle"
-                  fill="#000"
-                  dy="8"
-                >
-                  {turbidityGaugeValue.toFixed(1)}
-                </SvgText>
-              </Svg>
-            </View>
-          </View>
-        </TouchableOpacity>
+          </TouchableOpacity>
+        )}
       </View>
 
       {/* Parameter Chart Modal */}
