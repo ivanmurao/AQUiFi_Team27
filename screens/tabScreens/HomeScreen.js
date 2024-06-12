@@ -260,7 +260,7 @@ const HomeScreen = () => {
                   fill="#000"
                   dy="8"
                 >
-                  {phGaugeValue.toFixed(1)}
+                  {phGaugeValue.toFixed(2)}
                 </SvgText>
               </Svg>
             </View>
@@ -308,7 +308,7 @@ const HomeScreen = () => {
                     fill="#000"
                     dy="8"
                   >
-                    {turbidityGaugeValue.toFixed(1)}
+                    {turbidityGaugeValue.toFixed(2)}
                   </SvgText>
                 </Svg>
               </View>
