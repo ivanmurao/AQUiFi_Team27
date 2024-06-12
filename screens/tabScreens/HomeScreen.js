@@ -27,6 +27,8 @@ import { onValue, ref, off } from "firebase/database";
 import { db } from "@services/firebase/firebaseConfig.js";
 
 const HomeScreen = () => {
+  const { phValue, turbidityValue } = useGaugeData("GAUGE_VALUE");
+
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
   const [isNotStandard, setIsNotStandard] = useState(false);
   const [warnedParameter, setWarnedParameter] = useState(null);
@@ -36,15 +38,11 @@ const HomeScreen = () => {
   const [isAlertClicked, setIsAlertClicked] = useState(false);
   const [title, setTitle] = useState("Sensor");
   const [isDefault, setIsDefault] = useState(false);
-  const [phGaugeValue, setPHGaugeValue] = useState(0);
-  const [turbidityGaugeValue, setTurbidityGaugeValue] = useState(0);
+  const [phGaugeValue, setPHGaugeValue] = useState(phValue);
+  const [turbidityGaugeValue, setTurbidityGaugeValue] =
+    useState(turbidityValue);
   const [phForecastValue, setPHForecastValue] = useState(0);
   const [turbidityForecastValue, setTurbidityForecastValue] = useState(0);
-
-  const { phValue, turbidityValue } = useGaugeData("GAUGE_VALUE");
-
-  console.log(phValue, turbidityValue);
-  console.log(phForecastValue, turbidityForecastValue);
 
   const handleAlertButtonPress = () => {
     setIsAlertClicked(true);
@@ -122,48 +120,48 @@ const HomeScreen = () => {
     setAlertMessage(alertMessage);
   }, [phValue, turbidityValue]);
 
-  // useEffect(() => {
-  //   const phSensorRef = ref(db, `PH_FORECAST_FOR_VALUE`);
-  //   const turbSensorRef = ref(db, `TURBIDITY_FORECAST_FOR_VALUE`);
+  useEffect(() => {
+    const phSensorRef = ref(db, `PH_FORECAST_FOR_VALVE`);
+    const turbSensorRef = ref(db, `TURBIDITY_FORECAST_FOR_VALVE`);
 
-  //   const phListener = onValue(
-  //     phSensorRef,
-  //     (snapshot) => {
-  //       const value = snapshot.val();
-  //       if (value !== null) {
-  //         setPHForecastValue(value);
-  //       } else {
-  //         console.error("Issues with the database");
-  //         setPHForecastValue(8); // or any default value
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error("Issues with the database:", error);
-  //     }
-  //   );
+    const phListener = onValue(
+      phSensorRef,
+      (snapshot) => {
+        const value = snapshot.val();
+        if (value !== null || typeof value == "number") {
+          setPHForecastValue(value);
+        } else {
+          console.error("Issues with the database");
+          setPHForecastValue(8); // or any default value
+        }
+      },
+      (error) => {
+        console.error("Issues with the database:", error);
+      }
+    );
 
-  //   const turbListener = onValue(
-  //     turbSensorRef,
-  //     (snapshot) => {
-  //       const value = snapshot.val();
-  //       if (value !== null) {
-  //         setTurbidityForecastValue(value);
-  //       } else {
-  //         console.error("Issues with the database");
-  //         setTurbidityForecastValue(0); // or any default value
-  //       }
-  //     },
-  //     (error) => {
-  //       console.error("Issues with the database", error);
-  //     }
-  //   );
+    const turbListener = onValue(
+      turbSensorRef,
+      (snapshot) => {
+        const value = snapshot.val();
+        if (value !== null) {
+          setTurbidityForecastValue(value);
+        } else {
+          console.error("Issues with the database");
+          setTurbidityForecastValue(0); // or any default value
+        }
+      },
+      (error) => {
+        console.error("Issues with the database", error);
+      }
+    );
 
-  //   // Cleanup function to remove listeners when the component unmounts
-  //   return () => {
-  //     off(phSensorRef, "value", phListener);
-  //     off(turbSensorRef, "value", turbListener);
-  //   };
-  // }, []);
+    // Cleanup function to remove listeners when the component unmounts
+    return () => {
+      off(phSensorRef, "value", phListener);
+      off(turbSensorRef, "value", turbListener);
+    };
+  }, []);
 
   const phColor = phColorSelector(phGaugeValue);
   const turbidityColor = turbidityColorSelector(turbidityGaugeValue);
