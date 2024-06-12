@@ -6,6 +6,7 @@ import {
   Image,
   TouchableOpacity,
   useWindowDimensions,
+  Touchable,
 } from "react-native";
 import { Svg, Circle, Text as SvgText } from "react-native-svg";
 
@@ -22,6 +23,9 @@ import logoIcon from "@assets/images/logos/aquifi-light.png";
 import turbidity from "@assets/images/icons/turbidity-meter.png";
 import ph from "@assets/images/icons/ph-meter.png";
 
+import { onValue, ref, off } from "firebase/database";
+import { db } from "@services/firebase/firebaseConfig.js";
+
 const HomeScreen = () => {
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
   const [isNotStandard, setIsNotStandard] = useState(false);
@@ -30,6 +34,17 @@ const HomeScreen = () => {
   const [isPHColorChartVisible, setIsPHColorChartVisible] = useState(false);
   const [isTurbColorChartVisible, setIsTurbColorChartVisible] = useState(false);
   const [isAlertClicked, setIsAlertClicked] = useState(false);
+  const [title, setTitle] = useState("Sensor");
+  const [isDefault, setIsDefault] = useState(false);
+  const [phGaugeValue, setPHGaugeValue] = useState(0);
+  const [turbidityGaugeValue, setTurbidityGaugeValue] = useState(0);
+  const [phForecastValue, setPHForecastValue] = useState(0);
+  const [turbidityForecastValue, setTurbidityForecastValue] = useState(0);
+
+  const { phValue, turbidityValue } = useGaugeData("GAUGE_VALUE");
+
+  console.log(phValue, turbidityValue);
+  console.log(phForecastValue, turbidityForecastValue);
 
   const handleAlertButtonPress = () => {
     setIsAlertClicked(true);
@@ -46,6 +61,19 @@ const HomeScreen = () => {
 
   const handleContainer2Press = () => {
     setIsTurbColorChartVisible(true);
+  };
+
+  const handleTitlePress = () => {
+    if (isDefault) {
+      setTitle("Forecast");
+      setPHGaugeValue(phForecastValue);
+      setTurbidityGaugeValue(turbidityForecastValue);
+    } else {
+      setTitle("Sensor");
+      setPHGaugeValue(phValue);
+      setTurbidityGaugeValue(turbidityValue);
+    }
+    setIsDefault(!isDefault);
   };
 
   const currentTime = new Date();
@@ -65,8 +93,6 @@ const HomeScreen = () => {
     day: "numeric",
   };
   const formattedDate = currentTime.toLocaleDateString(undefined, dateOptions);
-
-  const { phValue, turbidityValue } = useGaugeData();
 
   useEffect(() => {
     let alert = false;
@@ -96,8 +122,51 @@ const HomeScreen = () => {
     setAlertMessage(alertMessage);
   }, [phValue, turbidityValue]);
 
-  const phColor = phColorSelector(phValue);
-  const turbidityColor = turbidityColorSelector(turbidityValue);
+  // useEffect(() => {
+  //   const phSensorRef = ref(db, `PH_FORECAST_FOR_VALUE`);
+  //   const turbSensorRef = ref(db, `TURBIDITY_FORECAST_FOR_VALUE`);
+
+  //   const phListener = onValue(
+  //     phSensorRef,
+  //     (snapshot) => {
+  //       const value = snapshot.val();
+  //       if (value !== null) {
+  //         setPHForecastValue(value);
+  //       } else {
+  //         console.error("Issues with the database");
+  //         setPHForecastValue(8); // or any default value
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error("Issues with the database:", error);
+  //     }
+  //   );
+
+  //   const turbListener = onValue(
+  //     turbSensorRef,
+  //     (snapshot) => {
+  //       const value = snapshot.val();
+  //       if (value !== null) {
+  //         setTurbidityForecastValue(value);
+  //       } else {
+  //         console.error("Issues with the database");
+  //         setTurbidityForecastValue(0); // or any default value
+  //       }
+  //     },
+  //     (error) => {
+  //       console.error("Issues with the database", error);
+  //     }
+  //   );
+
+  //   // Cleanup function to remove listeners when the component unmounts
+  //   return () => {
+  //     off(phSensorRef, "value", phListener);
+  //     off(turbSensorRef, "value", turbListener);
+  //   };
+  // }, []);
+
+  const phColor = phColorSelector(phGaugeValue);
+  const turbidityColor = turbidityColorSelector(turbidityGaugeValue);
 
   const styles = makeStyles(useWindowDimensions().width);
 
@@ -140,6 +209,18 @@ const HomeScreen = () => {
       </View>
 
       <View style={styles.fillOut}>
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#7EA3CC",
+            borderRadius: 10,
+            width: "50%",
+            paddingVertical: 10,
+            alignSelf: "center",
+          }}
+          onPress={handleTitlePress}
+        >
+          <Text style={{ textAlign: "center", color: "black" }}>{title}</Text>
+        </TouchableOpacity>
         {/* Container 1 */}
         <TouchableOpacity onPress={handleContainer1Press}>
           <View style={styles.container1}>
@@ -168,7 +249,7 @@ const HomeScreen = () => {
                   r="45"
                   stroke={phColor}
                   strokeWidth="10"
-                  strokeDasharray={`${(phValue / 15) * 282.5} 565`}
+                  strokeDasharray={`${(phGaugeValue / 15) * 282.5} 565`}
                   strokeLinecap="round"
                   fill="transparent"
                 />
@@ -181,7 +262,7 @@ const HomeScreen = () => {
                   fill="#000"
                   dy="8"
                 >
-                  {phValue.toFixed(1)}
+                  {phGaugeValue.toFixed(1)}
                 </SvgText>
               </Svg>
             </View>
@@ -216,7 +297,7 @@ const HomeScreen = () => {
                   r="45"
                   stroke={turbidityColor}
                   strokeWidth="10"
-                  strokeDasharray={`${(turbidityValue / 5) * 282.5} 565`}
+                  strokeDasharray={`${(turbidityGaugeValue / 5) * 282.5} 565`}
                   strokeLinecap="round"
                   fill="transparent"
                 />
@@ -229,7 +310,7 @@ const HomeScreen = () => {
                   fill="#000"
                   dy="8"
                 >
-                  {turbidityValue.toFixed(1)}
+                  {turbidityGaugeValue.toFixed(1)}
                 </SvgText>
               </Svg>
             </View>

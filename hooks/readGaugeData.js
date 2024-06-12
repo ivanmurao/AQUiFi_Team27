@@ -2,13 +2,13 @@ import { useEffect, useState } from "react";
 import { onValue, ref, off } from "firebase/database";
 import { db } from "@services/firebase/firebaseConfig.js";
 
-const useGaugeData = () => {
+const useGaugeData = (dataType) => {
   const [phValue, setPhValue] = useState(8);
   const [turbidityValue, setTurbValue] = useState(0);
 
   useEffect(() => {
-    const phSensorRef = ref(db, "PH_GAUGE_VALUE");
-    const turbSensorRef = ref(db, "TURBIDITY_GAUGE_VALUE");
+    const phSensorRef = ref(db, `PH_${dataType}`);
+    const turbSensorRef = ref(db, `TURBIDITY_${dataType}`);
 
     const phListener = onValue(
       phSensorRef,
