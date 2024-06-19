@@ -18,10 +18,10 @@
     "@react-navigation/native": "^6.1.9",
     "@react-navigation/stack": "^6.3.20",
     "babel-plugin-module-resolver": "^5.0.2",
-    "expo": "~51.0.13",
+    "expo": "~51.0.14",
     "expo-device": "~6.0.2",
     "expo-notifications": "~0.28.9",
-    "expo-updates": "~0.25.16",
+    "expo-updates": "~0.25.17",
     "firebase": "^10.11.1",
     "metro": "~0.80.8",
     "metro-config": "~0.80.8",
@@ -44,5 +44,5 @@
     "@babel/core": "^7.24.0"
   },
   "private": true,
-  "packageManager": "yarn@4.2.2"
+  "packageManager": "yarn@4.3.0"
 }
