@@ -18,28 +18,34 @@ const TurbColorChart = ({ isVisible, onClose }) => {
 
           {/* pH Color Boxes */}
           <View style={styles.colorBoxesContainer}>
-            <View style={[styles.colorBox, { backgroundColor: "#FF5733" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#BB8E4D" }]}>
               <Text style={styles.boxText}>10</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#FFA500" }]}>
-              <Text style={styles.boxText}>-</Text>
+            <View style={[styles.colorBox, { backgroundColor: "#C7A26B" }]}>
+              <Text style={styles.boxText}>9</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#FFFF00" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#D3B589" }]}>
+              <Text style={styles.boxText}>8</Text>
+            </View>
+            <View style={[styles.colorBox, { backgroundColor: "#DABF9E" }]}>
+              <Text style={styles.boxText}>7</Text>
+            </View>
+            <View style={[styles.colorBox, { backgroundColor: "#E2D0B0" }]}>
               <Text style={styles.boxText}>6</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#ADFF2F" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#EADDC4" }]}>
               <Text style={styles.boxText}>5</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#008000" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#F2EBDA" }]}>
               <Text style={styles.boxText}>4</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#ADD8E6" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#F7F5E5" }]}>
               <Text style={styles.boxText}>3</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#0000FF" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#FFFEF7" }]}>
               <Text style={styles.boxText}>2</Text>
             </View>
-            <View style={[styles.colorBox, { backgroundColor: "#8A2BE2" }]}>
+            <View style={[styles.colorBox, { backgroundColor: "#FFFFFF" }]}>
               <Text style={styles.boxText}>1</Text>
             </View>
           </View>
@@ -121,20 +127,20 @@ const styles = StyleSheet.create({
   indicatorContainer: {
     flexDirection: "row",
     alignItems: "center",
-    width: 290,
+    width: 325,
     justifyContent: "space-between",
     marginBottom: 5,
   },
 
   indicator1: {
-    width: 85,
+    width: 145,
     height: 10,
     borderWidth: 2,
     borderTopWidth: 0,
   },
 
   indicator2: {
-    width: 165,
+    width: 148,
     height: 10,
     borderWidth: 2,
     borderTopWidth: 0,
