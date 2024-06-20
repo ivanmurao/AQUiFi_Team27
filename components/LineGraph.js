@@ -6,6 +6,7 @@ import {
   VictoryChart,
   VictoryTheme,
   VictoryAxis,
+  VictoryZoomContainer,
 } from "victory-native";
 
 const LineGraph = ({
@@ -19,7 +20,14 @@ const LineGraph = ({
   value,
 }) => {
   return (
-    <VictoryChart theme={VictoryTheme.material} width={350} height={300}>
+    <VictoryChart
+      theme={VictoryTheme.material}
+      width={350}
+      height={300}
+      containerComponent={
+        <VictoryZoomContainer allowZoom={false} zoomDomain={{ x: [1, 6] }} />
+      }
+    >
       <VictoryLabel
         text={title}
         x={190}
@@ -27,12 +35,12 @@ const LineGraph = ({
         textAnchor="middle"
         style={{ fontSize: 16, fontWeight: "bold" }}
       />
-      <VictoryLine animate data={data} x={time} y={value} />
+      <VictoryLine data={data} x={time} y={value} />
       <VictoryAxis
         crossAxis
         style={styles.xAxisStyle}
         label={xlabel}
-        tickFormat={() => ""}
+        // tickFormat={() => ""}
       />
       <VictoryAxis
         dependentAxis
@@ -52,8 +60,8 @@ const styles = StyleSheet.create({
   },
   xAxisStyle: {
     grid: { stroke: "transparent" },
-    axisLabel: { padding: 10, fontSize: 13, fontWeight: "bold" },
-    tickLabels: { angle: -45, fontSize: 0, padding: 0 },
+    axisLabel: { padding: 25, fontSize: 13, fontWeight: "bold" },
+    tickLabels: { /*angle: -90,*/ fontSize: 12, padding: 5 },
   },
 });
 

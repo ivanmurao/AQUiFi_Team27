@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { get, limitToLast, orderByChild, query, ref } from "firebase/database";
+import { get, orderByChild, query, ref } from "firebase/database";
 import { db } from "@services/firebase/firebaseConfig";
 
 const useParameterData = (path, parameter, refreshing) => {
@@ -11,8 +11,7 @@ const useParameterData = (path, parameter, refreshing) => {
 
       const queryToday = query(
         SENSOR_PARAMETER_VALUE_COLLECTION,
-        orderByChild("timestamp"),
-        limitToLast(10)
+        orderByChild("timestamp")
       );
 
       const queryYesterday = query(
@@ -101,7 +100,7 @@ function formatTime(time) {
   const hours = time.getHours().toString().padStart(2, "0");
   const minutes = time.getMinutes().toString().padStart(2, "0");
   const seconds = time.getSeconds().toString().padStart(2, "0");
-  return `${hours}:${minutes}:${seconds}`;
+  return `${hours}:${minutes}`;
 }
 
 export default useParameterData;

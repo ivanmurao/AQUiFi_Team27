@@ -145,7 +145,7 @@ const PHScreen = ({ navigation }) => {
                 data={phSensorData}
                 tickValues={[2, 4, 6, 8, 10, 12]}
                 domain={[0, 12]}
-                xlabel="Date"
+                xlabel="Hour"
                 ylabel="pH Level"
                 time="x"
                 value="y"
@@ -156,7 +156,7 @@ const PHScreen = ({ navigation }) => {
                 data={phForecastData}
                 tickValues={[2, 4, 6, 8, 10, 12]}
                 domain={[0, 12]}
-                xlabel="Date"
+                xlabel="Hour"
                 ylabel="pH Level"
                 time="x"
                 value="y"

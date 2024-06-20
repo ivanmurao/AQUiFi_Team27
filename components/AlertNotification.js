@@ -45,8 +45,10 @@ const AlertNotification = ({
             <Text style={styles.warningText}>Warning!</Text>
           </View>
           <Text style={styles.message}>
-            The {parameter} level is not within the standard range; therefore,
-            the water is {message}. The valve will automatically shut off.
+            The system is specifically designed exclusively for use with
+            drinking water. Kindly avoid inputting any substances other than
+            drinking water into the system, as it is not designed to handle
+            them.
           </Text>
           <TouchableOpacity style={styles.button} onPress={handleUnderstood}>
             <Text style={styles.buttonText}>Understood</Text>
@@ -95,7 +97,7 @@ const styles = StyleSheet.create({
   message: {
     fontSize: 16,
     marginBottom: 40,
-    textAlign: "left",
+    textAlign: "justify",
   },
 
   button: {

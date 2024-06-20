@@ -146,7 +146,7 @@ const TurbidityScreen = ({ navigation }) => {
                 data={turbiditySensorData}
                 tickValues={[0, 1, 2, 3, 4, 5, 6]}
                 domain={[0, 6]}
-                xlabel="Date"
+                xlabel="Hour"
                 ylabel="Turbidity Level"
                 time="x"
                 value="y"
@@ -156,7 +156,7 @@ const TurbidityScreen = ({ navigation }) => {
                 data={turbidityForecastData}
                 tickValues={[0, 1, 2, 3, 4, 5, 6]}
                 domain={[0, 6]}
-                xlabel="Date"
+                xlabel="Hour"
                 ylabel="Turbidity Level"
                 time="x"
                 value="y"

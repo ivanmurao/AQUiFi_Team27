@@ -27,6 +27,10 @@ import { onValue, ref, off } from "firebase/database";
 import { db } from "@services/firebase/firebaseConfig.js";
 
 const HomeScreen = () => {
+  // Time Constants
+  const realTime = "8:00 PM";
+  const forecastTime = "9:00 PM";
+
   const { phValue, turbidityValue } = useGaugeData("GAUGE_VALUE");
 
   const [isAlertModalVisible, setIsAlertModalVisible] = useState(false);
@@ -208,17 +212,12 @@ const HomeScreen = () => {
 
       <View style={styles.fillOut}>
         <TouchableOpacity
-          style={{
-            backgroundColor: "#7EA3CC",
-            borderRadius: 10,
-            width: "50%",
-            paddingVertical: 10,
-            alignSelf: "center",
-          }}
+          style={styles.buttonSwitch}
           onPress={handleTitlePress}
         >
-          <Text style={{ textAlign: "center", color: "black" }}>{title}</Text>
+          <Text style={styles.buttonSwitchText}>{title}</Text>
         </TouchableOpacity>
+        <Text style={styles.timeText}>{realTime}</Text>
         {/* Container 1 */}
         <TouchableOpacity onPress={handleContainer1Press}>
           <View style={styles.container1}>
@@ -255,7 +254,7 @@ const HomeScreen = () => {
                 <SvgText
                   x="50%"
                   y="50%"
-                  fontSize="16"
+                  fontSize="25"
                   textAnchor="middle"
                   fill="#000"
                   dy="8"
@@ -263,58 +262,62 @@ const HomeScreen = () => {
                   {phGaugeValue.toFixed(2)}
                 </SvgText>
               </Svg>
+              {!isDefault && (
+                <Text style={styles.forecastText}>{forecastTime}</Text>
+              )}
             </View>
           </View>
         </TouchableOpacity>
 
-        {isDefault && (
-          <TouchableOpacity onPress={handleContainer2Press}>
-            <View style={styles.container2}>
-              {/* Left Section */}
-              <View style={styles.leftSection2}>
-                <Image source={turbidity} style={styles.icon} />
-                <Text style={styles.containerTitle2}>TURBIDITY</Text>
-              </View>
-              {/* Right Section */}
-              <View style={styles.rightSection2}>
-                {/* Circular Gauge */}
-                <Svg width="100" height="100">
-                  {/* Background Circle */}
-                  <Circle
-                    cx="50"
-                    cy="50"
-                    r="45"
-                    stroke="#E1E1E1"
-                    strokeWidth="10"
-                    fill="transparent"
-                  />
-                  {/* turbidity Value Circle */}
-                  <Circle
-                    cx="50"
-                    cy="50"
-                    r="45"
-                    stroke={turbidityColor}
-                    strokeWidth="10"
-                    strokeDasharray={`${(turbidityGaugeValue / 5) * 282.5} 565`}
-                    strokeLinecap="round"
-                    fill="transparent"
-                  />
-                  {/* Text Displaying turbidity Value */}
-                  <SvgText
-                    x="50%"
-                    y="50%"
-                    fontSize="16"
-                    textAnchor="middle"
-                    fill="#000"
-                    dy="8"
-                  >
-                    {turbidityGaugeValue.toFixed(2)}
-                  </SvgText>
-                </Svg>
-              </View>
+        <TouchableOpacity onPress={handleContainer2Press}>
+          <View style={styles.container2}>
+            {/* Left Section */}
+            <View style={styles.leftSection2}>
+              <Image source={turbidity} style={styles.icon} />
+              <Text style={styles.containerTitle2}>TURBIDITY</Text>
             </View>
-          </TouchableOpacity>
-        )}
+            {/* Right Section */}
+            <View style={styles.rightSection2}>
+              {/* Circular Gauge */}
+              <Svg width="100" height="100">
+                {/* Background Circle */}
+                <Circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke="#E1E1E1"
+                  strokeWidth="10"
+                  fill="transparent"
+                />
+                {/* turbidity Value Circle */}
+                <Circle
+                  cx="50"
+                  cy="50"
+                  r="45"
+                  stroke={turbidityColor}
+                  strokeWidth="10"
+                  strokeDasharray={`${(turbidityGaugeValue / 5) * 282.5} 565`}
+                  strokeLinecap="round"
+                  fill="transparent"
+                />
+                {/* Text Displaying turbidity Value */}
+                <SvgText
+                  x="50%"
+                  y="50%"
+                  fontSize="25"
+                  textAnchor="middle"
+                  fill="#000"
+                  dy="8"
+                >
+                  {turbidityGaugeValue.toFixed(2)}
+                </SvgText>
+              </Svg>
+              {!isDefault && (
+                <Text style={styles.forecastText}>{forecastTime}</Text>
+              )}
+            </View>
+          </View>
+        </TouchableOpacity>
       </View>
 
       {/* Parameter Chart Modal */}
@@ -336,7 +339,6 @@ const makeStyles = (width) =>
     container: {
       flex: 1,
       backgroundColor: "#255C99",
-      justifyContent: "space-evenly",
       paddingHorizontal: 20,
     },
 
@@ -385,11 +387,36 @@ const makeStyles = (width) =>
       color: "white",
     },
 
+    // Button Switch
+    buttonSwitch: {
+      backgroundColor: "#7EA3CC",
+      borderRadius: 10,
+      width: "50%",
+      paddingVertical: 10,
+      alignSelf: "center",
+    },
+    buttonSwitchText: {
+      textAlign: "center",
+      color: "black",
+      fontWeight: "500",
+      fontSize: 16,
+    },
+
+    // Time Display
+    timeText: {
+      fontSize: 25,
+      textAlign: "center",
+      fontWeight: "bold",
+      color: "white",
+    },
+    forecastText: { textAlign: "center", color: "black", fontSize: 25 },
+
     // Parameter Gauge
     // Main Gauge Container
     fillOut: {
+      paddingTop: 15,
       paddingHorizontal: 20,
-      gap: 40,
+      gap: 13,
     },
     // pH Gauge
     container1: {
@@ -409,9 +436,14 @@ const makeStyles = (width) =>
     rightSection1: {
       backgroundColor: "#F0f0f0",
       borderRadius: 30,
-      paddingVertical: 30,
-      paddingHorizontal: 35,
+      // paddingVertical: 15,
+      // paddingHorizontal: 35,
+      alignItems: "center",
+      justifyContent: "center",
+      height: 170,
+      width: 160,
       elevation: 5,
+      gap: 10,
     },
     icon: {
       width: 60,
@@ -422,6 +454,7 @@ const makeStyles = (width) =>
       fontWeight: "bold",
       color: "black",
     },
+
     // Turbidity Gauge
     container2: {
       flexDirection: "row",
@@ -440,9 +473,14 @@ const makeStyles = (width) =>
     rightSection2: {
       backgroundColor: "#F0f0f0",
       borderRadius: 30,
-      paddingVertical: 30,
-      paddingHorizontal: 35,
+      // paddingVertical: 15,
+      // paddingHorizontal: 35,
+      alignItems: "center",
+      justifyContent: "center",
+      height: 170,
+      width: 160,
       elevation: 5,
+      gap: 10,
     },
     containerTitle2: {
       fontSize: width < 390 ? 10 : 16,
